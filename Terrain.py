@@ -1,6 +1,4 @@
 class Terrain(object):
-    def __init__(self, longueur, largeur):
-        self.longueur = longueur
-        self.largeur = largeur
-
-    
+    def __init__(self, nblignes, nblargeur):
+        self.nblignes = nblignes
+        self.nblargeur = nblargeur
