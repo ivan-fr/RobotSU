@@ -22,6 +22,6 @@ def testGrille():
 if __name__ == '__main__':
     try:
         testGrille()
-        print("Test: Create Grille successful")
+        print("Test: Generation des grilles réussi")
     except AssertionError as e:
-        print(e)
+        print("Test: Generation des grilles fails !!")
