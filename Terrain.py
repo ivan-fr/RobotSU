@@ -38,10 +38,10 @@ class Terrain(object):
     def ajout_alea(self,grille,item,nbitem):
         """tab[][] * Object * int -> void
         Place item nbfois aleatoirement sur le Terrain."""
-        a=Terrain.alea(self.nbLignes)
-        b=Terrain.alea(self.nbColonnes)
         x=0
         while(x<nbitem):
+            a=Terrain.alea(self.nbLignes)
+            b=Terrain.alea(self.nbColonnes)
             while(self.casevide(a,b,grille)==False) : 
                 a=Terrain.alea(self.nbLignes)
                 b=Terrain.alea(self.nbColonnes)
