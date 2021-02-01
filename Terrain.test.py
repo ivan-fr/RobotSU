@@ -8,14 +8,14 @@ def testGrille():
 
         t = Terrain.Terrain(random_ligne, random_colonne)
 
-        grille = t.grille()
+        grille = t.creerGrille()
 
         assert random_ligne == len(grille)
         assert all(len(line) == random_colonne for line in grille)
 
     for i in range(-50, 1):
         t = Terrain.Terrain(i,i)
-        grille = t.grille()
+        grille = t.creerGrille()
         assert 0 == len(grille)
 
 
