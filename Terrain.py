@@ -3,6 +3,7 @@ class Terrain(object):
     def __init__(self, nbLignes, nbColonnes):
         self.nbLignes = nbLignes
         self.nbColonnes = nbColonnes
+        self.tab = self.grille()
 
     def grille(self):
         """
@@ -47,3 +48,12 @@ class Terrain(object):
                 b=Terrain.alea(self.nbColonnes)
             self.ajout_objet(grille,item,a,b)
             x=x+1
+        
+    def affichage(self):
+        """affiche le Terrain"""
+        for i in self.tab:
+            print("|",end="")
+            for j in i:
+                print(j,end="")
+                print(" | ", end="")
+            print()
