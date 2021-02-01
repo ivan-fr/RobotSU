@@ -1,6 +1,8 @@
 import random
 import Terrain
 
+
+
 def isGrille(grille):
     lineLength = len(grille[0])
     return all(lineLength == len(line) for line in grille)
