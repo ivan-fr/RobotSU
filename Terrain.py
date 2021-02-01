@@ -22,13 +22,16 @@ class Terrain(object):
             return True
         return False
 
-    def ajout_objet(self,grille,item,x,y) : 
-        """tab[][] * Object * int *int -> None
+    def ajout_objet(self,item,x,y) : 
+        """tab[][] * Object * int *int ->boolean
         Place un objet donné en argument dans la case[x][y] du terrain en verifiant s'il est vide."""
         if(self.casevide(x,y,grille)):
             grille[x][y]==item
-        
-    def ajout_alea(self,grille,item,nbitem):
+            return True
+        return False
+
+
+    def ajout_alea(self,item,nbitem):
         """tab[][] * Object * int -> None
         Place item nbfois aleatoirement sur le Terrain."""
         x=0
@@ -38,7 +41,7 @@ class Terrain(object):
             while(self.casevide(a,b,grille)==False) : 
                 a=random.randint(0, self.nbLignes)
                 b=random.randint(0, self.nbColonnes)
-            self.ajout_objet(grille,item,a,b)
+            self.ajout_objet(item,a,b)
             x=x+1
         
     def affichage(self):
