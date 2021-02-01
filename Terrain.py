@@ -9,7 +9,7 @@ class Terrain(object):
         """
         Retourne la grille du terrain, cad un tableau de tableau (remplis de None=vide)
         """
-        return [[None] * self.nbColonnes] * self.nbLignes
+        return [[None] * self.nbColonnes for _ in range(self.nbLignes)]
     
     
     def casevide(self, x, y):
