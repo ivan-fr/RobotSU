@@ -27,9 +27,7 @@ class Terrain(object):
         Place un objet donné en argument dans la case[x][y] du terrain en verifiant s'il est vide."""
         if(self.casevide(x,y,grille)):
             grille[x][y]==item
-        else : 
-            print("cette case est occupé.") 
-    
+        
     def ajout_alea(self,grille,item,nbitem):
         """tab[][] * Object * int -> None
         Place item nbfois aleatoirement sur le Terrain."""
