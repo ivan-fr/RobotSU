@@ -3,9 +3,9 @@ class Terrain(object):
     def __init__(self, nbLignes, nbColonnes):
         self.nbLignes = nbLignes
         self.nbColonnes = nbColonnes
-        self.tab = self.grille()
+        self.grille = self.creerGrille()
 
-    def grille(self):
+    def creerGrille(self):
         """
         Retourne la grille du terrain, cad un tableau de tableau (remplis de None=vide)
         """
@@ -45,7 +45,7 @@ class Terrain(object):
         
     def affichage(self):
         """affiche le Terrain"""
-        for i in self.tab:
+        for i in self.grille:
             print("|",end="")
             for j in i:
                 print(j,end="")
