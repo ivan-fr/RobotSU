@@ -41,11 +41,11 @@ class Terrain(object):
         Place item nbfois aleatoirement sur le Terrain."""
         x=0
         while(x<nbitem):
-            a=Terrain.alea(self.nbLignes)
-            b=Terrain.alea(self.nbColonnes)
+            a=random.randint(0, self.nbLignes)
+            b=random.randint(0, self.nbColonnes)
             while(self.casevide(a,b,grille)==False) : 
-                a=Terrain.alea(self.nbLignes)
-                b=Terrain.alea(self.nbColonnes)
+                a=random.randint(0, self.nbLignes)
+                b=b=random.randint(0, self.nbColonnes)
             self.ajout_objet(grille,item,a,b)
             x=x+1
         
