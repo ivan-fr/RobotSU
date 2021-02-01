@@ -21,12 +21,6 @@ class Terrain(object):
         if grille[x][y] is None:
             return True
         return False
-    
-    @staticmethod
-    def alea(max):
-        """ int -> int 
-        rend un entier aleatoire compris entre 0 et max."""
-        return random.randint(0, max)  
 
     def ajout_objet(self,grille,item,x,y) : 
         """tab[][] * Object * int *int -> None
@@ -45,7 +39,7 @@ class Terrain(object):
             b=random.randint(0, self.nbColonnes)
             while(self.casevide(a,b,grille)==False) : 
                 a=random.randint(0, self.nbLignes)
-                b=b=random.randint(0, self.nbColonnes)
+                b=random.randint(0, self.nbColonnes)
             self.ajout_objet(grille,item,a,b)
             x=x+1
         
