@@ -24,8 +24,8 @@ class Terrain(object):
     def ajout_objet(self,item,x,y) : 
         """tab[][] * Object * int *int ->boolean
         Place un objet donné en argument dans la case[x][y] du terrain en verifiant s'il est vide."""
-        if(self.casevide(x,y,grille)):
-            grille[x][y]==item
+        if(self.casevide(x,y)):
+            self.grille[x][y]==item
             return True
         return False
 
@@ -37,7 +37,7 @@ class Terrain(object):
         while(x<nbitem):
             a=random.randint(0, self.nbLignes)
             b=random.randint(0, self.nbColonnes)
-            while(self.casevide(a,b,grille)==False) : 
+            while(self.casevide(a,b)==False) : 
                 a=random.randint(0, self.nbLignes)
                 b=random.randint(0, self.nbColonnes)
             self.ajout_objet(item,a,b)
