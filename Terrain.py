@@ -25,8 +25,6 @@ class Terrain(object):
         """Object * int *int ->boolean
         Place un objet donné en argument dans la case[x][y] du terrain en verifiant s'il est vide."""
         if(self.casevide(x,y)):
-            item.x=x
-            item.y=y
             self.grille[x][y]=item
             return True
         return False
