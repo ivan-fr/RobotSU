@@ -60,3 +60,9 @@ class Terrain(object):
             print("|",end="")
             print()
         print(bordure+"\n")
+    
+if __name__ == '__main__':
+    t = Terrain(30, 30)
+    t.ajout_alea(30)
+    t.affichage()
+
