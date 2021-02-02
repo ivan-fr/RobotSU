@@ -30,7 +30,7 @@ class Terrain(object):
         return False
 
 
-    def ajout_alea(self,item,nbitem):
+    def ajout_alea(self,nbitem):
         """Object * int -> None
         Place item nbfois aleatoirement sur le Terrain."""
         for _ in range(nbitem):
