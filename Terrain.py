@@ -7,7 +7,8 @@ class Terrain(object):
 
     def creerGrille(self):
         """
-        Retourne la grille du terrain, cad un tableau de tableau (remplis de None=vide)
+        -> list[list[NoneType]]
+        Retourne la grille du terrain, cad un tableau multidimensionnel vide
         """
         return [[None] * self.nbColonnes for _ in range(self.nbLignes)]
     
