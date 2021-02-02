@@ -2,24 +2,24 @@ import random
 import Terrain
 
 def testAjoutAffichageObjet():
-    random_ligne = random.randint(1, 100)
-    random_colonne = random.randint(1, 100)
+    random_ligne = random.randint(11, 100)
+    random_colonne = random.randint(11, 100)
     t = Terrain.Terrain(random_ligne, random_colonne)
     random_x = random.randint(1, t.nbLignes-1)
     random_y = random.randint(1, t.nbColonnes-1)
     o = object()
     o1 = object()
     cpt = 0
-    if t.nbLignes * t.nbColonnes >= 10:
-        for _ in range(0, 10):
-            while not t.casevide(random_x, random_y):
-                random_x = random.randint(1, t.nbLignes)
-                random_y = random.randint(1, t.nbColonnes)
-            t.ajout_objet(o, random_x, random_y)
-            cpt = cpt+1
-        assert cpt == 10
+    for _ in range(0, 10):
+        while not t.casevide(random_x, random_y):
+            random_x = random.randint(1, t.nbLignes)
+            random_y = random.randint(1, t.nbColonnes)
+        t.ajout_objet(o, random_x, random_y)
+        cpt = cpt+1
+    assert sum((el is not None for ligne in t.grille for el in ligne)) == cpt
     assert t.ajout_objet(o, t.nbLignes-1, t.nbColonnes-1)
     assert t.ajout_objet(o, 0, 0)
+    assert not t.ajout_objet(o, 0, 0)
     assert not t.ajout_objet(o1, -3, 1)
     assert not t.ajout_objet(o1, t.nbLignes, t.nbColonnes)
     t.affichage()
@@ -82,9 +82,9 @@ def testAjoutNAlea():
 if __name__ == '__main__':
     try:
         testAjoutAffichageObjet()
-        print("Test: testAjoutObjet a réussi")
+        print("Test: testAjoutAffichageObjet a réussi")
     except AssertionError as e:
-        print("Test: testAjoutObjet a échoué !!")
+        print("Test: testAjoutAffichageObjet a échoué !!")
 
     try:
         testAffichage()
