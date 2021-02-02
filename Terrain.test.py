@@ -71,14 +71,12 @@ def testAjoutNAlea():
         random_colonne = random.randint(1, 2000)
 
         t = Terrain.Terrain(random_ligne, random_colonne)
-        o = object()
-        t.ajout_alea(o, random_colonne)
+        t.ajout_alea(random_colonne)
         assert sum((el is not None for ligne in t.grille for el in ligne)) == random_colonne
 
-    o = object()
     t = Terrain.Terrain(1, 1)
-    t.ajout_alea(o, 3)
-    assert sum((el is not None for ligne in t.grille for el in ligne)) == 3
+    t.ajout_alea(3)
+    assert sum((el is not None for ligne in t.grille for el in ligne)) == 0
 
 
 if __name__ == '__main__':
