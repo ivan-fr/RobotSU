@@ -33,15 +33,13 @@ class Terrain(object):
     def ajout_alea(self,item,nbitem):
         """Object * int -> None
         Place item nbfois aleatoirement sur le Terrain."""
-        x=0
-        while(x<nbitem):
+        for _ in range(nbitem):
             a=random.randint(0, self.nbLignes)
             b=random.randint(0, self.nbColonnes)
             while(self.casevide(a,b)==False) : 
                 a=random.randint(0, self.nbLignes)
                 b=random.randint(0, self.nbColonnes)
             self.ajout_objet(item,a,b)
-            x=x+1
         
     def affichage(self):
         """affiche le Terrain"""
