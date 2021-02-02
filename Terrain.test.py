@@ -26,6 +26,18 @@ def testGrille():
         assert random_ligne == len(grille)
         assert all(len(line) == random_colonne for line in grille)
 
+        for line in grille:
+            for i in range(len(line)):
+                line[i] = object()
+
+        for line in grille:
+            for colonne in range(1, random_colonne):
+                assert line[colonne] is not line[colonne - 1]
+
+        for colonne in range(len(grille[0])):
+            for line in range(1, random_ligne):
+                assert grille[line][colonne] is not grille[line - 1][colonne]   
+
     for i in range(-50, 1):
         t = Terrain.Terrain(i,i)
         grille = t.creerGrille()
