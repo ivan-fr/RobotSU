@@ -15,7 +15,7 @@ class Terrain(object):
     def casevide(self, x, y):
         """ int * int * tab [][] -> boolean
         retourne vrai si la case est vide, et faux si celle-ci est occupee"""
-        if x > self.nbLignes or y > self.nbColonnes:
+        if x > self.nbLignes or x < 0 or y > self.nbColonnes or y < 0:
             return False
         if self.grille[x][y] is None:
             return True
