@@ -43,9 +43,15 @@ class Terrain(object):
         
     def affichage(self):
         """affiche le Terrain"""
+        bordure="".join(["+","-" * self.nbColonnes,"+"])
+        print(bordure)
         for i in self.grille:
             print("|",end="")
             for j in i:
-                print(j,end="")
-                print(" | ", end="")
+                if j is None:
+                    print(" ", end="")
+                else:
+                    print("X", end="")
+            print("|",end="")
             print()
+        print(bordure+"\n")
