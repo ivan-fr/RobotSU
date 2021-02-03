@@ -1,5 +1,6 @@
 import random 
-from Robot import *
+from Robot import Robot
+
 class Terrain(object):
     def __init__(self, nbLignes, nbColonnes):
         self.nbLignes = nbLignes
