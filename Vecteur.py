@@ -29,10 +29,18 @@ class Vecteur(object):
         Retourne un vecteur résultant de la somme du vecteur instance avec un autre vecteur
         """
         if not isinstance(autreVecteur, Vecteur):
-            raise ValueError("Operande n'est pas une instance de la classe Vecteur")
+            raise ValueError("L'Operande n'est pas une instance de la classe Vecteur")
         else:
             return Vecteur(self.x + autreVecteur.x, self.y + autreVecteur.y)
 
-
+    def __mul__(self, scal):
+        """
+        Number -> Vecteur
+        Retourne un vecteur résultant du produit du vecteur instance avec un scalaire
+        """
+        if isinstance(scal, int) or isinstance(scal, float):
+            return Vecteur(self.x * scal, self.y * scal)
+        else:
+            raise ValueError("L'Operande n'est pas un scalaire")
 
 
