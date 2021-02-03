@@ -1,5 +1,5 @@
 import random 
-from Robot import Robot
+from Robot import *
 
 class Terrain(object):
     def __init__(self, nbLignes, nbColonnes):

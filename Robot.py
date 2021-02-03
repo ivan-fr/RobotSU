@@ -6,4 +6,3 @@ class Robot(object):
         self.vitesse = vitesse
         self.angle = angle
 
-        
