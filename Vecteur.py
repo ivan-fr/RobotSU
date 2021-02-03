@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 
 class Vecteur(object):
     """
@@ -15,3 +15,10 @@ class Vecteur(object):
         Permet de retourner une chaine de caractère
         """
         return "("+str(self.x)+","+str(self.y)+")"
+
+    def norme(self):
+        """
+        -> float
+        Retourne la norme du vecteur
+        """
+        return sqrt(self.x ** 2 + self.y ** 2)
