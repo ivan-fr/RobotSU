@@ -81,33 +81,29 @@ def testAjoutNAlea():
 
 def testestVide():
     o = object()
-    # Cas de terrain de taille zero
+    # Cas de terrain de taille zero => test HORS tableau dans ce cas précis
     T0 = Terrain.Terrain(0,0)
     assert any([T0.casevide(x,x) for x in range(-1,2)]) == False
 
-    # Cas de terrain de taille une, contenant un objet
-    T1Vide = Terrain.Terrain(1,1)
-    assert T1Vide.casevide(-1,-1) == False    # test pour une case hors terrain (inf)
-    assert T1Vide.casevide(1,1) == False      # test pour une case hors terrain (sup)
-    assert T1Vide.casevide(0,0) == True       # test pour une case vide
+    # Cas de terrain vide de taille une => test case vide du tableau + cases hors tableau
+    T1 = Terrain.Terrain(1,1)
+    assert T1.casevide(0,0) == True
+    T1.ajout_objet(o,0,0)
+    assert any([T1.casevide(x,y) for x in range(-1,2) for y in range(-1,2)]) == False
 
-    # Cas d'un terrain de taille une contenant un objet
-    T1NonVide = Terrain.Terrain(1,1)
-    T1NonVide.ajout_objet(o,0,0)
-    assert any([T1NonVide.casevide(i,i) for i in range(-1,2)]) == False
+    # Cas de plusieurs terrains de taille aléatoire, strictement positive et contenant un objet
+    for _ in range(1001):
+        T = Terrain.Terrain(random.randint(1, 50),random.randint(1, 50))
+        aleaX = random.randint(0,T.nbLignes - 1)
+        aleaY = random.randint(0,T.nbColonnes - 1)
+        T.ajout_objet(o,aleaX,aleaY)
 
-    ## Cas de terrain de taille strictement positive quelconque, contenant un objet
-    TNonVide = Terrain.Terrain(random.randint(1, 50),random.randint(1, 50))
-    aleaX = random.randint(0,TNonVide.nbLignes)
-    aleaY = random.randint(0,TNonVide.nbColonnes)
-    TNonVide.ajout_objet(o,aleaX,aleaY) 
-
-    for l in range(0,TNonVide.nbLignes):
-        for c in range(0,TNonVide.nbColonnes):
-            if l==aleaX and c==aleaY:
-                assert TNonVide.casevide(l,c) == False
-            else:
-                assert TNonVide.casevide(l,c) == True
+        for l in range(0,T.nbLignes):
+            for c in range(0,T.nbColonnes):
+                if l==aleaX and c==aleaY:
+                    assert T.casevide(l,c) == False # Test sur l'unique case non vide du tableau 
+                else:
+                    assert T.casevide(l,c) == True  # Test sur l'ensemble des cases vide du tableau
 
 if __name__ == '__main__':
     try:
