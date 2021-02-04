@@ -105,6 +105,31 @@ def testestVide():
                 else:
                     assert T.casevide(l,c) == True  # Test sur l'ensemble des cases vide du tableau
 
+def testsupprimerObjet():
+    o = object()
+    # Cas de terrain de taille zero => test HORS tableau dans ce cas précis
+    T0 = Terrain.Terrain(0,0)
+    assert any([T0.supprimerObjet(x,x) for x in range(-1,2)]) == False
+
+    # Cas de terrain de taille une 
+    T1 = Terrain.Terrain(1,1)
+    # Test de la fonction sur les cases hors de la grille
+    assert any([T1.supprimerObjet(x,y) for x in range(-1,2) for y in range(-1,2) if x!=y]) == False
+    assert T1.supprimerObjet(0,0) == True # test sur la case VIDE du tableau
+    T1.ajout_objet(o,0,0)
+    assert T1.supprimerObjet(0,0)         # test sur case pleine du tableau
+    assert T1.casevide(0,0) 
+
+    # Cas de plusieurs terrains de taille aléatoire, strictement positive et contenant plusieurs objets
+    for _ in range(1000):
+        T = Terrain.Terrain(random.randint(1, 50),random.randint(1, 50))
+        aleaNbr = random.randint(1,T.nbLignes*T.nbColonnes - 1)
+        T.ajout_alea(aleaNbr)
+        # Test que la fonction retourne bien True lorsqu'appliquée à une case du terrain
+        assert all([T.supprimerObjet(x,y) for x in range(0, T.nbLignes) for y in range(0,T.nbColonnes)])
+        # Test toutes cases vide aprés passage fonction
+        assert all([T.casevide(x,y) for x in range(0, T.nbLignes) for y in range(0,T.nbColonnes)])
+
 if __name__ == '__main__':
     try:
         testAjoutAffichageObjet()
@@ -141,3 +166,9 @@ if __name__ == '__main__':
         print("Test: methode Terrain.casevide(x,y) réussi")
     except AssertionError as e:
         print("Test: methode Terrain.casevide(x,y) a échoué !!")
+
+    try:
+        testsupprimerObjet()
+        print("Test: methode Terrain.supprimerObjet(x,y) réussi")
+    except AssertionError as e:
+        print("Test: methode Terrain.SupprimerObjet(x,y) a échoué !!")
