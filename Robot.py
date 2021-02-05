@@ -1,36 +1,35 @@
-from Terrain import *
 import math
 import Vecteur
 
 class Robot(object):
     def __init__(self, x, y, vitesse, angle):
+        self.vecteurDeplacement = None
+        self._vitesse = 0.
+
         self.x = x
         self.y = y
-        self._vitesse = vitesse
-        self.angle = angle
-        self.vecteurDeplacement = Vecteur(cos(angle) * vitesse, sin(angle) * vitesse)
 
+        self.angle = angle
+        self.vitesse = vitesse
 
     def avance(self,temps):
         """ int -> None 
         cette methode permet de faire avancer le robot selon un temps donné."""
 
-        self.x=self.x+(self.vitesse*temps)
-        self.y=self.y+(self.vitesse*temps)
+        self.x += self.vecteurDeplacement.x * temps
+        self.y += self.vecteurDeplacement.y * temps
 
-    def rotation(self, angle):
-        """int -> Vecteur
-        retourne le vecteur apres une rotation de l'angle"""
-        vv = Vecteur.__mul__(self.vitesse)
-        vx = vv.x * math.cos(angle) - vv.y * math.sin(angle)
-        vy = vv.x * math.sin(angle) + vv.y * math.cos(angle)
-        return Vecteur.Vecteur(vx, vy)
-
-    @vitesse.setter
-    def vitesse(self, vitesse):
-        self.vecteurDeplacement = Vecteur(cos(self.angle) * vitesse, sin(self.angle) * vitesse)
-        self._vitesse = vitesse
+    def rotation(self, angleRelative):
+        """float -> void
+        met à jour le vecteur deplacement du robot et son angle"""
+        self.vecteurDeplacement = self.vecteurDeplacement.rotation(angleRelative)
+        self.angle += angleRelative
 
     @property
     def vitesse(self):
         return self._vitesse
+
+    @vitesse.setter
+    def vitesse(self, vitesse):
+        self.vecteurDeplacement = Vecteur.Vecteur(math.cos(self.angle) * vitesse, math.sin(self.angle) * vitesse)
+        self._vitesse = vitesse
