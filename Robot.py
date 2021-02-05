@@ -6,8 +6,9 @@ class Robot(object):
     def __init__(self, x, y, vitesse, angle):
         self.x = x
         self.y = y
-        self.vitesse = vitesse
+        self._vitesse = vitesse
         self.angle = angle
+        self.vecteurDeplacement = Vecteur(cos(angle) * vitesse, sin(angle) * vitesse)
 
 
     def avance(self,temps):
@@ -24,3 +25,12 @@ class Robot(object):
         vx = vv.x * math.cos(angle) - vv.y * math.sin(angle)
         vy = vv.x * math.sin(angle) + vv.y * math.cos(angle)
         return Vecteur.Vecteur(vx, vy)
+
+    @vitesse.setter
+    def vitesse(self, vitesse):
+        self.vecteurDeplacement = Vecteur(cos(self.angle) * vitesse, sin(self.angle) * vitesse)
+        self._vitesse = vitesse
+
+    @property
+    def vitesse(self):
+        return self._vitesse
