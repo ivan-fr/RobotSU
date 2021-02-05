@@ -68,7 +68,7 @@ class Terrain(object):
     def supprimerObjet(self, x, y):
         """int * int -> bool
         met la case à None"""
-        if(x < 0 or y < 0 or x >= self.nbColonnes or y >= self.nbLignes):
+        if(x < 0 or y < 0 or x >= self.nbLignes or y >= self.nbColonnes):
             return False
         self.grille[x][y] = None
         return True
