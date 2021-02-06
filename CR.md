@@ -54,6 +54,13 @@ Pour cette première semaine, nous avons choisi pour objectif principal de modé
 #### Difficultées
 
 ## Semaine 2 (du mercredi 03/02 au 10/02)
+Pour cette deuxième semaine de sprint, nous avons choisi comme fonctionnalité principale de pouvoir ajouter un robot sur le terrain et de pouvoir le faire bouger. Pour ceci, nous avons dû d'abord discuter sur le meilleur moyen de pouvoir faire bouger le robot. Nous avons alors décidé que ce dernier devrait avoir une position, représentée par les coordonnées x et y, une vitesse, un angle d'inclinaison et un vecteur de déplacement.
+
+Pour ce faire, nous avons rajouté une classe Vecteur, qui est composée d'un attribut x et d'un attribut y pour représenter sa position, et s'occupe de calculer la norme d'un vecteur, la somme de vecteurs ainsi que la multiplication de vecteurs. Enfin, sa fonctionnalité la plus importe est qu'elle permet de calculer un nouveau vecteur issu de la rotation du robot. Cette fonctionnalité permet de faire tourner le robot en fonction d'un angle. Le robot peut aussi avancer en fonction du temps passé en paramètres de la méthode. 
+
+Quant au Terrain, nous avons développé une méthode pour pouvoir rendre une case vide, ce qui permet de supprimer un obstacle ou de retirer l'ancienne position du robot de la carte, et désormais l'affichage permet de regarder le robot sur la grille et donc de modéliser le déplacement de ce dernier. 
+
+L'attribut vitesse et le vecteur de déplacement du Robot sont initialisés via la méthode vitesse qui prend comme initialisation 0 puis met à jour la vitesse. 
 ### Déroulé de la séance
 ### Choix fait
 ### Objectif

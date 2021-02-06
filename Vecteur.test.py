@@ -14,8 +14,8 @@ def testConstructVecteur():
 
 def test__add__():
     for _ in range(1000):
-        v1 = Vecteur.Vecteur(random.randint(-50, 50), random.randint(-50, 50))
-        v2 = Vecteur.Vecteur(random.randint(-50, 50), random.randint(-50, 50))
+        v1 = Vecteur.Vecteur(random.randint(-500, 500), random.randint(-500, 500))
+        v2 = Vecteur.Vecteur(random.randint(-500, 500), random.randint(-500, 500))
         vv = v1.__add__(v2)
 
         assert vv.x == v1.x+v2.x
@@ -52,14 +52,14 @@ if __name__ == '__main__':
     except AssertionError as e:
         print("Test: methode norme a échoué !!")
 
-        try:
-            testConstructVecteur()
-            print("Test: Constructeur de Vecteur réussi")
-        except AssertionError as e:
-            print("Test: Constructeur de terrain a échoué !!")
+    try:
+        testConstructVecteur()
+        print("Test: Constructeur de Vecteur réussi")
+    except AssertionError as e:
+        print("Test: Constructeur de terrain a échoué !!")
 
-        try:
-            test__add__()
-            print("Test: methode Vecteur._add_ réussi")
-        except AssertionError as e:
-            print("Test: methode Vecteur.__add__ a échoué !!")
+    try:
+        test__add__()
+        print("Test: methode Vecteur._add_ réussi")
+    except AssertionError as e:
+        print("Test: methode Vecteur.__add__ a échoué !!")
