@@ -16,7 +16,8 @@ if __name__ == '__main__':
     T = Terrain.Terrain(7,7)
     T.affichage()
     print("Initialisation Robot")
-    r = Robot.Robot(-6,0,1,45.)
+    r = Robot.Robot(0,0,1,45.)
+    r.x -= T.nbLignes + 1
     vAdapt = Vecteur.Vecteur(r.x, r.y).rotation(-r.angle * 2)
     T.ajout_objet(r,int(vAdapt.y),int(vAdapt.x))
     print("x:"+str(r.x)+" y:"+str(r.y)+" vitesse:"+str(r.vitesse)+" angle:"+str(r.angle))
