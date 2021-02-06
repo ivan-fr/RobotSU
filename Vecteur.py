@@ -45,7 +45,7 @@ class Vecteur(object):
 
     def rotation(self, angle):
         """retourne le vecteur deplacement"""
-        if not isinstance(angle, float):
+        if not isinstance(angle, float) and not isinstance(angle, int):
             raise ValueError("L'Operande n'est pas un angle")
 
         vx = self.x * cos(radians(angle)) - self.y * sin(radians(angle))
