@@ -1,4 +1,4 @@
-from math import sqrt, cos, sin
+from math import sqrt, cos, sin, radians
 
 class Vecteur(object):
     """
@@ -45,10 +45,10 @@ class Vecteur(object):
 
     def rotation(self, angle):
         """retourne le vecteur deplacement"""
-        if not isinstance(angle, float) or not isinstance(angle, int):
+        if not isinstance(angle, float):
             raise ValueError("L'Operande n'est pas un angle")
 
-        vx = self.x * cos(angle) - self.y * sin(angle)
-        vy = self.x * sin(angle) + self.y * cos(angle)
+        vx = self.x * cos(radians(angle)) - self.y * sin(radians(angle))
+        vy = self.x * sin(radians(angle)) + self.y * cos(radians(angle))
 
         return Vecteur(vx, vy)

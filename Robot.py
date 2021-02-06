@@ -1,5 +1,5 @@
-import math
 import Vecteur
+from math import sqrt, cos, sin, radians
 
 class Robot(object):
     def __init__(self, x, y, vitesse, angle):
@@ -31,5 +31,5 @@ class Robot(object):
 
     @vitesse.setter
     def vitesse(self, vitesse):
-        self.vecteurDeplacement = Vecteur.Vecteur(math.cos(self.angle) * vitesse, math.sin(self.angle) * vitesse)
+        self.vecteurDeplacement = Vecteur.Vecteur(cos(radians(self.angle)) * vitesse, sin(radians(self.angle)) * vitesse)
         self._vitesse = vitesse
