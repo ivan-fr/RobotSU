@@ -122,7 +122,7 @@ def testsupprimerObjet():
 
     # Cas de plusieurs terrains de taille aléatoire, strictement positive et contenant plusieurs objets
     for _ in range(1000):
-        T = Terrain.Terrain(random.randint(1, 50),random.randint(1, 50))
+        T = Terrain.Terrain(random.randint(2, 50),random.randint(2, 50))
         aleaNbr = random.randint(1,T.nbLignes*T.nbColonnes - 1)
         T.ajout_alea(aleaNbr)
         # Test que la fonction retourne bien True lorsqu'appliquée à une case du terrain
