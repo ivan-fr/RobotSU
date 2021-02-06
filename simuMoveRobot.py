@@ -1,12 +1,13 @@
 import Terrain
+import Vecteur
 import Robot
 
 def majAffichageRobot(temps):
     print("start tour t:"+str(temps))
     print("x:"+str(r.x)+" y:"+str(r.y)+" vitesse:"+str(r.vitesse)+" angle:"+str(r.angle))
-    T.supprimerObjet(int(r.y),int(r.x))
     r.avance(temps)
-    T.ajout_objet(r,int(r.y),int(r.x))
+    vAdapt = Vecteur.Vecteur(r.x, r.y).rotation(-r.angle * 2)
+    T.ajout_objet(r,int(vAdapt.y),int(vAdapt.x))
     print("stop tour t:"+str(temps))
     print("x:"+str(r.x)+" y:"+str(r.y)+" vitesse:"+str(r.vitesse)+" angle:"+str(r.angle))
 
@@ -15,10 +16,9 @@ if __name__ == '__main__':
     T = Terrain.Terrain(7,7)
     T.affichage()
     print("Initialisation Robot")
-    r = Robot.Robot(3,3,1,45.)
-    vAdapt = r.vecteurDeplacement.rotation(r.angle)
-    T.ajout_objet(r,int(vAdapt.x),int(vAdapt.y))
-    T.ajout_objet(r,int(r.x),int(r.y))
+    r = Robot.Robot(-6,0,1,45.)
+    vAdapt = Vecteur.Vecteur(r.x, r.y).rotation(-r.angle * 2)
+    T.ajout_objet(r,int(vAdapt.y),int(vAdapt.x))
     print("x:"+str(r.x)+" y:"+str(r.y)+" vitesse:"+str(r.vitesse)+" angle:"+str(r.angle))
     for t in range(0,4):
         majAffichageRobot(t)
