@@ -52,3 +52,9 @@ class Vecteur(object):
         vy = self.x * sin(radians(angle)) + self.y * cos(radians(angle))
 
         return Vecteur(vx, vy)
+
+    def get_sym_x_axis(self):
+        """
+        retourne le vecteur symetrique par rapport à l'axe des abscisses
+        """
+        return Vecteur(self.x, -self.y)
