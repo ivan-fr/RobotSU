@@ -1,5 +1,5 @@
 import random 
-from Robot import *
+import Robot 
 
 class Terrain(object):
     def __init__(self, nbLignes, nbColonnes):
@@ -57,7 +57,7 @@ class Terrain(object):
             for j in i:
                 if j is None:
                     print(" ", end="")
-                elif isinstance(j, Robot):
+                elif isinstance(j, Robot.Robot):
                     print("R", end="")
                 else:
                     print("X", end="")
