@@ -45,6 +45,22 @@ def testNormeVecteur():
         assert v.norme() == math.sqrt(aleaX * aleaX + aleaY * aleaY)
 
 
+def testRotation():
+    rx = random.randint(-50,50)
+    ry = random.randint(-50,50)
+
+    v = Vecteur.Vecteur(rx, ry)
+
+    angle = random.uniform(-180, 180)
+
+    vx = rx * math.cos(math.radians(angle)) - ry * math.sin(math.radians(angle))
+    vy = rx * math.sin(math.radians(angle)) + ry * math.cos(math.radians(angle))
+
+    v = v.rotation(angle)
+
+    assert abs(v.x - vx) < 0.00001    
+    assert abs(v.y - vy) < 0.00001    
+
 if __name__ == '__main__':
     try:
         testNormeVecteur()
@@ -63,3 +79,9 @@ if __name__ == '__main__':
         print("Test: methode Vecteur._add_ réussi")
     except AssertionError as e:
         print("Test: methode Vecteur.__add__ a échoué !!")
+
+    try:
+        testRotation()
+        print("Test: methode Vecteur.rotation réussi")
+    except AssertionError as e:
+        print("Test: methode Vecteur.rotation a échoué !!")
