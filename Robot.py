@@ -9,7 +9,11 @@ class Robot(object):
         self.x = x
         self.y = y
 
-        self.angle = angle
+        self.angle = angle % 360.
+
+        if self.angle > 180.:
+            self.angle -= 360.
+
         self.vitesse = vitesse
 
     def avance(self,temps):
@@ -24,6 +28,10 @@ class Robot(object):
         met à jour le vecteur deplacement du robot et son angle"""
         self.vecteurDeplacement = self.vecteurDeplacement.rotation(angleRelative)
         self.angle += angleRelative
+        self.angle %= 360
+
+        if self.angle > 180.:
+            self.angle -= 360.
 
     @property
     def vitesse(self):
