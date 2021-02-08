@@ -95,7 +95,7 @@ def testProduitVecteurScalaire():
         vtest = Vecteur.Vecteur(aleaX * scalaire, aleaY * scalaire)
         assert vScalaire.x == vtest.x
         assert vScalaire.y == vtest.y
-        
+
 if __name__ == '__main__':
     try:
         testNormeVecteur()
