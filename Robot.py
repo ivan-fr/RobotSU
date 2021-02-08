@@ -16,6 +16,13 @@ class Robot(object):
 
         self.vitesse = vitesse
 
+    def __str__(self):
+        """ -> str
+        Permet de retourner une chaine de caractère représentant l'objet robot
+        """
+        return "Robot(cood.("+str(self.x)+","+str(self.y)+"),vitesse:"+str(self.vitesse)+"mm/s, angle:"+str(self.angle)+"°)"
+
+
     def avance(self,temps):
         """ int -> None 
         cette methode permet de faire avancer le robot selon un temps donné."""
