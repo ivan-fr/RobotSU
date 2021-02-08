@@ -61,6 +61,19 @@ def testRotation():
     assert abs(v.x - vx) < 0.00001    
     assert abs(v.y - vy) < 0.00001    
 
+def testSymXVecteur():
+    for _ in range(1000):
+        rx = random.randint(-50,50)
+        ry = random.randint(-50,50)
+        v1 = Vecteur.Vecteur(rx, ry)
+        v2 = v1.get_sym_x_axis()
+        v3 = v1 + v2
+
+        assert v1.norme() == v2.norme() # test norme vecteur et son symetrique (Ox) sont identiques
+        assert v1.x == v2.x             # test que l'abscisse ne change pas dans le symetrique (Ox)
+        assert v3.x == 2*v1.x           # test prop. somme vect. et son sym.(Oy) => abscisseX somme est doublé
+        assert v3.y == 0                # test prop. somme vect. et son sym.(Ox) => ordonnéeY somme est nulle
+
 if __name__ == '__main__':
     try:
         testNormeVecteur()
@@ -85,3 +98,9 @@ if __name__ == '__main__':
         print("Test: methode Vecteur.rotation réussi")
     except AssertionError as e:
         print("Test: methode Vecteur.rotation a échoué !!")
+
+    try:
+        testSymXVecteur()
+        print("Test: methode get_sym_x_axis() a réussi")
+    except AssertionError as e:
+        print("Test: methode get_sym_x_axis() a échoué !!")
