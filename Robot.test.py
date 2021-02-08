@@ -6,7 +6,7 @@ def testConstructRobot():
 	random_x=random.randint(0, 50)
 	random_y=random.randint(0, 50)
 	random_vitesse = random.uniform(0, 10)
-	random_angle = random.uniform(-math.pi,math.pi)
+	random_angle = random.uniform(0, 360)
 	r = Robot.Robot(random_x,random_y,random_vitesse,random_angle)
 	
 	assert r.x == random_x
