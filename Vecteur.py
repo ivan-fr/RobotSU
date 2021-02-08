@@ -38,14 +38,14 @@ class Vecteur(object):
         Number -> Vecteur
         Retourne un vecteur résultant du produit du vecteur instance avec un scalaire
         """
-        if isinstance(scal, int) or isinstance(scal, float):
+        if (isinstance(scal, int) and not isinstance(scal, bool)) or isinstance(scal, float):
             return Vecteur(self.x * scal, self.y * scal)
         else:
             raise ValueError("L'Operande n'est pas un scalaire")
 
     def rotation(self, angle):
         """retourne le vecteur deplacement"""
-        if not isinstance(angle, float) and not isinstance(angle, int):
+        if not isinstance(angle, float) and (not isinstance(angle, int) or isinstance(angle, bool)):
             raise ValueError("L'Operande n'est pas un angle")
 
         vx = self.x * cos(radians(angle)) - self.y * sin(radians(angle))
