@@ -4,8 +4,8 @@ import math
 
 
 def testConstructVecteur():
-    random_x = random.randint(-50, 50)
-    random_y = random.randint(-50, 50)
+    random_x = random.randint(-500, 500)
+    random_y = random.randint(-500, 500)
     V = Vecteur.Vecteur(random_x, random_y)
 
     assert V.x == random_x
