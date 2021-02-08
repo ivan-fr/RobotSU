@@ -2,6 +2,7 @@ import random
 import Robot
 import math
 import Vecteur
+import Terrain
 
 def testConstructRobot():
 	random_x=random.randint(0, 50)
@@ -80,7 +81,21 @@ def testAffichageRobot():
 	assert not t.ajout_objet(robot, -10, -10)
 	assert not t.ajout_objet(robot, random_ligne, random_colonne)
 	# t.affichage()
-	
+
+def test_setter_vitesse():
+	random_x=random.randint(0, 50)
+	random_y=random.randint(0, 50)
+	random_vitesse = random.uniform(-50, 50)
+	random_angle = random.uniform(0, 360)
+	r = Robot.Robot(random_x,random_y,random_vitesse,random_angle)
+
+	for _ in range(1000):
+		x=random.uniform(-50, 50)
+		r.vitesse = x
+		assert r.vecteurDeplacement.x == math.cos(math.radians(r.angle)) * r.vitesse
+		assert r.vecteurDeplacement.y == math.sin(math.radians(r.angle)) * r.vitesse
+
+
 if __name__ == '__main__':
 	try:
 		testConstructRobot()
@@ -105,4 +120,10 @@ if __name__ == '__main__':
 		print("Test: methode Affichage Robot réussi")
 	except AssertionError as e:
 		print("Test: methode Affichage Robot a échoué !!")
+
+	try:
+		test_setter_vitesse()
+		print("Test: setter_vitesse du Robot réussi")
+	except AssertionError as e:
+		print("Test: setter_vitesse du Robot a échoué !!")
 
