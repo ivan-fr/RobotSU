@@ -74,6 +74,28 @@ def testSymXVecteur():
         assert v3.x == 2*v1.x           # test prop. somme vect. et son sym.(Oy) => abscisseX somme est doublé
         assert v3.y == 0                # test prop. somme vect. et son sym.(Ox) => ordonnéeY somme est nulle
 
+def testProduitVecteurScalaire():
+    #tests pour un scalaire entier
+    for _ in range(10):
+        aleaX = random.randint(-500, 500)
+        aleaY = random.randint(-500, 500)
+        v = Vecteur.Vecteur(aleaX, aleaY)
+        scalaire = random.randint(-500, 500)
+        vScalaire = v.__mul__(scalaire)
+        vtest = Vecteur.Vecteur(aleaX*scalaire, aleaY*scalaire)
+        assert vScalaire.x == vtest.x
+        assert vScalaire.y == vtest.y
+    # tests pour un scalaire flottant
+    for _ in range(10):
+        aleaX = random.uniform(-500, 500)
+        aleaY = random.uniform(-500, 500)
+        v = Vecteur.Vecteur(aleaX, aleaY)
+        scalaire = random.randint(-500, 500)
+        vScalaire = v.__mul__(scalaire)
+        vtest = Vecteur.Vecteur(aleaX * scalaire, aleaY * scalaire)
+        assert vScalaire.x == vtest.x
+        assert vScalaire.y == vtest.y
+
 if __name__ == '__main__':
     try:
         testNormeVecteur()
@@ -104,3 +126,9 @@ if __name__ == '__main__':
         print("Test: methode get_sym_x_axis() a réussi")
     except AssertionError as e:
         print("Test: methode get_sym_x_axis() a échoué !!")
+
+    try:
+        testProduitVecteurScalaire()
+        print("Test: methode vecteurScalaire réussi")
+    except AssertionError as e:
+        print("Test: methode vecteurScalaire a échoué !!")

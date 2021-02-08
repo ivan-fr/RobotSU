@@ -67,6 +67,7 @@ def test_avance():
         assert abs(r.x - pos_x_fin) < ordre_grandeur # test que valeurs identiques a 1e-10 prés 
         assert abs(r.y - pos_y_fin) < ordre_grandeur # test que valeurs identiques a 1e-10 prés
 
+<<<<<<< HEAD
 def test_setter_vitesse():
 	random_x=random.randint(0, 50)
 	random_y=random.randint(0, 50)
@@ -82,6 +83,22 @@ def test_setter_vitesse():
 		assert r.vecteurDeplacement.y == math.sin(math.radians(r.angle)) * r.vitesse
 
 
+=======
+def testAffichageRobot():
+	random_ligne = random.randint(0, 20)
+	random_colonne = random.randint(0, 20)
+	t = Terrain.Terrain(random_ligne, random_colonne)
+	random_x = random.randint(1, t.nbLignes - 1)
+	random_y = random.randint(1, t.nbColonnes - 1)
+	robot = Robot.Robot(0, 10, 10, 0)
+	assert t.ajout_objet(robot, random_x, random_y)
+	robot = Robot.Robot(0, 10, 10, 0)
+	# robot n'est pas affiché car coordonnees hors du terrain
+	assert not t.ajout_objet(robot, -10, -10)
+	assert not t.ajout_objet(robot, random_ligne, random_colonne)
+	# t.affichage()
+	
+>>>>>>> 89453bf3d0a7ca174ff1085a4807beb01b299a19
 if __name__ == '__main__':
 	try:
 		testConstructRobot()
@@ -100,9 +117,18 @@ if __name__ == '__main__':
 		print("Test: Deplacement du Robot réussi")
 	except AssertionError as e:
 		print("Test: Deplacement du Robot a échoué !!")
+<<<<<<< HEAD
 	
 	try:
 		test_setter_vitesse()
 		print("Test: setter_vitesse du Robot réussi")
 	except AssertionError as e:
 		print("Test: setter_vitesse du Robot a échoué !!")
+=======
+
+	try:
+		testAffichageRobot()
+		print("Test: methode Affichage Robot réussi")
+	except AssertionError as e:
+		print("Test: methode Affichage Robot a échoué !!")
+>>>>>>> 89453bf3d0a7ca174ff1085a4807beb01b299a19
