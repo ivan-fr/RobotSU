@@ -1,5 +1,6 @@
 import random
 import Terrain
+import Robot
 
 def testAjoutAffichageObjet():
     random_ligne = random.randint(11, 100)
@@ -130,6 +131,20 @@ def testsupprimerObjet():
         # Test toutes cases vide aprés passage fonction
         assert all([T.casevide(x,y) for x in range(0, T.nbLignes) for y in range(0,T.nbColonnes)])
 
+def testAffichageRobot():
+    random_ligne = random.randint(0, 20)
+    random_colonne = random.randint(0, 20)
+    t = Terrain.Terrain(random_ligne, random_colonne)
+    random_x = random.randint(1, t.nbLignes - 1)
+    random_y = random.randint(1, t.nbColonnes - 1)
+    robot = Robot.Robot(0, 10, 10, 0)
+    assert t.ajout_objet(robot, random_x, random_y)
+    robot = Robot.Robot(0, 10, 10, 0)
+    # robot n'est pas affiché car coordonnees hors du terrain
+    assert not t.ajout_objet(robot, -10, -10)
+    assert not t.ajout_objet(robot, random_ligne, random_colonne)
+    # t.affichage()
+
 if __name__ == '__main__':
     try:
         testAjoutAffichageObjet()
@@ -172,3 +187,9 @@ if __name__ == '__main__':
         print("Test: methode Terrain.supprimerObjet(x,y) réussi")
     except AssertionError as e:
         print("Test: methode Terrain.SupprimerObjet(x,y) a échoué !!")
+
+    try:
+        testAffichageRobot()
+        print("Test: methode Affichage Robot réussi")
+    except AssertionError as e:
+        print("Test: methode Affichage Robot a échoué !!")
