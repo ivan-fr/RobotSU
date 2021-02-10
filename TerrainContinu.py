@@ -3,7 +3,9 @@ import Terrain
 import Vecteur
 
 class TerrainContinu(object):
-    def __init__(self):
+    def __init__(self, longueur, largeur):
+        self.longueur = longueur
+        self.largeur = largeur
         self.listePolygone = []
 
     def ajoutPolygone(self, polygone):
