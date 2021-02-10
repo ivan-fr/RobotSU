@@ -1,4 +1,4 @@
-from math import sqrt, cos, sin, radians
+from math import sqrt, cos, sin, radians, acos, degrees
 
 class Vecteur(object):
     """
@@ -58,3 +58,11 @@ class Vecteur(object):
         retourne le vecteur symetrique par rapport à l'axe des abscisses
         """
         return Vecteur(self.x, -self.y)
+    
+    def angle_entre(self, autreVecteur):
+        """ Vecteur -> Float
+        Permet de retourner l'angle entre deux vecteurs (en degrés)
+        """
+        prod = self.x * autreVecteur.x + self.y * autreVecteur.y
+        cos_angle = prod/(self.norme() * autreVecteur.norme())
+        return degrees(acos(cos_angle))
