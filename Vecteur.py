@@ -66,3 +66,46 @@ class Vecteur(object):
         prod = self.x * autreVecteur.x + self.y * autreVecteur.y
         cos_angle = prod/(self.norme() * autreVecteur.norme())
         return degrees(acos(cos_angle))
+
+    def collision(self,pos1,autreVecteur,pos2):
+        """ Tuple(x1,y1) * Vecteur * Tuple(x2,y2) -> Boolean
+        Permet de dire s'il y a collision entre deux vecteurs
+        """
+        ax = pos1[0]
+        ay = pos1[1]
+        bx = pos1[0] + self.x
+        by = pos1[1] + self.y
+        cx = pos2[0]
+        cy = pos2[1]
+        dx = pos2[0] + autreVecteur.x
+        dy = pos2[1] + autreVecteur.y
+
+        ab_pv_ac = ((bx-ax)*(cy-ay))-((by-ay)*(cx-ax))
+        ab_pv_ad = ((bx-ax)*(dy-ay))-((by-ay)*(dx-ax))
+        test1 = ab_pv_ac * ab_pv_ad
+        
+        cd_pv_ca = ((dx-cx)*(ay-cy))-((dy-cy)*(ax-cx))
+        cd_pv_cb = ((dx-cx)*(by-cy))-((dy-cy)*(bx-cx))
+        test2 = cd_pv_ca * cd_pv_cb
+
+        if test1 < 0 and test2 < 0:
+            return True
+        else:
+            return False
+
+    def collision1(self,pos1,autreVecteur,pos2):
+        """ Tuple(x1,y1) * Vecteur * Tuple(x2,y2) -> Boolean
+        Permet de dire s'il y a collision entre deux vecteurs
+        """
+        ab_pv_ac = ((pos1[0] + self.x-pos1[0])*(pos2[1]-pos1[1]))-((pos1[1] + self.y-pos1[1])*(pos2[0]-pos1[0]))
+        ab_pv_ad = ((pos1[0] + self.x-pos1[0])*(pos2[1] + autreVecteur.y-pos1[1]))-((pos1[1] + self.y-pos1[1])*(pos2[0] + autreVecteur.x-pos1[0]))
+        test1 = ab_pv_ac * ab_pv_ad
+        
+        cd_pv_ca = ((pos2[0] + autreVecteur.x-pos2[0])*(pos1[1]-pos2[1]))-((pos2[1] + autreVecteur.y-pos2[1])*(pos1[0]-pos2[0]))
+        cd_pv_cb = ((pos2[0] + autreVecteur.x-pos2[0])*(pos1[1] + self.y-pos2[1]))-((pos2[1] + autreVecteur.y-pos2[1])*(pos1[0] + self.x-pos2[0]))
+        test2 = cd_pv_ca * cd_pv_cb
+
+        if test1 < 0 and test2 < 0:
+            return True
+        else:
+            return False
