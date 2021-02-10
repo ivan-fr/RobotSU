@@ -1,5 +1,7 @@
 import random 
 import Robot
+import os
+import time
 
 class Terrain(object):
     def __init__(self, nbLignes, nbColonnes):
@@ -72,3 +74,10 @@ class Terrain(object):
             return False
         self.grille[x][y] = None
         return True
+
+    def supprimerAffichage(self):
+        """void -> void
+        supprime l'affichage du terminal"""
+        time.sleep(1)
+        os.system('cls')
+        return
