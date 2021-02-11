@@ -21,3 +21,10 @@ def Carre(origine,norme):
     x,y = origine
     liste_sommet = [(x-n,y-n),(x+n,y-n),(x+n,y-n),(x+n,y+n)]
     return Polygone(liste_sommet)
+
+def Triangle(origine, norme):
+    n=norme/2
+    x,y=origine
+    liste_sommet=[(x-n,y),(x+n,y-n),(x+n,y+n)]
+    return Polygone(liste_sommet)
+
