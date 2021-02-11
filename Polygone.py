@@ -21,8 +21,3 @@ def Carre(origine,norme):
     x,y = origine
     liste_sommet = [(x-n,y-n),(x+n,y-n),(x+n,y-n),(x+n,y+n)]
     return Polygone(liste_sommet)
-
-if __name__ == '__main__':
-    a=Carre((1,1),1)
-    for i in a.liste_vecteur:
-        print(i)
