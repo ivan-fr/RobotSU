@@ -5,6 +5,7 @@ class Polygone :
 
     def __init__(self, liste_sommet) :
         self.liste_vecteur = []
+        self.liste_sommet = liste_sommet
         for i in range(len(liste_sommet)-1) :
             x1,y1 = liste_sommet[i]
             x2,y2 = liste_sommet[i+1]
