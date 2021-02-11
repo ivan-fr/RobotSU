@@ -1,5 +1,6 @@
 import Vecteur
 
+
 class Polygone :
 
     def __init__(self, liste_sommet) :
@@ -14,3 +15,8 @@ class Polygone :
         xn,yn = liste_sommet[0]
         v = Vecteur.Vecteur((x0-xn),(y0-yn))
         self.liste_vecteur.append(v)
+    
+def Carre(origine,norme):
+    x,y = origine
+    liste_sommet = [(x-norme,y-norme),(x+norme,y-norme),(x+norme,y-norme),(x+norme,y+norme)]
+    return Polygone(liste_sommet)
