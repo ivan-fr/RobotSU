@@ -22,7 +22,7 @@ class TerrainContinu(object):
                 vecteur = Vecteur.Vecteur(i.liste_sommet[j][0]-i.liste_sommet[j+1][0], i.liste_sommet[j][1]-i.liste_sommet[j+1][1])
                 vecteurCpy = Vecteur.Vecteur(i.list_sommet[j][0], i.list_sommet[j][1])
                 while (vecteur.x != vecteurCpy.x) or (vecteur.y != vecteurCpy.y):
-                    terrain.ajout_objet(vecteurCpy.x, vecteurCpy.y)
+                    terrain.ajout_objet(object(),vecteurCpy.x, vecteurCpy.y)
                     if(vecteur.x > vecteurCpy.x):
                         vecteurCpy.x += 1
                     elif(vecteur.x < vecteurCpy.x):
@@ -31,6 +31,6 @@ class TerrainContinu(object):
                         vecteurCpy.y += 1
                     elif(vecteur.y < vecteurCpy.y):
                         vecteurCpy.y - 1
-
+        terrain.affichage()
 
         
