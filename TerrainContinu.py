@@ -16,7 +16,14 @@ class TerrainContinu(object):
     def affichageDeContinuADiscret(self):
         """void->void
         affiche le terrain de maniere discrete"""
-        terrain = Terrain(self.vecteurSurface.x, self.vecteurSurface.y)
+        x = self.vecteurSurface[0].x
+        y = self.vecteurSurface[0].y
+        for i in self.vecteurSurface:
+            if(i.x > x):
+                x = i.x
+            if(i.y > y):
+                y = i.y
+        terrain = Terrain(x, y)
         for i in self.listePolygone:
             for j in range(len(i.liste_sommet - 2)):
                 vecteur = Vecteur.Vecteur(i.liste_sommet[j][0]-i.liste_sommet[j+1][0], i.liste_sommet[j][1]-i.liste_sommet[j+1][1])
