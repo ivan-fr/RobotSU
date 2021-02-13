@@ -23,7 +23,6 @@ def collision(posRobot,polygone,VecteurDeplacement):
     i=0
     while(i<len(polygone.liste_sommet)):
         if not (polygone.liste_vecteur[i].collision(polygone.liste_sommet[i],VecteurDeplacement,posRobot)):
-            print(polygone.liste_vecteur[i].collision(polygone.liste_sommet[i],VecteurDeplacement,posRobot))
             return False
         i=i+1
     return True
