@@ -15,7 +15,20 @@ class Polygone :
         xn,yn = liste_sommet[0]
         v = Vecteur.Vecteur((x0-xn),(y0-yn))
         self.liste_vecteur.append(v)
-    
+
+def collision(posRobot,polygone,VecteurDeplacement):
+    """tuple(int * int) * Polygone * Vecteur -> boolean
+    methode qui verifie la collision du robot avec un objet.
+    """
+    i=0
+    while(i<len(polygone.liste_sommet)):
+        if not (polygone.liste_vecteur[i].collision(polygone.liste_sommet[i],VecteurDeplacement,posRobot)):
+            print(polygone.liste_vecteur[i].collision(polygone.liste_sommet[i],VecteurDeplacement,posRobot))
+            return False
+        i=i+1
+    return True
+
+
 def Carre(origine,norme):
     n=norme/2
     x,y = origine
@@ -28,3 +41,10 @@ def Triangle(origine, norme):
     liste_sommet=[(x-n,y),(x+n,y-n),(x+n,y+n)]
     return Polygone(liste_sommet)
 
+def hexagone(origine,norme):
+    n=norme/2
+    x,y=origine
+    liste_sommet=[(x-norme,y),(x-n,y-n),(x+n,y-n),(x+norme,y),(x+n,y+n),(x-n,y+n)]
+    return Polygone(liste_sommet)
+
+    
