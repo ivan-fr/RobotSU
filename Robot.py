@@ -26,9 +26,10 @@ class Robot(object):
     def avance(self,temps):
         """ int -> None 
         cette methode permet de faire avancer le robot selon un temps donné."""
-
-        self.x += self.vecteurDeplacement.x * temps
-        self.y += self.vecteurDeplacement.y * temps
+        if (TerrainContinu.collision((self.x,self.y), self.vecteurDeplacement)==False){
+            self.x += self.vecteurDeplacement.x * temps
+            self.y += self.vecteurDeplacement.y * temps
+        }
 
     def rotation(self, angleRelative):
         """float -> void

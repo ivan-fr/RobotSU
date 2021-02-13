@@ -40,4 +40,25 @@ class TerrainContinu(object):
                         vecteurCpy.y - 1
         terrain.affichage()
 
-        
+    def collision((x,y), vecteurDeplacement) :
+        """tuple (int * int) * Vecteur -> boolean
+        méthode qui verifie la collision du robot avec les objets contenu sur le terrain ainsi qu'avec 
+        les vecteurs qui le delimitent
+        : param tuple : coordonnees du robot
+        : param Vecteur : vecteur de deplacement du robot
+        """
+        for p in self.listePolygone :
+            #fonction pas encore ecrite
+            if (p.collision(-,-)) :
+                return True
+        #posX, posY : position du premier vecteur du terrain
+        posX = 0
+        posY = 0
+        for v in self.vecteurSurface :
+            #vecteurDeplacement et (x,y) du robot
+            if (v.collision((posX,posY),vecteurDeplacement,(x,y))) :
+                return True
+            #calcul de l'origine des vecteurs suivants
+            poX = posX + v.x
+            poY = posY + v.y
+        return False
