@@ -48,8 +48,7 @@ class TerrainContinu(object):
         : param Vecteur : vecteur de deplacement du robot
         """
         for p in self.listePolygone :
-            #fonction pas encore ecrite
-            if (p.collision(-,-)) :
+            if (p.collision((x,y),VecteurDeplacement)) :
                 return True
         #posX, posY : position du premier vecteur du terrain
         posX = 0
