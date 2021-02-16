@@ -17,7 +17,7 @@ class Polygone :
         self.liste_vecteur.append(v)
 
     def collision(self,posRobot,VecteurDeplacement):
-        """tuple(int * int) * Polygone * Vecteur -> boolean
+        """tuple(int * int) *  Vecteur -> boolean
         methode qui verifie la collision du robot avec un objet.
         """
         i=0
