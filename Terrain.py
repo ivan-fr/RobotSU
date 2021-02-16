@@ -143,3 +143,5 @@ def construireTerrain(terrainContinu, echelle):
     for polygone in terrainContinu.listePolygone:
         for i in range(len(polygone.liste_vecteur)):
             terrain.dessineVecteur(polygone.liste_sommet[i], polygone.liste_vecteur[i])
+
+    return terrain
