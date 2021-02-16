@@ -23,11 +23,11 @@ class TerrainContinu(object):
             if p.collision(posOrigine,vecteurDeplacement):
                 return True
         #posX, posY : position du premier vecteur du terrain
-        posX = 0
-        posY = 0
-        for v in self.vecteursSurface :
+        posX = 0.
+        posY = 0.
+        for v in self.vecteursSurface:
             #vecteurDeplacement et (x,y) du robot
-            if (v.collision((posX,posY),vecteurDeplacement,posOrigine)) :
+            if (v.collision((posX,posY),vecteurDeplacement,posOrigine)):
                 return True
             #calcul de l'origine des vecteurs suivants
             posX = posX + v.x
