@@ -92,20 +92,3 @@ class Vecteur(object):
             return True
         else:
             return False
-
-    def collision1(self,pos1,autreVecteur,pos2):
-        """ Tuple(x1,y1) * Vecteur * Tuple(x2,y2) -> Boolean
-        Permet de dire s'il y a collision entre deux vecteurs
-        """
-        ab_pv_ac = ((pos1[0] + self.x-pos1[0])*(pos2[1]-pos1[1]))-((pos1[1] + self.y-pos1[1])*(pos2[0]-pos1[0]))
-        ab_pv_ad = ((pos1[0] + self.x-pos1[0])*(pos2[1] + autreVecteur.y-pos1[1]))-((pos1[1] + self.y-pos1[1])*(pos2[0] + autreVecteur.x-pos1[0]))
-        test1 = ab_pv_ac * ab_pv_ad
-        
-        cd_pv_ca = ((pos2[0] + autreVecteur.x-pos2[0])*(pos1[1]-pos2[1]))-((pos2[1] + autreVecteur.y-pos2[1])*(pos1[0]-pos2[0]))
-        cd_pv_cb = ((pos2[0] + autreVecteur.x-pos2[0])*(pos1[1] + self.y-pos2[1]))-((pos2[1] + autreVecteur.y-pos2[1])*(pos1[0] + self.x-pos2[0]))
-        test2 = cd_pv_ca * cd_pv_cb
-
-        if test1 < 0 and test2 < 0:
-            return True
-        else:
-            return False

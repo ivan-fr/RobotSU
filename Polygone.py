@@ -22,11 +22,10 @@ class Polygone :
         """
         i=0
         while(i<len(self.liste_sommet)):
-            if not (self.liste_vecteur[i].collision(self.liste_sommet[i],VecteurDeplacement,posRobot)):
-                return False
+            if self.liste_vecteur[i].collision(self.liste_sommet[i],VecteurDeplacement,posRobot):
+                return True
             i=i+1
-        return True
-
+        return False
 
 def Carre(origine,norme):
     n=norme/2

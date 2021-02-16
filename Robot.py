@@ -22,14 +22,11 @@ class Robot(object):
         """
         return "Robot(cood.("+str(self.x)+","+str(self.y)+"),vitesse:"+str(self.vitesse)+"mm/s, angle:"+str(self.angle)+"°)"
 
-
     def avance(self,temps):
         """ int -> None 
         cette methode permet de faire avancer le robot selon un temps donné."""
-        if (TerrainContinu.collision((self.x,self.y), self.vecteurDeplacement)==False){
-            self.x += self.vecteurDeplacement.x * temps
-            self.y += self.vecteurDeplacement.y * temps
-        }
+        self.x += self.vecteurDeplacement.x * temps
+        self.y += self.vecteurDeplacement.y * temps
 
     def rotation(self, angleRelative):
         """float -> void
