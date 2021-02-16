@@ -19,7 +19,6 @@ class Terrain(object):
         """
         return [[None] * self.nbColonnes for _ in range(self.nbLignes)]
     
-    
     def casevide(self, x, y):
         """ int * int * tab [][] -> boolean
         retourne vrai si la case est vide, et faux si celle-ci est occupee"""
@@ -36,7 +35,6 @@ class Terrain(object):
             self.grille[x][y]=objet 
             return True
         return False
-
 
     def ajout_alea(self,nbitem):
         """Object * int -> boolean
