@@ -28,6 +28,9 @@ class Robot(object):
         self.x += self.vecteurDeplacement.x * temps
         self.y += self.vecteurDeplacement.y * temps
 
+    def collision(self, terrainContinu):
+        return terrainContinu.collision((self.x, self.y), self.vecteurDeplacement)
+
     def rotation(self, angleRelative):
         """float -> void
         met à jour le vecteur deplacement du robot et son angle"""

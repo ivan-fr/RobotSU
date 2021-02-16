@@ -2,8 +2,9 @@ import Robot
 import Vecteur
 
 class TerrainContinu(object):
-    def __init__(self, vecteursSurface):
+    def __init__(self, vecteursSurface, robot):
         self.vecteursSurface = vecteursSurface
+        self.robot = robot
         self.listePolygone = []
 
     def ajoutPolygone(self, polygone):
@@ -33,3 +34,13 @@ class TerrainContinu(object):
             posX = posX + v.x
             posY = posY + v.y
         return False
+
+
+def Carre(norme, posRobot):
+    vecteursSurface = []
+
+    for i in range(4):
+        vecteursSurface.append(Vecteur.Vecteur(norme, 0).rotation(90 * i))
+
+    x, y = posRobot
+    return TerrainContinu(vecteursSurface, Robot.Robot(x, y, 1., 0.))

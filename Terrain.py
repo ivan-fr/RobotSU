@@ -19,22 +19,29 @@ class Terrain(object):
         """
         return [[None] * self.nbColonnes for _ in range(self.nbLignes)]
     
-    def casevide(self, x, y):
+    def casevide(self, ligne, colonne):
         """ int * int * tab [][] -> boolean
         retourne vrai si la case est vide, et faux si celle-ci est occupee"""
-        if x >= self.nbLignes or x < 0 or y >= self.nbColonnes or y < 0:
+        if ligne >= self.nbLignes or ligne < 0 or colonne >= self.nbColonnes or colonne < 0:
             return False
-        if self.grille[x][y] is None:
+        if self.grille[ligne][colonne] is None:
             return True
         return False
 
-    def ajout_objet(self,objet,x,y) : 
+    def ajout_objet(self,objet,ligne,colonne) : 
         """Object * int *int ->boolean
         Place un objet donné en argument dans la case[x][y] du terrain en verifiant s'il est vide."""
-        if(self.casevide(x,y)):
-            self.grille[x][y]=objet 
+        if(self.casevide(ligne,colonne)):
+            self.grille[ligne][colonne]=objet 
             return True
         return False
+
+    def ajout_objet_continu(self, objet, x, y):
+        self.ajout_objet(
+                objet,
+                self.nbLignes - 1 - int(y / self.echelle),
+                int(x / self.echelle)
+        )
 
     def ajout_alea(self,nbitem):
         """Object * int -> boolean
@@ -84,27 +91,27 @@ class Terrain(object):
         return
 
     def dessineVecteur(self, posOrigine, vecteur):
-        posTarget = (posOrigine[0] + vecteur.x, posOrigine[1] + vecteur.y)
-        angle = atan(vecteur.y / vecteur.x)
+        if vecteur.x == 0. and vecteur.y > 0.:
+            angle = pi / 2
+        elif vecteur.x == 0. and vecteur.y < 0.:
+            angle = - pi / 2
+        else:
+            angle = atan(vecteur.y / vecteur.x)
 
         if vecteur.x < 0.:
             angle += pi
 
-        vecteurUnite = Vecteur.Vecteur(cos(angle), sin(angle))
+        vecteurUnite = Vecteur.Vecteur(cos(angle) * self.echelle, sin(angle) * self.echelle)
 
         traceX = posOrigine[0]
         traceY = posOrigine[1]
 
-        while traceX < posTarget[0] and traceY < posTarget[1]:
-            self.ajout_objet(
-                object(),
-                int(traceX / self.echelle),
-                self.nbLignes - 1 - int(traceY / self.echelle)
-            )
+        norme = vecteur.norme()
 
+        while Vecteur.Vecteur(traceX - posOrigine[0], traceY - posOrigine[1]).norme() <= norme:
+            self.ajout_objet_continu(object(), traceX, traceY)
             traceX += vecteurUnite.x
             traceY += vecteurUnite.y
-
 
 def construireTerrain(terrainContinu, echelle):
     """return Terrain
@@ -129,7 +136,9 @@ def construireTerrain(terrainContinu, echelle):
         x = targetX
         y = targetY
 
-    terrain = Terrain(xMax, yMax, echelle)
+    # x 1.1 pour les problèmes d'affichage lié aux approximations
+    terrain = Terrain(yMax + echelle, xMax + echelle * 1.1, echelle)
+    terrain.ajout_objet_continu(terrainContinu.robot, terrainContinu.robot.x, terrainContinu.robot.y)
 
     # dessine la delimitation
     x = 0.
