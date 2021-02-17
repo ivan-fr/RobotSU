@@ -10,12 +10,12 @@ if __name__ == '__main__':
     tc.ajoutPolygone(Polygone.hexagone((10,10), 5))
     tc.robot.rotation(90)
 
-    while True:
+    while not tc.robot.collision(tc, 1):
         tc.robot.avance(1)
         t = Terrain.construireTerrain(tc, 0.2)
         t.affichage()
 
-        if not tc.robot.collision(tc):
+        if not tc.robot.collision(tc, 1):
             t.supprimerAffichage()
         else:
             break
