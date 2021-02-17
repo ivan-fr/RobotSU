@@ -10,7 +10,6 @@ if __name__ == '__main__':
         tc.robot.avance(1)
         t = Terrain.construireTerrain(tc, 0.2)
         t.affichage()
-
         if not tc.robot.collision(tc, 1):
             t.supprimerAffichage()
         else:
