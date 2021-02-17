@@ -1,5 +1,5 @@
 import random
-import Vecteur
+from models import Vecteur
 import math
 
 
@@ -18,8 +18,8 @@ def test__add__():
         v2 = Vecteur.Vecteur(random.randint(-500, 500), random.randint(-500, 500))
         vv = v1.__add__(v2)
 
-        assert vv.x == v1.x+v2.x
-        assert vv.y == v1.y+v2.y
+        assert vv.x == v1.x + v2.x
+        assert vv.y == v1.y + v2.y
 
 
 def testNormeVecteur():
@@ -28,14 +28,14 @@ def testNormeVecteur():
         aleaX = random.randint(0, 1000)
         aleaY = random.randint(0, 1000)
         v = Vecteur.Vecteur(aleaX, aleaY)
-        assert v.norme() == math.sqrt(aleaX*aleaX+aleaY*aleaY)
+        assert v.norme() == math.sqrt(aleaX * aleaX + aleaY * aleaY)
 
     # test calcul norme vecteur avec des valeurs negatives
     for _ in range(100):
         aleaX = random.randint(-1000, 0)
         aleaY = random.randint(-1000, 0)
         v = Vecteur.Vecteur(aleaX, aleaY)
-        assert v.norme() == math.sqrt(aleaX*aleaX+aleaY*aleaY)
+        assert v.norme() == math.sqrt(aleaX * aleaX + aleaY * aleaY)
 
     # test calcul norme vecteur avec des valeurs positives et/ou negatives
     for _ in range(100):
@@ -46,8 +46,8 @@ def testNormeVecteur():
 
 
 def testRotation():
-    rx = random.randint(-50,50)
-    ry = random.randint(-50,50)
+    rx = random.randint(-50, 50)
+    ry = random.randint(-50, 50)
 
     v = Vecteur.Vecteur(rx, ry)
 
@@ -58,31 +58,33 @@ def testRotation():
 
     v = v.rotation(angle)
 
-    assert abs(v.x - vx) < 0.00001    
-    assert abs(v.y - vy) < 0.00001    
+    assert abs(v.x - vx) < 0.00001
+    assert abs(v.y - vy) < 0.00001
+
 
 def testSymXVecteur():
     for _ in range(1000):
-        rx = random.randint(-50,50)
-        ry = random.randint(-50,50)
+        rx = random.randint(-50, 50)
+        ry = random.randint(-50, 50)
         v1 = Vecteur.Vecteur(rx, ry)
         v2 = v1.get_sym_x_axis()
         v3 = v1 + v2
 
-        assert v1.norme() == v2.norme() # test norme vecteur et son symetrique (Ox) sont identiques
-        assert v1.x == v2.x             # test que l'abscisse ne change pas dans le symetrique (Ox)
-        assert v3.x == 2*v1.x           # test prop. somme vect. et son sym.(Oy) => abscisseX somme est doublé
-        assert v3.y == 0                # test prop. somme vect. et son sym.(Ox) => ordonnéeY somme est nulle
+        assert v1.norme() == v2.norme()  # test norme vecteur et son symetrique (Ox) sont identiques
+        assert v1.x == v2.x  # test que l'abscisse ne change pas dans le symetrique (Ox)
+        assert v3.x == 2 * v1.x  # test prop. somme vect. et son sym.(Oy) => abscisseX somme est doublé
+        assert v3.y == 0  # test prop. somme vect. et son sym.(Ox) => ordonnéeY somme est nulle
+
 
 def testProduitVecteurScalaire():
-    #tests pour un scalaire entier
+    # tests pour un scalaire entier
     for _ in range(10):
         aleaX = random.randint(-500, 500)
         aleaY = random.randint(-500, 500)
         v = Vecteur.Vecteur(aleaX, aleaY)
         scalaire = random.randint(-500, 500)
         vScalaire = v.__mul__(scalaire)
-        vtest = Vecteur.Vecteur(aleaX*scalaire, aleaY*scalaire)
+        vtest = Vecteur.Vecteur(aleaX * scalaire, aleaY * scalaire)
         assert vScalaire.x == vtest.x
         assert vScalaire.y == vtest.y
     # tests pour un scalaire flottant
@@ -95,6 +97,7 @@ def testProduitVecteurScalaire():
         vtest = Vecteur.Vecteur(aleaX * scalaire, aleaY * scalaire)
         assert vScalaire.x == vtest.x
         assert vScalaire.y == vtest.y
+
 
 if __name__ == '__main__':
     try:

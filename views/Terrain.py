@@ -1,9 +1,9 @@
-import random 
-import Robot
+import random
 import os
 import time
-import Vecteur
+from models import Vecteur, Robot
 from math import atan, sin, cos, pi
+
 
 class Terrain(object):
     def __init__(self, nbLignes, nbColonnes, echelle=1):
@@ -18,7 +18,7 @@ class Terrain(object):
         Retourne la grille du terrain, cad un tableau multidimensionnel vide
         """
         return [[None] * self.nbColonnes for _ in range(self.nbLignes)]
-    
+
     def casevide(self, ligne, colonne):
         """ int * int * tab [][] -> boolean
         retourne vrai si la case est vide, et faux si celle-ci est occupee"""
@@ -28,42 +28,42 @@ class Terrain(object):
             return True
         return False
 
-    def ajout_objet(self,objet,ligne,colonne) : 
+    def ajout_objet(self, objet, ligne, colonne):
         """Object * int *int ->boolean
         Place un objet donné en argument dans la case[x][y] du terrain en verifiant s'il est vide."""
-        if(self.casevide(ligne,colonne)):
-            self.grille[ligne][colonne]=objet 
+        if (self.casevide(ligne, colonne)):
+            self.grille[ligne][colonne] = objet
             return True
         return False
 
     def ajout_objet_continu(self, objet, x, y):
         self.ajout_objet(
-                objet,
-                self.nbLignes - 1 - int(y / self.echelle),
-                int(x / self.echelle)
+            objet,
+            self.nbLignes - 1 - int(y / self.echelle),
+            int(x / self.echelle)
         )
 
-    def ajout_alea(self,nbitem):
+    def ajout_alea(self, nbitem):
         """Object * int -> boolean
         Place item nbfois aleatoirement sur le Terrain."""
-        if (self.nbLignes*self.nbColonnes > nbitem):
+        if (self.nbLignes * self.nbColonnes > nbitem):
             for _ in range(nbitem):
-                o=object()
-                a=random.randint(0, self.nbLignes)
-                b=random.randint(0, self.nbColonnes)
-                while(self.casevide(a,b)==False) : 
-                    a=random.randint(0, self.nbLignes)
-                    b=random.randint(0, self.nbColonnes)
-                self.ajout_objet(o,a,b)
+                o = object()
+                a = random.randint(0, self.nbLignes)
+                b = random.randint(0, self.nbColonnes)
+                while (self.casevide(a, b) == False):
+                    a = random.randint(0, self.nbLignes)
+                    b = random.randint(0, self.nbColonnes)
+                self.ajout_objet(o, a, b)
             return True
-        return False 
+        return False
 
     def affichage(self):
         """affiche le Terrain"""
-        bordure="".join(["+","-" * self.nbColonnes,"+"])
+        bordure = "".join(["+", "-" * self.nbColonnes, "+"])
         print(bordure)
         for i in self.grille:
-            print("|",end="")
+            print("|", end="")
             for j in i:
                 if j is None:
                     print(" ", end="")
@@ -71,14 +71,14 @@ class Terrain(object):
                     print("R", end="")
                 else:
                     print("X", end="")
-            print("|",end="")
+            print("|", end="")
             print()
-        print(bordure+"\n")
+        print(bordure + "\n")
 
     def supprimerObjet(self, x, y):
         """int * int -> bool
         met la case à None"""
-        if(x < 0 or y < 0 or x >= self.nbLignes or y >= self.nbColonnes):
+        if (x < 0 or y < 0 or x >= self.nbLignes or y >= self.nbColonnes):
             return False
         self.grille[x][y] = None
         return True
@@ -112,6 +112,7 @@ class Terrain(object):
             self.ajout_objet_continu(object(), traceX, traceY)
             traceX += vecteurUnite.x
             traceY += vecteurUnite.y
+
 
 def construireTerrain(terrainContinu, echelle):
     """return Terrain

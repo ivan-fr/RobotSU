@@ -1,5 +1,6 @@
 from math import sqrt, cos, sin, radians, acos, degrees
 
+
 class Vecteur(object):
     """
     Vecteur du plan : 2 dimensions
@@ -14,7 +15,7 @@ class Vecteur(object):
         -> str
         Permet de retourner une chaine de caractère représentant le vecteur
         """
-        return "("+str(self.x)+","+str(self.y)+")"
+        return "(" + str(self.x) + "," + str(self.y) + ")"
 
     def norme(self):
         """
@@ -58,16 +59,16 @@ class Vecteur(object):
         retourne le vecteur symetrique par rapport à l'axe des abscisses
         """
         return Vecteur(self.x, -self.y)
-    
+
     def angle_entre(self, autreVecteur):
         """ Vecteur -> Float
         Permet de retourner l'angle entre deux vecteurs (en degrés)
         """
         prod = self.x * autreVecteur.x + self.y * autreVecteur.y
-        cos_angle = prod/(self.norme() * autreVecteur.norme())
+        cos_angle = prod / (self.norme() * autreVecteur.norme())
         return degrees(acos(cos_angle))
 
-    def collision(self,pos1,autreVecteur,pos2):
+    def collision(self, pos1, autreVecteur, pos2):
         """ Tuple(x1,y1) * Vecteur * Tuple(x2,y2) -> Boolean
         Permet de dire s'il y a collision entre deux vecteurs
         """
@@ -80,12 +81,12 @@ class Vecteur(object):
         dx = pos2[0] + autreVecteur.x
         dy = pos2[1] + autreVecteur.y
 
-        ab_pv_ac = ((bx-ax)*(cy-ay))-((by-ay)*(cx-ax))
-        ab_pv_ad = ((bx-ax)*(dy-ay))-((by-ay)*(dx-ax))
+        ab_pv_ac = ((bx - ax) * (cy - ay)) - ((by - ay) * (cx - ax))
+        ab_pv_ad = ((bx - ax) * (dy - ay)) - ((by - ay) * (dx - ax))
         test1 = ab_pv_ac * ab_pv_ad
-        
-        cd_pv_ca = ((dx-cx)*(ay-cy))-((dy-cy)*(ax-cx))
-        cd_pv_cb = ((dx-cx)*(by-cy))-((dy-cy)*(bx-cx))
+
+        cd_pv_ca = ((dx - cx) * (ay - cy)) - ((dy - cy) * (ax - cx))
+        cd_pv_cb = ((dx - cx) * (by - cy)) - ((dy - cy) * (bx - cx))
         test2 = cd_pv_ca * cd_pv_cb
 
         if test1 < 0 and test2 < 0:

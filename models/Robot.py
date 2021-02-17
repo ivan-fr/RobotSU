@@ -1,5 +1,6 @@
-import Vecteur
-from math import sqrt, cos, sin, radians
+from models import Vecteur
+from math import cos, sin, radians
+
 
 class Robot(object):
     def __init__(self, x, y, vitesse, angle):
@@ -20,9 +21,10 @@ class Robot(object):
         """ -> str
         Permet de retourner une chaine de caractère représentant l'objet robot
         """
-        return "Robot(cood.("+str(self.x)+","+str(self.y)+"),vitesse:"+str(self.vitesse)+"mm/s, angle:"+str(self.angle)+"°)"
+        return "Robot(cood.(" + str(self.x) + "," + str(self.y) + "),vitesse:" + str(
+            self.vitesse) + "mm/s, angle:" + str(self.angle) + "°)"
 
-    def avance(self,temps):
+    def avance(self, temps):
         """ int -> None 
         cette methode permet de faire avancer le robot selon un temps donné."""
         self.x += self.vecteurDeplacement.x * temps
@@ -47,5 +49,6 @@ class Robot(object):
 
     @vitesse.setter
     def vitesse(self, vitesse):
-        self.vecteurDeplacement = Vecteur.Vecteur(cos(radians(self.angle)) * vitesse, sin(radians(self.angle)) * vitesse)
+        self.vecteurDeplacement = Vecteur.Vecteur(cos(radians(self.angle)) * vitesse,
+                                                  sin(radians(self.angle)) * vitesse)
         self._vitesse = vitesse
