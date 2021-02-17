@@ -3,6 +3,7 @@ import os
 import time
 from models import Vecteur, Robot
 from math import atan, sin, cos, pi
+import platform
 
 
 class Terrain(object):
@@ -87,7 +88,10 @@ class Terrain(object):
         """void -> void
         supprime l'affichage du terminal"""
         time.sleep(1)
-        os.system('cls')
+        if platform.system() == "Windows":
+            os.system("cls")
+        elif platform.system() == "Linux":
+            os.system("clear")
         return
 
     def dessineVecteur(self, posOrigine, vecteur):
