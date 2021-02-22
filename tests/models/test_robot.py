@@ -14,7 +14,7 @@ class RobotTest(unittest.TestCase):
         self.assertTrue(r.x == random_x)
         self.assertTrue(r.y == random_y)
         self.assertTrue(r.vitesse == random_vitesse)
-        self.assertTrue(r.angle == random_angle)
+        self.assertTrue(abs(r.angle - random_angle) < 0.0001)
 
 
     def test_rotation(self):
