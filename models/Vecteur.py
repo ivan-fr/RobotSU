@@ -89,7 +89,7 @@ class Vecteur(object):
         cd_pv_cb = ((dx - cx) * (by - cy)) - ((dy - cy) * (bx - cx))
         test2 = cd_pv_ca * cd_pv_cb
 
-        if test1 < 0 and test2 < 0:
+        if test1 <= 0. and test2 <= 0.:
             return True
         else:
             return False
