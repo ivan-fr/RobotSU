@@ -1,7 +1,8 @@
 import random
 from views import Terrain
-from models import Robot
+from models import Robot, Vecteur
 import unittest
+from math import atan, cos, sin, pi
 
 
 class TerrainTest(unittest.TestCase):
@@ -28,14 +29,47 @@ class TerrainTest(unittest.TestCase):
         self.assertTrue(not t.ajout_objet(o1, -3, 1))
         self.assertTrue(not t.ajout_objet(o1, t.nbLignes, t.nbColonnes))
 
+    def test_dessineVecteur(self):
+        t = Terrain.Terrain(1000, 1000, 1)
+        v = Vecteur.Vecteur(random.uniform(100., 200),
+                            random.uniform(100., 200.))
+        posOrigine = (500., 500.)
+
+        t.dessineVecteur(posOrigine, v)
+
+        if v.x == 0. and v.y > 0.:
+            angle = pi / 2
+        elif v.x == 0. and v.y < 0.:
+            angle = - pi / 2
+        else:
+            angle = atan(v.y / v.x)
+
+        if v.x < 0.:
+            angle += pi
+
+        vecteurUnite = Vecteur.Vecteur(
+            cos(angle) * t.echelle, sin(angle) * t.echelle)
+
+        traceX = posOrigine[0]
+        traceY = posOrigine[1]
+
+        norme = v.norme()
+
+        while Vecteur.Vecteur(traceX - posOrigine[0], traceY - posOrigine[1]).norme() <= norme:
+            self.assertFalse(t.ajout_objet_continu(object(), traceX, traceY))
+            traceX += vecteurUnite.x
+            traceY += vecteurUnite.y
+
     def test_AjoutContinuObjet(self):
         random_x = random.uniform(11, 100)
         random_y = random.uniform(11, 100)
         t = Terrain.Terrain(100, 100)
         o = object()
         t.ajout_objet_continu(o, random_x, random_y)
-        self.assertTrue(sum((el is not None for ligne in t.grille for el in ligne)) == 1)
-        self.assertTrue(t.grille[t.nbLignes - 1 - int(random_y / t.echelle)][int(random_x / t.echelle)] == o)
+        self.assertTrue(
+            sum((el is not None for ligne in t.grille for el in ligne)) == 1)
+        self.assertTrue(
+            t.grille[t.nbLignes - 1 - int(random_y / t.echelle)][int(random_x / t.echelle)] == o)
 
     def test_Affichage(self):
         random_ligne = random.randint(1, 100)
