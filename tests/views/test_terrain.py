@@ -1,6 +1,6 @@
 import random
 from views import Terrain
-from models import Robot, Vecteur
+from models import Robot, Vecteur, TerrainContinu
 import unittest
 from math import atan, cos, sin, pi
 
@@ -201,3 +201,28 @@ class TerrainTest(unittest.TestCase):
         self.assertTrue(not t.ajout_objet(robot, -10, -10))
         self.assertTrue(not t.ajout_objet(robot, random_ligne, random_colonne))
         # t.affichage()
+
+    def test_continu_to_discret(self):
+        tc = TerrainContinu.Carre(20, (1.,1.))
+        t = Terrain.construireTerrain(tc, random.uniform(0.2,4.))
+
+        x = 0.
+        y = 0.
+        xMax = 0.
+        yMax = 0.
+        for vecteurSurface in tc.vecteursSurface:
+            targetX = vecteurSurface.x + x
+            targetY = vecteurSurface.y + y
+
+            if targetX > xMax:
+                xMax = targetX
+            if targetY > yMax:
+                yMax = targetY
+
+            x = targetX
+            y = targetY
+
+        # x 1.1 pour les problèmes d'affichage lié aux approximations
+        terrain = Terrain.Terrain(yMax + t.echelle, xMax + t.echelle * 1.1, t.echelle)
+        self.assertTrue(terrain.nbColonnes == t.nbColonnes)
+        self.assertTrue(terrain.nbLignes == t.nbLignes)
