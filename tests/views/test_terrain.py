@@ -114,8 +114,8 @@ class TerrainTest(unittest.TestCase):
 
     def test_AjoutNAlea(self):
         for _ in range(50):
-            random_ligne = random.randint(1, 2000)
-            random_colonne = random.randint(1, 2000)
+            random_ligne = random.randint(5, 2000)
+            random_colonne = random.randint(5, 2000)
 
             t = Terrain.Terrain(random_ligne, random_colonne)
             t.ajout_alea(random_colonne)
@@ -189,8 +189,8 @@ class TerrainTest(unittest.TestCase):
                 0, T.nbLignes) for y in range(0, T.nbColonnes)]))
 
     def test_AffichageRobot(self):
-        random_ligne = random.randint(0, 20)
-        random_colonne = random.randint(0, 20)
+        random_ligne = random.randint(5, 20)
+        random_colonne = random.randint(5, 20)
         t = Terrain.Terrain(random_ligne, random_colonne)
         random_x = random.randint(1, t.nbLignes - 1)
         random_y = random.randint(1, t.nbColonnes - 1)
