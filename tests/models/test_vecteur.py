@@ -98,3 +98,26 @@ class VecteurTest(unittest.TestCase):
             vtest = Vecteur.Vecteur(aleaX * scalaire, aleaY * scalaire)
             self.assertTrue(vScalaire.x == vtest.x)
             self.assertTrue(vScalaire.y == vtest.y)
+
+    def test_angle_entre(self):
+        """ Vecteur -> Float
+        Permet de retourner l'angle entre deux vecteurs (en degrés)
+        """
+        v = Vecteur.Vecteur(0,1)
+        autreVecteur = Vecteur.Vecteur(1, 0)
+        self.assertTrue(abs(v.angle_entre(autreVecteur)) - 90. <= 0.00001)
+
+    def test_collision(self):
+        """ Tuple(x1,y1) * Vecteur * Tuple(x2,y2) -> Boolean
+        Permet de dire s'il y a collision entre deux vecteurs
+        """
+        v = Vecteur.Vecteur(0,1)
+        autreVecteur = Vecteur.Vecteur(1, 0)
+
+        self.assertTrue(v.collision((0.,0.), autreVecteur, (0.,0.)))
+
+        v.y = -1.
+        self.assertTrue(v.collision((0.,0.), autreVecteur, (0.,0.)))
+
+        autreVecteur.x = -1
+        self.assertTrue(v.collision((0.,0.), autreVecteur, (0.,0.)))

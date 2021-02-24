@@ -1,7 +1,8 @@
 import random
 from views import Terrain
-from models import Robot
+from models import Robot, Vecteur, TerrainContinu
 import unittest
+from math import atan, cos, sin, pi
 
 
 class TerrainTest(unittest.TestCase):
@@ -28,14 +29,47 @@ class TerrainTest(unittest.TestCase):
         self.assertTrue(not t.ajout_objet(o1, -3, 1))
         self.assertTrue(not t.ajout_objet(o1, t.nbLignes, t.nbColonnes))
 
+    def test_dessineVecteur(self):
+        t = Terrain.Terrain(1000, 1000, 1)
+        v = Vecteur.Vecteur(random.uniform(100., 200),
+                            random.uniform(100., 200.))
+        posOrigine = (500., 500.)
+
+        t.dessineVecteur(posOrigine, v)
+
+        if v.x == 0. and v.y > 0.:
+            angle = pi / 2
+        elif v.x == 0. and v.y < 0.:
+            angle = - pi / 2
+        else:
+            angle = atan(v.y / v.x)
+
+        if v.x < 0.:
+            angle += pi
+
+        vecteurUnite = Vecteur.Vecteur(
+            cos(angle) * t.echelle, sin(angle) * t.echelle)
+
+        traceX = posOrigine[0]
+        traceY = posOrigine[1]
+
+        norme = v.norme()
+
+        while Vecteur.Vecteur(traceX - posOrigine[0], traceY - posOrigine[1]).norme() <= norme:
+            self.assertFalse(t.ajout_objet_continu(object(), traceX, traceY))
+            traceX += vecteurUnite.x
+            traceY += vecteurUnite.y
+
     def test_AjoutContinuObjet(self):
         random_x = random.uniform(11, 100)
         random_y = random.uniform(11, 100)
         t = Terrain.Terrain(100, 100)
         o = object()
         t.ajout_objet_continu(o, random_x, random_y)
-        self.assertTrue(sum((el is not None for ligne in t.grille for el in ligne)) == 1)
-        self.assertTrue(t.grille[t.nbLignes - 1 - int(random_y / t.echelle)][int(random_x / t.echelle)] == o)
+        self.assertTrue(
+            sum((el is not None for ligne in t.grille for el in ligne)) == 1)
+        self.assertTrue(
+            t.grille[t.nbLignes - 1 - int(random_y / t.echelle)][int(random_x / t.echelle)] == o)
 
     def test_Affichage(self):
         random_ligne = random.randint(1, 100)
@@ -80,8 +114,8 @@ class TerrainTest(unittest.TestCase):
 
     def test_AjoutNAlea(self):
         for _ in range(50):
-            random_ligne = random.randint(1, 2000)
-            random_colonne = random.randint(1, 2000)
+            random_ligne = random.randint(5, 2000)
+            random_colonne = random.randint(5, 2000)
 
             t = Terrain.Terrain(random_ligne, random_colonne)
             t.ajout_alea(random_colonne)
@@ -155,8 +189,8 @@ class TerrainTest(unittest.TestCase):
                 0, T.nbLignes) for y in range(0, T.nbColonnes)]))
 
     def test_AffichageRobot(self):
-        random_ligne = random.randint(0, 20)
-        random_colonne = random.randint(0, 20)
+        random_ligne = random.randint(5, 20)
+        random_colonne = random.randint(5, 20)
         t = Terrain.Terrain(random_ligne, random_colonne)
         random_x = random.randint(1, t.nbLignes - 1)
         random_y = random.randint(1, t.nbColonnes - 1)
@@ -167,3 +201,28 @@ class TerrainTest(unittest.TestCase):
         self.assertTrue(not t.ajout_objet(robot, -10, -10))
         self.assertTrue(not t.ajout_objet(robot, random_ligne, random_colonne))
         # t.affichage()
+
+    def test_continu_to_discret(self):
+        tc = TerrainContinu.Carre(20, (1.,1.))
+        t = Terrain.construireTerrain(tc, random.uniform(0.2,4.))
+
+        x = 0.
+        y = 0.
+        xMax = 0.
+        yMax = 0.
+        for vecteurSurface in tc.vecteursSurface:
+            targetX = vecteurSurface.x + x
+            targetY = vecteurSurface.y + y
+
+            if targetX > xMax:
+                xMax = targetX
+            if targetY > yMax:
+                yMax = targetY
+
+            x = targetX
+            y = targetY
+
+        # x 1.1 pour les problèmes d'affichage lié aux approximations
+        terrain = Terrain.Terrain(yMax + t.echelle, xMax + t.echelle * 1.1, t.echelle)
+        self.assertTrue(terrain.nbColonnes == t.nbColonnes)
+        self.assertTrue(terrain.nbLignes == t.nbLignes)

@@ -38,7 +38,7 @@ class Terrain(object):
         return False
 
     def ajout_objet_continu(self, objet, x, y):
-        self.ajout_objet(
+        return self.ajout_objet(
             objet,
             self.nbLignes - 1 - int(y / self.echelle),
             int(x / self.echelle)
