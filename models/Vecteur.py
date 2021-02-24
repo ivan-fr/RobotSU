@@ -93,3 +93,8 @@ class Vecteur(object):
             return True
         else:
             return False
+
+def Encode(Vecteur):
+    dic = dict(Vecteur.__dict__)
+    dic.update({"__class":Vecteur.__class__.__name__})
+    return dic

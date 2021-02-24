@@ -47,3 +47,8 @@ def hexagone(origine, norme):
     x, y = origine
     liste_sommet = [(x - norme, y), (x - n, y - n), (x + n, y - n), (x + norme, y), (x + n, y + n), (x - n, y + n)]
     return Polygone(liste_sommet)
+
+def Encode(Polygone):
+    dic = dict(Polygone.__dict__)
+    dic.update({"__class":Polygone.__class__.__name__})
+    return dic
