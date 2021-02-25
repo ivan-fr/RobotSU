@@ -52,3 +52,8 @@ class Robot(object):
         self.vecteurDeplacement = Vecteur.Vecteur(cos(radians(self.angle)) * vitesse,
                                                   sin(radians(self.angle)) * vitesse)
         self._vitesse = vitesse
+
+def Encode(Robot):
+    dic = dict(Robot.__dict__)
+    dic.update({"__class":Robot.__class__.__name__})
+    return dic

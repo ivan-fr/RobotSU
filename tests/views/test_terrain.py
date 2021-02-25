@@ -203,26 +203,27 @@ class TerrainTest(unittest.TestCase):
         # t.affichage()
 
     def test_continu_to_discret(self):
-        tc = TerrainContinu.Carre(20, (1.,1.))
+        tc = TerrainContinu.Carre(20)
         t = Terrain.construireTerrain(tc, random.uniform(0.2,4.))
 
-        x = 0.
-        y = 0.
-        xMax = 0.
-        yMax = 0.
-        for vecteurSurface in tc.vecteursSurface:
-            targetX = vecteurSurface.x + x
-            targetY = vecteurSurface.y + y
+        xMax = None
+        yMax = None
+        xMin = None
+        yMin = None
+        for sommetSurface in tc.polygoneSurface.liste_sommet:
+            x, y = sommetSurface
 
-            if targetX > xMax:
-                xMax = targetX
-            if targetY > yMax:
-                yMax = targetY
+            if xMax is None or x > xMax:
+                xMax = x
+            if yMax is None or y > yMax:
+                yMax = y
 
-            x = targetX
-            y = targetY
+            if xMin is None or x < xMin:
+                xMin = x
+            if yMin is None or y < yMin:
+                yMin = y
 
         # x 1.1 pour les problèmes d'affichage lié aux approximations
-        terrain = Terrain.Terrain(yMax + t.echelle, xMax + t.echelle * 1.1, t.echelle)
+        terrain = Terrain.Terrain(abs(yMin - yMax) + t.echelle, abs(xMax - xMin) + t.echelle, t.echelle, xMin, yMin)
         self.assertTrue(terrain.nbColonnes == t.nbColonnes)
         self.assertTrue(terrain.nbLignes == t.nbLignes)

@@ -1,10 +1,10 @@
 from models import Robot
-from models import Vecteur
+from models import Vecteur, Polygone
 
 
 class TerrainContinu(object):
-    def __init__(self, vecteursSurface, robot):
-        self.vecteursSurface = vecteursSurface
+    def __init__(self, polygoneSurface, robot=None):
+        self.polygoneSurface = polygoneSurface
         self.robot = robot
         self.listePolygone = []
 
@@ -25,9 +25,9 @@ class TerrainContinu(object):
             if p.collision(posOrigine, vecteurDeplacement):
                 return True
         # posX, posY : position du premier vecteur du terrain
-        posX = 0.
-        posY = 0.
-        for v in self.vecteursSurface:
+        posX = self.polygoneSurface.liste_sommet[0][0]
+        posY = self.polygoneSurface.liste_sommet[1][1]
+        for v in self.polygoneSurface.liste_vecteur:
             # vecteurDeplacement et (x,y) du robot
             if (v.collision((posX, posY), vecteurDeplacement, posOrigine)):
                 return True
@@ -37,11 +37,5 @@ class TerrainContinu(object):
         return False
 
 
-def Carre(norme, posRobot):
-    vecteursSurface = []
-
-    for i in range(4):
-        vecteursSurface.append(Vecteur.Vecteur(norme, 0).rotation(90 * i))
-
-    x, y = posRobot
-    return TerrainContinu(vecteursSurface, Robot.Robot(x, y, 1., 0.))
+def Carre(norme):
+    return TerrainContinu(Polygone.Carre((0.,0.), norme))

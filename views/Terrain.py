@@ -7,8 +7,10 @@ import platform
 
 
 class Terrain(object):
-    def __init__(self, nbLignes, nbColonnes, echelle=1):
+    def __init__(self, nbLignes, nbColonnes, echelle=1, xMin=0., yMin=0.):
         self.echelle = echelle
+        self.xMin = xMin
+        self.yMin = yMin
         self.nbLignes = int(nbLignes / echelle)
         self.nbColonnes = int(nbColonnes / echelle)
         self.grille = self.creerGrille()
@@ -40,8 +42,8 @@ class Terrain(object):
     def ajout_objet_continu(self, objet, x, y):
         return self.ajout_objet(
             objet,
-            self.nbLignes - 1 - int(y / self.echelle),
-            int(x / self.echelle)
+            self.nbLignes - 1 - int((y + int(abs(self.yMin))) / self.echelle),
+            int((x + int(abs(self.xMin))) / self.echelle) 
         )
 
     def ajout_alea(self, nbitem):
@@ -125,33 +127,36 @@ def construireTerrain(terrainContinu, echelle):
     """
 
     # determine les dimensions idéal du terrain
-    x = 0.
-    y = 0.
-    xMax = 0.
-    yMax = 0.
-    for vecteurSurface in terrainContinu.vecteursSurface:
-        targetX = vecteurSurface.x + x
-        targetY = vecteurSurface.y + y
+    xMax = None
+    yMax = None
+    xMin = None
+    yMin = None
+    for sommetSurface in terrainContinu.polygoneSurface.liste_sommet:
+        x, y = sommetSurface
 
-        if targetX > xMax:
-            xMax = targetX
-        if targetY > yMax:
-            yMax = targetY
+        if xMax is None or x > xMax:
+            xMax = x
+        if yMax is None or y > yMax:
+            yMax = y
 
-        x = targetX
-        y = targetY
+        if xMin is None or x < xMin:
+            xMin = x
+        if yMin is None or y < yMin:
+            yMin = y
 
     # x 1.1 pour les problèmes d'affichage lié aux approximations
-    terrain = Terrain(yMax + echelle, xMax + echelle * 1.1, echelle)
-    terrain.ajout_objet_continu(terrainContinu.robot, terrainContinu.robot.x, terrainContinu.robot.y)
+    terrain = Terrain(abs(yMin - yMax) + echelle, abs(xMax - xMin) + echelle, echelle, xMin, yMin)
+
+    if terrainContinu.robot is not None:
+        terrain.ajout_objet_continu(terrainContinu.robot, terrainContinu.robot.x, terrainContinu.robot.y)
 
     # dessine la delimitation
-    x = 0.
-    y = 0.
-    for vecteurSurface in terrainContinu.vecteursSurface:
-        terrain.dessineVecteur((x, y), vecteurSurface)
-        x += vecteurSurface.x
-        y += vecteurSurface.y
+    x = terrainContinu.polygoneSurface.liste_sommet[0][0]
+    y = terrainContinu.polygoneSurface.liste_sommet[0][1]
+    for sommetSurface in terrainContinu.polygoneSurface.liste_vecteur:
+        terrain.dessineVecteur((x, y), sommetSurface)
+        x += sommetSurface.x
+        y += sommetSurface.y
 
     # dessine les polygones
     for polygone in terrainContinu.listePolygone:
