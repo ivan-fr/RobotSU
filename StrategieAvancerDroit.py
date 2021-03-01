@@ -13,13 +13,11 @@ class StrategieAvancerDroit(object) :
         self.parcouru = 0
         self.pos_x = self.robot.x
         self.pos_y = self.robot.y
-        self.step()
 
     def step(self):
-        if self.stop() : return
-        self.robot.avance(self.temps)
-        self.parcouru += math.sqrt((self.robot.x - self.pos_x)*(self.robot.x - self.pos_x)+(self.robot.y - self.pos_y)*(self.robot.y - self.pos_y))
-        print(self.distance, self.parcouru)
+        self.tc.robot.avance(self.temps)
+        self.parcouru += math.sqrt((self.tc.robot.x - self.pos_x)*(self.tc.robot.x - self.pos_x)+(self.tc.robot.y - self.pos_y)*(self.tc.robot.y - self.pos_y))
 
     def stop(self):
-        return (self.parcouru >= self.distance) and (not self.robot.collision(self.tc, self.temps))
+        #condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle
+        return (self.parcouru < self.distance) and not (self.tc.robot.collision(self.tc, self.temps))

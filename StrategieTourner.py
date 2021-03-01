@@ -2,19 +2,15 @@ from models import Robot
 
 class StrategieTourner(object) :
 
-    def __init__(self, rotationAngle, robot):
+    def __init__(self, rotationAngle, robot, tc):
+        self.tc = tc
         self.robot = robot
-        self.angle = self.robot.angle
+        self.angle = self.tc.robot.angle
         self.rotationAngle = rotationAngle
 
     def start(self):
+        self.angle = self.tc.robot.angle
         self.step()
 
     def step(self):
-        if self.stop() : return 
-        print(self.robot.angle)
-        self.robot.rotation(self.rotationAngle)
-        self.angle = self.robot.angle
-
-    def stop(self):
-        return self.robot.angle >= self.angle+self.rotationAngle
+        self.tc.robot.rotation(self.rotationAngle)
