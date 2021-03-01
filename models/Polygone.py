@@ -3,18 +3,22 @@ from models import Vecteur
 
 class Polygone:
 
-    def __init__(self, liste_sommet):
+    
+    def __init__(self, liste_sommet, liste_vecteur=None):
         self.liste_vecteur = []
         self.liste_sommet = liste_sommet
-        for i in range(len(liste_sommet) - 1):
-            x1, y1 = liste_sommet[i]
-            x2, y2 = liste_sommet[i + 1]
-            v = Vecteur.Vecteur((x2 - x1), (y2 - y1))
-            self.liste_vecteur.append(v)
-        x0, y0 = liste_sommet[len(liste_sommet) - 1]
-        xn, yn = liste_sommet[0]
-        v = Vecteur.Vecteur((xn - x0), (yn - y0))
-        self.liste_vecteur.append(v)
+        if liste_vecteur is not None:
+          self.liste_vecteur = liste_vecteur
+        else:
+          for i in range(len(liste_sommet) - 1):
+              x1, y1 = liste_sommet[i]
+              x2, y2 = liste_sommet[i + 1]
+              v = Vecteur.Vecteur((x2 - x1), (y2 - y1))
+              self.liste_vecteur.append(v)
+          x0, y0 = liste_sommet[len(liste_sommet) - 1]
+          xn, yn = liste_sommet[0]
+          v = Vecteur.Vecteur((xn - x0), (yn - y0))
+          self.liste_vecteur.append(v)
 
     def collision(self, posRobot, VecteurDeplacement):
         """tuple(int * int) *  Vecteur -> boolean
@@ -48,7 +52,3 @@ def hexagone(origine, norme):
     liste_sommet = [(x - norme, y), (x - n, y - n), (x + n, y - n), (x + norme, y), (x + n, y + n), (x - n, y + n)]
     return Polygone(liste_sommet)
 
-def Encode(Polygone):
-    dic = dict(Polygone.__dict__)
-    dic.update({"__class":Polygone.__class__.__name__})
-    return dic

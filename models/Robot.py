@@ -3,7 +3,7 @@ from math import cos, sin, radians
 
 
 class Robot(object):
-    def __init__(self, x, y, vitesse, angle):
+    def __init__(self, x, y, vitesse = 0., angle = 0., vecteurDeplacement=None):
         self.vecteurDeplacement = None
         self._vitesse = 0.
 
@@ -53,7 +53,3 @@ class Robot(object):
                                                   sin(radians(self.angle)) * vitesse)
         self._vitesse = vitesse
 
-def Encode(Robot):
-    dic = dict(Robot.__dict__)
-    dic.update({"__class":Robot.__class__.__name__})
-    return dic

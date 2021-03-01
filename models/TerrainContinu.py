@@ -1,12 +1,13 @@
-from models import Robot
-from models import Vecteur, Polygone
+import models.Robot
+import models.Vecteur, models.Polygone
+import json
 
 
 class TerrainContinu(object):
-    def __init__(self, polygoneSurface, robot=None):
+    def __init__(self, polygoneSurface, robot=None, listePolygone=[]):
         self.polygoneSurface = polygoneSurface
         self.robot = robot
-        self.listePolygone = []
+        self.listePolygone = listePolygone
 
     def ajoutPolygone(self, polygone):
         """Polygone -> void 
@@ -38,4 +39,27 @@ class TerrainContinu(object):
 
 
 def Carre(norme):
-    return TerrainContinu(Polygone.Carre((0.,0.), norme))
+    return TerrainContinu(models.Polygone.Carre((0.,0.), norme))
+
+def my_enc(TerrainContinu):
+    dic = {k:v for k,v in TerrainContinu.__dict__.items() if not k.startswith("_")}
+    dic.update({"__class": TerrainContinu.__class__.__name__})
+    return dic
+
+def my_hook(dic):
+    if "__class" in dic:
+        cls = dic.pop("__class")
+        return eval(f"models.{cls}.{cls}")(**dic)
+    return dic
+
+def serialize(TerrainContinu,filename):
+    f = open(filename,"w")
+    s = json.dumps(my_enc(TerrainContinu), default=my_enc)
+    json.dump(s,f)
+    f.close()
+    return 
+
+
+def deserialize(filename):
+    dic = json.load(open(filename,"r"))
+    return json.loads(dic, object_hook=my_hook)
