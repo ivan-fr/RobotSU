@@ -1,9 +1,9 @@
 import random
-import os
 import time
 from models import Vecteur, Robot
 from math import atan, sin, cos, pi
 import platform
+import curses
 
 
 class Terrain(object):
@@ -89,11 +89,12 @@ class Terrain(object):
     def supprimerAffichage(self):
         """void -> void
         supprime l'affichage du terminal"""
+        stdscr = curses.initscr()
         time.sleep(1)
-        if platform.system() == "Windows":
-            os.system("cls")
-        elif platform.system() == "Linux":
-            os.system("clear")
+        stdscr.clear()
+        curses.nocbreak()
+        stdscr.keypad(False)
+        curses.echo()
         return
 
     def dessineVecteur(self, posOrigine, vecteur):
