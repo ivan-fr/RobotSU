@@ -45,7 +45,7 @@ class TerrainContinu(object):
         else:
             now = datetime.datetime.now()
             deltaT = (now - self.lastUpdate).total_seconds() * 1000
-            self.lastUpdate = deltaT
+            self.lastUpdate = now
             self.robot.avance(deltaT)
 
 def Carre(norme):
