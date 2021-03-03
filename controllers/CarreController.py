@@ -3,15 +3,6 @@ from models import TerrainContinu, Robot, Polygone
 from controllers import StrategieCarre
 import threading 
 import time
-# import AffichageThread
-
-# def Deplacement_Carre(self):
-#     for i in range(0,4) :
-#         #permet d'avancer
-#         controleur.update()
-#         #permet de tourner
-#         controleur.update()
-#         Terrain.affichage()
 
 lock = threading.RLock()
 
@@ -29,6 +20,12 @@ def updateModele(stratCarre, fps):
             stratCarre.step()
             time.sleep(1./fps)
 
+def updateTerrainContinu(self, tc, fps):
+    while True :
+        with lock:
+            tc.update()
+            time.sleep(1./fps)
+
 def run():
     tc = TerrainContinu.Carre(20)
     tc.ajoutPolygone(Polygone.hexagone((0, 0), 5))
@@ -44,5 +41,8 @@ def run():
 
     t1 = threading.Thread(target = affichage, args=(tc, fps))
     t2 = threading.Thread(target = updateModele, args=(stratCarre, fps))
+    t3 = threading.Thread(target = updateTerrainContinu, args=(tc, fps))
     t1.start()
     t2.start()
+    t3.start()
+
