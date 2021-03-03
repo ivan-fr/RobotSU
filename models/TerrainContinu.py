@@ -54,7 +54,7 @@ def my_hook(dic):
 
 def serialize(TerrainContinu,filename):
     f = open(filename,"w")
-    s = json.dumps(my_enc(TerrainContinu), default=my_enc)
+    s = json.dumps(TerrainContinu, default=my_enc, indent=4, sort_keys=True)
     json.dump(s,f)
     f.close()
     return 
