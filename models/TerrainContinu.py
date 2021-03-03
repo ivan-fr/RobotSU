@@ -1,13 +1,15 @@
 import models.Robot
 import models.Vecteur, models.Polygone
 import json
+import datetime
 
 
 class TerrainContinu(object):
-    def __init__(self, polygoneSurface, robot=None, listePolygone=[]):
+    def __init__(self, polygoneSurface, robot=None, listePolygone=[], lastUpdate=None):
         self.polygoneSurface = polygoneSurface
         self.robot = robot
         self.listePolygone = listePolygone
+        self.lastUpdate = lastUpdate
 
     def ajoutPolygone(self, polygone):
         """Polygone -> void 
@@ -37,6 +39,14 @@ class TerrainContinu(object):
             posY = posY + v.y
         return False
 
+    def update(self):
+        if self.lastUpdate is None:
+            self.lastUpdate = datetime.datetime.now()
+        else:
+            now = datetime.datetime.now()
+            deltaT = (now - self.lastUpdate).total_seconds() * 1000
+            self.lastUpdate = deltaT
+            self.robot.avance(deltaT)
 
 def Carre(norme):
     return TerrainContinu(models.Polygone.Carre((0.,0.), norme))
@@ -54,12 +64,10 @@ def my_hook(dic):
 
 def serialize(TerrainContinu,filename):
     f = open(filename,"w")
-    s = json.dumps(TerrainContinu, default=my_enc, indent=4, sort_keys=True)
-    json.dump(s,f)
+    json.dump(TerrainContinu, f, default=my_enc, indent=4, sort_keys=True)
     f.close()
     return 
 
 
 def deserialize(filename):
-    dic = json.load(open(filename,"r"))
-    return json.loads(dic, object_hook=my_hook)
+    return json.load(open(filename,"r"), object_hook=my_hook)

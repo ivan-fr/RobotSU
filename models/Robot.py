@@ -24,11 +24,11 @@ class Robot(object):
         return "Robot(cood.(" + str(self.x) + "," + str(self.y) + "),vitesse:" + str(
             self.vitesse) + "mm/s, angle:" + str(self.angle) + "°)"
 
-    def avance(self, temps):
+    def avance(self, deltaTemps):
         """ int -> None 
         cette methode permet de faire avancer le robot selon un temps donné."""
-        self.x += self.vecteurDeplacement.x * temps
-        self.y += self.vecteurDeplacement.y * temps
+        self.x += self.vecteurDeplacement.x * deltaTemps
+        self.y += self.vecteurDeplacement.y * deltaTemps
 
     def collision(self, terrainContinu, temps):
         return terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps)

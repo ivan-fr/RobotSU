@@ -2,7 +2,6 @@ import math
 from models import Robot
 
 class StrategieAvancerDroit(object) :
-
     def __init__(self, distance, temps, terrainC):
         self.distance = distance
         self.temps = temps
@@ -17,10 +16,13 @@ class StrategieAvancerDroit(object) :
         self.pos_x = self.tc.robot.x
         self.pos_y = self.tc.robot.y
 
-    def step(self):
-        self.tc.robot.avance(self.temps)
+    def step(self, vitesse):
+        self.tc.robot.vitesse = vitesse
         self.parcouru += math.sqrt((self.tc.robot.x - self.pos_x) ** 2+(self.tc.robot.y - self.pos_y) ** 2)
 
     def stop(self):
         #condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle
-        return (self.parcouru >= self.distance) or (self.tc.robot.collision(self.tc, self.temps))
+        result = (self.parcouru >= self.distance) or (self.tc.robot.collision(self.tc, self.temps))
+        if result:
+            self.tc.robot.vitesse = 0
+        return result

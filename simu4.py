@@ -10,7 +10,6 @@ if __name__ == '__main__':
     tc.ajoutPolygone(models.Polygone.hexagone((0, 0), 5))
     tc.robot = models.Robot.Robot(0, 5, 0.8, 0.)
     tc.robot.rotation(90)
-    models.TerrainContinu.serialize(tc,"saved")
-    Terraindeserialise= models.TerrainContinu.deserialize("saved")
+    models.TerrainContinu.serialize(tc,"saved.txt")
+    Terraindeserialise= models.TerrainContinu.deserialize("saved.txt")
     print(Terraindeserialise)
-   

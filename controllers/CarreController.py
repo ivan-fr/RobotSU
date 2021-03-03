@@ -21,13 +21,13 @@ def affichage(tc, fps):
             t = Terrain.construireTerrain(tc, 0.5)
             t.affichage()
             t.supprimerAffichage()
-            time.sleep(1./4)
+            time.sleep(1./fps)
 
 def updateModele(stratCarre, fps):
     while not stratCarre.stop:
         with lock:
             stratCarre.step()
-            time.sleep(1./4)
+            time.sleep(1./fps)
 
 def run():
     tc = TerrainContinu.Carre(20)
