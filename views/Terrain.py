@@ -86,16 +86,12 @@ class Terrain(object):
         self.grille[x][y] = None
         return True
 
-    def supprimerAffichage(self):
+    def supprimerAffichage(self, scrn):
         """void -> void
         supprime l'affichage du terminal"""
-        stdscr = curses.initscr()
+        scrn.clear()
         time.sleep(1)
-        stdscr.clear()
-        curses.nocbreak()
-        stdscr.keypad(False)
-        curses.echo()
-        return
+        curses.endwin()
 
     def dessineVecteur(self, posOrigine, vecteur):
         if vecteur.x == 0. and vecteur.y > 0.:

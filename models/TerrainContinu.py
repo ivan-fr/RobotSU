@@ -44,9 +44,10 @@ class TerrainContinu(object):
             self.lastUpdate = datetime.datetime.now()
         else:
             now = datetime.datetime.now()
-            deltaT = (now - self.lastUpdate).total_seconds() * 1000
+            deltaT = (now - self.lastUpdate).total_seconds()
             self.lastUpdate = now
-            self.robot.avance(deltaT)
+            if not self.robot.collision(self, deltaT):
+                self.robot.avance(deltaT)
 
 def Carre(norme):
     return TerrainContinu(models.Polygone.Carre((0.,0.), norme))
@@ -67,7 +68,6 @@ def serialize(TerrainContinu,filename):
     json.dump(TerrainContinu, f, default=my_enc, indent=4, sort_keys=True)
     f.close()
     return 
-
 
 def deserialize(filename):
     return json.load(open(filename,"r"), object_hook=my_hook)

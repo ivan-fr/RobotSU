@@ -1,7 +1,12 @@
 from views import Terrain
 from models import Polygone, TerrainContinu, Robot
+import curses
 
 if __name__ == '__main__':
+
+    scrn = curses.initscr()
+    curses.endwin()
+
     tc = TerrainContinu.Carre(20)
     tc.ajoutPolygone(Polygone.hexagone((0, 0), 5))
     tc.robot = Robot.Robot(0,5, 0.8, 0.)
@@ -12,8 +17,8 @@ if __name__ == '__main__':
         t = Terrain.construireTerrain(tc,1)
         t.affichage()
         if not tc.robot.collision(tc, 1):
-            t.supprimerAffichage()
+            t.supprimerAffichage(scrn)
         else:
             break
-
+        
     print("Le robot a rencontrer un obstacle !")
