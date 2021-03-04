@@ -18,7 +18,7 @@ class StrategieAvancerDroit(object) :
         self.tc.robot.vitesse = self.vitesse
 
     def step(self):
-        self.parcouru += math.sqrt((self.tc.robot.x - self.pos_x) ** 2+(self.tc.robot.y - self.pos_y) ** 2)
+        self.parcouru = math.sqrt((self.tc.robot.x - self.pos_x) ** 2+(self.tc.robot.y - self.pos_y) ** 2)
 
     def stop(self):
         #condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle

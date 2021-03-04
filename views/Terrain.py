@@ -4,7 +4,12 @@ from models import Vecteur, Robot
 from math import atan, sin, cos, pi
 import platform
 import curses
+import sys
+import os
 
+curses.setupterm()
+e3 = curses.tigetstr('E3') or b''
+clear_screen_seq = curses.tigetstr('clear') or b''
 
 class Terrain(object):
     def __init__(self, nbLignes, nbColonnes, echelle=1, xMin=0., yMin=0.):
@@ -86,12 +91,10 @@ class Terrain(object):
         self.grille[x][y] = None
         return True
 
-    def supprimerAffichage(self, scrn):
+    def supprimerAffichage(self):
         """void -> void
         supprime l'affichage du terminal"""
-        scrn.clear()
-        time.sleep(1)
-        curses.endwin()
+        os.write(sys.stdout.fileno(), e3 + clear_screen_seq)
 
     def dessineVecteur(self, posOrigine, vecteur):
         if vecteur.x == 0. and vecteur.y > 0.:
