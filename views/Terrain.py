@@ -4,12 +4,8 @@ from models import Vecteur, Robot
 from math import atan, sin, cos, pi
 import platform
 import curses
-import sys
 import os
 
-curses.setupterm()
-e3 = curses.tigetstr('E3') or b''
-clear_screen_seq = curses.tigetstr('clear') or b''
 
 class Terrain(object):
     def __init__(self, nbLignes, nbColonnes, echelle=1, xMin=0., yMin=0.):
@@ -48,7 +44,7 @@ class Terrain(object):
         return self.ajout_objet(
             objet,
             self.nbLignes - 1 - int((y + int(abs(self.yMin))) / self.echelle),
-            int((x + int(abs(self.xMin))) / self.echelle) 
+            int((x + int(abs(self.xMin))) / self.echelle)
         )
 
     def ajout_alea(self, nbitem):
@@ -94,7 +90,10 @@ class Terrain(object):
     def supprimerAffichage(self):
         """void -> void
         supprime l'affichage du terminal"""
-        os.write(sys.stdout.fileno(), e3 + clear_screen_seq)
+        if os.name == 'nt':
+            _ = os.system('cls')
+        else:
+            _ = os.system('clear')
 
     def dessineVecteur(self, posOrigine, vecteur):
         if vecteur.x == 0. and vecteur.y > 0.:
@@ -107,7 +106,8 @@ class Terrain(object):
         if vecteur.x < 0.:
             angle += pi
 
-        vecteurUnite = Vecteur.Vecteur(cos(angle) * self.echelle, sin(angle) * self.echelle)
+        vecteurUnite = Vecteur.Vecteur(
+            cos(angle) * self.echelle, sin(angle) * self.echelle)
 
         traceX = posOrigine[0]
         traceY = posOrigine[1]
@@ -145,10 +145,12 @@ def construireTerrain(terrainContinu, echelle):
             yMin = y
 
     # x 1.1 pour les problèmes d'affichage lié aux approximations
-    terrain = Terrain(abs(yMin - yMax) + echelle, abs(xMax - xMin) + echelle, echelle, xMin, yMin)
+    terrain = Terrain(abs(yMin - yMax) + echelle,
+                      abs(xMax - xMin) + echelle, echelle, xMin, yMin)
 
     if terrainContinu.robot is not None:
-        terrain.ajout_objet_continu(terrainContinu.robot, terrainContinu.robot.x, terrainContinu.robot.y)
+        terrain.ajout_objet_continu(
+            terrainContinu.robot, terrainContinu.robot.x, terrainContinu.robot.y)
 
     # dessine la delimitation
     x = terrainContinu.polygoneSurface.liste_sommet[0][0]
@@ -161,6 +163,7 @@ def construireTerrain(terrainContinu, echelle):
     # dessine les polygones
     for polygone in terrainContinu.listePolygone:
         for i in range(len(polygone.liste_vecteur)):
-            terrain.dessineVecteur(polygone.liste_sommet[i], polygone.liste_vecteur[i])
+            terrain.dessineVecteur(
+                polygone.liste_sommet[i], polygone.liste_vecteur[i])
 
     return terrain

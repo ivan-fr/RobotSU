@@ -1,11 +1,10 @@
 from views import Terrain
 from models import TerrainContinu, Robot, Polygone
 from controllers import StrategieCarre
-import threading 
+import threading
 import time
 import curses
 
-lock = threading.RLock()
 
 def affichage(tc, fps):
     while True:
@@ -14,33 +13,37 @@ def affichage(tc, fps):
         time.sleep(1./fps)
         t.supprimerAffichage()
 
+
 def updateStrats(stratCarre, fps):
     while not stratCarre.stop:
         stratCarre.step()
 
+
 def updateTerrainContinu(tc, fps):
-    while True :
+    while True:
         tc.update()
         time.sleep(1./fps)
 
+
 def run():
     tc = TerrainContinu.Carre(20)
-    tc.robot = Robot.Robot(0,0, 0., 0.)
+    tc.robot = Robot.Robot(0, 0, 0., 0.)
     # mache avec 0 ou 180
     tc.robot.rotation(0)
     # mache avec 90 ou -90 comme valeur de rotation, entier positif pour distance
     stratCarre = StrategieCarre.StrategieCarre(tc, 7.)
-    #--> pour pouvoir faire des carres dans des sens differents
+    # --> pour pouvoir faire des carres dans des sens differents
     stratCarre.start()
 
     fps = 24
 
-    t1 = threading.Thread(target = affichage, args=(tc, fps))
-    t2 = threading.Thread(target = updateStrats, args=(stratCarre, fps))
-    t3 = threading.Thread(target = updateTerrainContinu, args=(tc, fps))
+    t1 = threading.Thread(target=affichage, args=(tc, fps))
+    t2 = threading.Thread(target=updateStrats, args=(stratCarre, fps))
+    t3 = threading.Thread(target=updateTerrainContinu, args=(tc, fps))
     t1.start()
     t2.start()
     t3.start()
+
 
 if __name__ == '__main__':
     run()
