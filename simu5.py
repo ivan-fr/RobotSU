@@ -5,7 +5,7 @@ import threading
 import time
 import curses
 
-
+stop_thread = True
 def affichage(tc, fps):
     while True:
         t = Terrain.construireTerrain(tc, 0.5)
@@ -20,7 +20,8 @@ def updateStrats(stratCarre, fps):
 
 
 def updateTerrainContinu(tc, fps):
-    while True:
+    global stop_thread
+    while stop_thread:
         tc.update()
         time.sleep(1./fps)
 
@@ -43,7 +44,13 @@ def run():
     t1.start()
     t2.start()
     t3.start()
-
+    print(stratCarre.stop())
+    while(stratCarre.stop() == False):
+        time.sleep(1)
+    global stop_thread
+    stop_thread = False
+    
+    
 
 if __name__ == '__main__':
     run()
