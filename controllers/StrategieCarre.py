@@ -17,10 +17,10 @@ class StrategieCarre(object):
     def step(self):
         if not self.stratAvancer.stop():
             self.stratAvancer.step()
-        elif not self.stratTourner.stop:
+        elif not self.stratTourner.stop():
             self.stratTourner.step()
         
-        if self.stratTourner.stop and self.stratAvancer.stop():
+        if self.stratTourner.stop() and self.stratAvancer.stop():
             self.nbCoteParcouru += 1
 
             if self.nbCoteParcouru == 4:
