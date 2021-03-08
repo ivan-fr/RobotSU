@@ -8,13 +8,11 @@ class StrategieCarre(object):
         self.stratTourner = StrategieTourner.StrategieTourner(90., self.tc)
         
         self.nbCoteParcouru = 0
-        self.stop = False
 
     def start(self):
         self.nbCoteParcouru = 0
         self.stratAvancer.start()
         self.stratTourner.start()
-        self.stop = False
 
     def step(self):
         if not self.stratAvancer.stop():
@@ -26,7 +24,11 @@ class StrategieCarre(object):
             self.nbCoteParcouru += 1
 
             if self.nbCoteParcouru == 4:
-                self.stop = True
+                pass
             else:
                 self.stratAvancer.start()
                 self.stratTourner.start()
+    
+    def stop(self):
+        #condition d'arret lorsque le robot a parcouru les 4 cotes
+        return self.nbCoteParcouru == 4
