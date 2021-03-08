@@ -7,7 +7,8 @@ import curses
 
 stop_thread = True
 def affichage(tc, fps):
-    while True:
+    global stop_thread
+    while stop_thread:
         t = Terrain.construireTerrain(tc, 0.5)
         t.affichage()
         time.sleep(1./fps)
