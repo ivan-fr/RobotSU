@@ -3,7 +3,7 @@ from math import cos, sin, radians
 
 
 class Robot(object):
-    def __init__(self, x, y, vitesse = 0., angle = 0., vecteurDeplacement=None):
+    def __init__(self, x, y, vitesse = 0., angle = 0., vecteurDeplacement=None, lastCollision=False):
         self.vecteurDeplacement = None
         self._vitesse = 0.
 
@@ -16,6 +16,8 @@ class Robot(object):
             self.angle -= 360.
 
         self.vitesse = vitesse
+
+        self.lastCollision = lastCollision
 
     def __str__(self):
         """ -> str
@@ -31,7 +33,11 @@ class Robot(object):
         self.y += self.vecteurDeplacement.y * deltaTemps
 
     def collision(self, terrainContinu, temps):
-        return terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps)
+        if terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps):
+            self.lastCollision = True
+            return True
+        
+        return False
 
     def rotation(self, angleRelative):
         """float -> void

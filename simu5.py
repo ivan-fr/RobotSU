@@ -6,6 +6,8 @@ import time
 import curses
 
 stop_thread = True
+
+
 def affichage(tc, fps):
     global stop_thread
     while stop_thread:
@@ -16,8 +18,11 @@ def affichage(tc, fps):
 
 
 def updateStrats(stratCarre, fps):
-    while not stratCarre.stop:
+    while not stratCarre.stop():
         stratCarre.step()
+        time.sleep(1./fps)
+    stop_thread = False
+    print(stop_thread)
 
 
 def updateTerrainContinu(tc, fps):
@@ -37,7 +42,7 @@ def run():
     # --> pour pouvoir faire des carres dans des sens differents
     stratCarre.start()
 
-    fps = 24
+    fps = 60
 
     t1 = threading.Thread(target=affichage, args=(tc, fps))
     t2 = threading.Thread(target=updateStrats, args=(stratCarre, fps))
@@ -50,8 +55,7 @@ def run():
         time.sleep(1)
     global stop_thread
     stop_thread = False
-    
-    
+
 
 if __name__ == '__main__':
     run()
