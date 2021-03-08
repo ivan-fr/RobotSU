@@ -42,7 +42,7 @@ class PolygoneTest(unittest.TestCase):
         b = False
         i = 0
         while (i < len(p.liste_sommet)):
-            if p.liste_vecteur[i].collision(p.liste_sommet[i], vD, posRobot):
+            if p._liste_vecteur[i].collision(p.liste_sommet[i], vD, posRobot):
                 b = True
             i = i + 1
 

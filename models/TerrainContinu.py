@@ -52,9 +52,9 @@ class TerrainContinu(object):
 def Carre(norme):
     return TerrainContinu(models.Polygone.Carre((0.,0.), norme))
 
-def my_enc(TerrainContinu):
-    dic = {k:v for k,v in TerrainContinu.__dict__.items() if not k.startswith("_")}
-    dic.update({"__class": TerrainContinu.__class__.__name__})
+def my_enc(obj):
+    dic = {k:v for k,v in obj.__dict__.items() if not k.startswith("_")}
+    dic.update({"__class": obj.__class__.__name__})
     return dic
 
 def my_hook(dic):

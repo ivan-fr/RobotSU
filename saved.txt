@@ -1,5 +1,6 @@
 {
     "__class": "TerrainContinu",
+    "lastUpdate": null,
     "listePolygone": [
         {
             "__class": "Polygone",
@@ -28,38 +29,6 @@
                     -2.5,
                     2.5
                 ]
-            ],
-            "liste_vecteur": [
-                {
-                    "__class": "Vecteur",
-                    "x": 2.5,
-                    "y": -2.5
-                },
-                {
-                    "__class": "Vecteur",
-                    "x": 5.0,
-                    "y": 0.0
-                },
-                {
-                    "__class": "Vecteur",
-                    "x": 2.5,
-                    "y": 2.5
-                },
-                {
-                    "__class": "Vecteur",
-                    "x": -2.5,
-                    "y": 2.5
-                },
-                {
-                    "__class": "Vecteur",
-                    "x": -5.0,
-                    "y": 0.0
-                },
-                {
-                    "__class": "Vecteur",
-                    "x": -2.5,
-                    "y": -2.5
-                }
             ]
         }
     ],
@@ -82,33 +51,12 @@
                 -10.0,
                 10.0
             ]
-        ],
-        "liste_vecteur": [
-            {
-                "__class": "Vecteur",
-                "x": 20.0,
-                "y": 0.0
-            },
-            {
-                "__class": "Vecteur",
-                "x": 0.0,
-                "y": 20.0
-            },
-            {
-                "__class": "Vecteur",
-                "x": -20.0,
-                "y": 0.0
-            },
-            {
-                "__class": "Vecteur",
-                "x": 0.0,
-                "y": -20.0
-            }
         ]
     },
     "robot": {
         "__class": "Robot",
         "angle": 90.0,
+        "lastCollision": false,
         "vecteurDeplacement": {
             "__class": "Vecteur",
             "x": 4.898587196589413e-17,
