@@ -21,7 +21,7 @@ class StrategieAvancerDroit(object) :
         self.pos_y = self.tc.robot.y
         self.tc.robot.vitesse = self.vitesse
 
-       def step(self):
+    def step(self):
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
         else:
