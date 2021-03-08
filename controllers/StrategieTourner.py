@@ -5,10 +5,10 @@ class StrategieTourner(object) :
     def __init__(self, rotationAngle, tc):
         self.tc = tc
         self.rotationAngle = rotationAngle
-        self.ancienAngle = self.tc.angle
+        self.ancienAngle = self.tc.robot.angle
 
     def start(self):
-        self.ancienAngle = self.tc.angle
+        self.ancienAngle = self.tc.robot.angle
 
     def step(self):
         self.tc.robot.rotation(self.rotationAngle)
