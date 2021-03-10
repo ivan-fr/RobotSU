@@ -9,7 +9,6 @@ stop_thread = True
 
 
 def affichage(tc, fps):
-    global stop_thread
     while stop_thread:
         t = Terrain.construireTerrain(tc, 0.5)
         t.affichage()
@@ -21,12 +20,12 @@ def updateStrats(stratCarre, fps):
     while not stratCarre.stop():
         stratCarre.step()
         time.sleep(1./fps)
+    global stop_thread
     stop_thread = False
     print(stop_thread)
 
 
 def updateTerrainContinu(tc, fps):
-    global stop_thread
     while stop_thread:
         tc.update()
         time.sleep(1./fps)
@@ -50,6 +49,7 @@ def run():
     t1.start()
     t2.start()
     t3.start()
+
 
 if __name__ == '__main__':
     run()

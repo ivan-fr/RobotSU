@@ -4,7 +4,7 @@ class StrategieCarre(object):
     def __init__(self,terrainC, coteCarre):
         self.tc = terrainC
         self.tc.robot.etat = None
-        self.stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(coteCarre, 1, self.tc)
+        self.stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(coteCarre, 3, self.tc)
         self.stratTourner = StrategieTourner.StrategieTourner(90., self.tc)
         
         self.nbCoteParcouru = 0
