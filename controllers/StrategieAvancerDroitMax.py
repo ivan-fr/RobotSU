@@ -1,21 +1,32 @@
 from controllers import StrategieAvancerDroit, StrategieTourner
+from models import Robot
+import datetime
 
 class StrategieAvancerDroitMax(object):
-    def __init__(self,terrainC):
+    def __init__(self,terrainC,vitesse,lastUpdate=None):
         self.tc = terrainC
-        self.tc.robot.etat = None
-        self.stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(2000, 1, self.tc)
-        
+        self.vitessemax=vitesse
+        self.vitesseinit = self.tc.robot.vitesse
 
+
+        self.lastUpdate = lastUpdate
+        
+        
+    def acceleration(self,deltaT):
+        self.accel = (self.vitessemax - self.vitesseinit)/deltaT
 
     def start(self):
-        self.stratAvancer.start()
+        self.parcouru = 0
+        self.tc.robot.vitesse = 0
 
     def step(self):
-        x = self.stratAvancer.tc.robot.pos_x 
-        y = self.stratAvancer.tc.robot.pos_y 
-        if not self.stratAvancer.tc.collision((x,y),self.stratAvancer.tc.robot.vecteurDeplacement):
-            self.stratAvancer.step()
-        else :
-            print("le robot s'est approché le plus possible du mur")
+        if self.lastUpdate is None:
+            self.lastUpdate = datetime.datetime.now()
+        else:
+            now = datetime.datetime.now()
+            deltaT = (now - self.lastUpdate).total_seconds()
+            self.lastUpdate = now
+            if not self.tc.robot.collision(self, deltaT):
+                self.acceleration(deltaT)
+                self.tc.robot.vitesse = self.vitessemax - self.accel * deltaT
     
