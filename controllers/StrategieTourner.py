@@ -13,9 +13,10 @@ class StrategieTourner(object) :
     def start(self):
         self.angleApplique = 0.
         self.lastUpdate = None
-        self.robot._degreParSeconde = self.degreParSeconde
+        self.robot._degreParSeconde = 0.
 
     def step(self):
+        self.robot._degreParSeconde = self.degreParSeconde
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
         else:
@@ -29,6 +30,5 @@ class StrategieTourner(object) :
         result = self.angleApplique >= self.angleTarget
         if result:
             self.robot._degreParSeconde = 0.
-        print(result, self.angleApplique, self.angleTarget)
 
         return result
