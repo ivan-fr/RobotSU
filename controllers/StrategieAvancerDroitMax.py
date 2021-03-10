@@ -3,10 +3,10 @@ from models import Robot
 import datetime
 
 class StrategieAvancerDroitMax(object):
-    def __init__(self,terrainC,vitesse,lastUpdate=None):
-        self.tc = terrainC
+    def __init__(self,Robot,vitesse,lastUpdate=None):
+        self.robot = Robot
         self.vitessemax=vitesse
-        self.vitesseinit = self.tc.robot.vitesse
+        self.vitesseinit = self.robot.vitesse
 
 
         self.lastUpdate = lastUpdate
@@ -17,7 +17,8 @@ class StrategieAvancerDroitMax(object):
 
     def start(self):
         self.parcouru = 0
-        self.tc.robot.vitesse = 0
+        self.robot.vitesse = 0
+        self.accel = 0
 
     def step(self):
         if self.lastUpdate is None:
@@ -26,7 +27,7 @@ class StrategieAvancerDroitMax(object):
             now = datetime.datetime.now()
             deltaT = (now - self.lastUpdate).total_seconds()
             self.lastUpdate = now
-            if not self.tc.robot.collision(self, deltaT):
+            if not self.robot.collision(self, deltaT):
                 self.acceleration(deltaT)
-                self.tc.robot.vitesse = self.vitessemax - self.accel * deltaT
+                self.robot.vitesse = self.vitessemax - self.accel * deltaT
     
