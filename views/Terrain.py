@@ -155,15 +155,15 @@ def construireTerrain(terrainContinu, echelle):
     # dessine la delimitation
     x = terrainContinu.polygoneSurface.liste_sommet[0][0]
     y = terrainContinu.polygoneSurface.liste_sommet[0][1]
-    for sommetSurface in terrainContinu.polygoneSurface.liste_vecteur:
+    for sommetSurface in terrainContinu.polygoneSurface._liste_vecteur:
         terrain.dessineVecteur((x, y), sommetSurface)
         x += sommetSurface.x
         y += sommetSurface.y
 
     # dessine les polygones
     for polygone in terrainContinu.listePolygone:
-        for i in range(len(polygone.liste_vecteur)):
+        for i in range(len(polygone._liste_vecteur)):
             terrain.dessineVecteur(
-                polygone.liste_sommet[i], polygone.liste_vecteur[i])
+                polygone.liste_sommet[i], polygone.l_iste_vecteur[i])
 
     return terrain

@@ -30,7 +30,7 @@ class TerrainContinu(object):
         # posX, posY : position du premier vecteur du terrain
         posX = self.polygoneSurface.liste_sommet[0][0]
         posY = self.polygoneSurface.liste_sommet[1][1]
-        for v in self.polygoneSurface.liste_vecteur:
+        for v in self.polygoneSurface._liste_vecteur:
             # vecteurDeplacement et (x,y) du robot
             if (v.collision((posX, posY), vecteurDeplacement, posOrigine)):
                 return True

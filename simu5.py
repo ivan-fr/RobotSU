@@ -50,12 +50,6 @@ def run():
     t1.start()
     t2.start()
     t3.start()
-    print(stratCarre.stop())
-    while(stratCarre.stop() == False):
-        time.sleep(1)
-    global stop_thread
-    stop_thread = False
-
 
 if __name__ == '__main__':
     run()

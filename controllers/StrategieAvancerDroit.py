@@ -10,15 +10,10 @@ class StrategieAvancerDroit(object):
         self.tc = terrainC
 
         self.parcouru = 0
-        self.pos_x = 0
-        self.pos_y = 0
-
         self.lastUpdate = lastUpdate
 
     def start(self):
         self.parcouru = 0
-        self.pos_x = self.tc.robot.x
-        self.pos_y = self.tc.robot.y
         self.tc.robot.vitesse = self.vitesse
 
     def step(self):
