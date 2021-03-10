@@ -33,11 +33,8 @@ class Robot(object):
         self.y += self.vecteurDeplacement.y * deltaTemps
 
     def collision(self, terrainContinu, temps):
-        if terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps):
-            self.lastCollision = True
-            return True
-        
-        return False
+        self.lastCollision = terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps)
+        return self.lastCollision
 
     def rotation(self, angleRelative):
         """float -> void

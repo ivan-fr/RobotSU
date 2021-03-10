@@ -35,5 +35,4 @@ class StrategieAvancerDroit(object):
         result = self.parcouru >= self.distance or self.tc.robot.lastCollision
         if result:
             self.tc.robot.vitesse = 0
-            self.tc.robot.lastCollision = False
         return result
