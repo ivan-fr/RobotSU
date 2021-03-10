@@ -12,6 +12,7 @@ class StrategieTourner(object) :
 
     def start(self):
         self.angleApplique = 0.
+        self.lastUpdate = None
         self.robot._degreParSeconde = self.degreParSeconde
 
     def step(self):

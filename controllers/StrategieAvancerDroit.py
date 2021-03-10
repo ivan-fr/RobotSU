@@ -14,6 +14,7 @@ class StrategieAvancerDroit(object):
 
     def start(self):
         self.parcouru = 0
+        self.lastUpdate = None
         self.robot.vitesse = self.vitesse
 
     def step(self):
