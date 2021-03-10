@@ -37,7 +37,7 @@ def run():
     # mache avec 0 ou 180
     tc.robot.rotation(0)
     # mache avec 90 ou -90 comme valeur de rotation, entier positif pour distance
-    stratCarre = StrategieCarre.StrategieCarre(tc, 3., 7.)
+    stratCarre = StrategieCarre.StrategieCarre(tc.robot, 3., 7.)
     # --> pour pouvoir faire des carres dans des sens differents
     stratCarre.start()
 
