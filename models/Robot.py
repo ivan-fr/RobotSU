@@ -70,4 +70,3 @@ class Robot(object):
         self.vecteurDeplacement = Vecteur.Vecteur(cos(radians(self.angle)) * vitesse,
                                                   sin(radians(self.angle)) * vitesse)
         self._vitesse = vitesse
-

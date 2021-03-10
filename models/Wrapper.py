@@ -1,4 +1,4 @@
-import RobotIRL, Robot
+from models import RobotIRL, Robot
 
 class Wrapper(object):
     def __init__(self, RobotIRL):
