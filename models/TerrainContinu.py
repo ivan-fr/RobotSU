@@ -1,13 +1,10 @@
 import models.Robot
 import models.Vecteur, models.Polygone
 import json
-import datetime
-
 
 class TerrainContinu(object):
-    def __init__(self, polygoneSurface, robot=None, listePolygone=[], lastUpdate=None):
+    def __init__(self, polygoneSurface, listePolygone=[], lastUpdate=None):
         self.polygoneSurface = polygoneSurface
-        self.robot = robot
         self.listePolygone = listePolygone
         self.lastUpdate = lastUpdate
 
@@ -38,16 +35,6 @@ class TerrainContinu(object):
             posX = posX + v.x
             posY = posY + v.y
         return False
-
-    def update(self):
-        if self.lastUpdate is None:
-            self.lastUpdate = datetime.datetime.now()
-        else:
-            now = datetime.datetime.now()
-            deltaT = (now - self.lastUpdate).total_seconds()
-            self.lastUpdate = now
-            if not self.robot.collision(self, deltaT):
-                self.robot.avance(deltaT)
 
 def Carre(norme):
     return TerrainContinu(models.Polygone.Carre((0.,0.), norme))

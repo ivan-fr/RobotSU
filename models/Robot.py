@@ -1,11 +1,14 @@
 from models import Vecteur
 from math import cos, sin, radians
+import datetime
 
 
 class Robot(object):
     def __init__(self, x, y, vitesse = 0., angle = 0., vecteurDeplacement=None, lastCollision=False):
         self.vecteurDeplacement = None
         self._vitesse = 0.
+        self._degreParSeconde = 0.
+        self._lastUpdate = None
 
         self.x = x
         self.y = y
@@ -36,15 +39,27 @@ class Robot(object):
         self.lastCollision = terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps)
         return self.lastCollision
 
-    def rotation(self, angleRelative):
+    def rotation(self, deltaTemps):
         """float -> void
         met à jour le vecteur deplacement du robot et son angle"""
+        angleRelative = self._degreParSeconde * deltaTemps
         self.vecteurDeplacement = self.vecteurDeplacement.rotation(angleRelative)
         self.angle += angleRelative
         self.angle %= 360
 
         if self.angle > 180.:
             self.angle -= 360.
+
+    def update(self, tc):
+        if self._lastUpdate is None:
+            self._lastUpdate = datetime.datetime.now()
+        else:
+            now = datetime.datetime.now()
+            deltaT = (now - self._lastUpdate).total_seconds()
+            self._lastUpdate = now
+            self.rotation(deltaT)
+            if not self.collision(tc, deltaT):
+                self.avance(deltaT)
 
     @property
     def vitesse(self):

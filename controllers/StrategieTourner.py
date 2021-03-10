@@ -1,20 +1,33 @@
 from models import Robot
+import datetime
 
 class StrategieTourner(object) :
 
-    def __init__(self, rotationAngle, robot):
+    def __init__(self, angleTarget, degreParSeconde, robot):
         self.robot = robot
-        self.rotationAngle = rotationAngle
+        self.angleTarget = angleTarget
+        self.angleApplique = 0.
+        self.degreParSeconde = degreParSeconde
+        self.lastUpdate = None
 
     def start(self):
-        self.newA = (self.robot.angle+self.rotationAngle) % 360.
-
-        if self.newA > 180.:
-            self.newA -= 360.
+        self.angleApplique = 0.
+        self.robot._degreParSeconde = self.degreParSeconde
 
     def step(self):
-        self.robot.rotation(self.rotationAngle)
+        if self.lastUpdate is None:
+            self.lastUpdate = datetime.datetime.now()
+        else:
+            now = datetime.datetime.now()
+            deltaT = (now - self.lastUpdate).total_seconds()
+            self.lastUpdate = now
+            self.angleApplique += deltaT * self.robot._degreParSeconde
 
     def stop(self):
-        # condition d'arret, si le robot a bien tourne de l'angle demande  
-        return abs(self.robot.angle - self.newA) <= 0.5
+        # condition d'arret, si le robot a bien tourne
+        result = self.angleApplique >= self.angleTarget
+        if result:
+            self.robot._degreParSeconde = 0.
+        print(result, self.angleApplique, self.angleTarget)
+
+        return result

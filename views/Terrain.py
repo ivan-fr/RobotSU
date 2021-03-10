@@ -65,19 +65,19 @@ class Terrain(object):
     def affichage(self):
         """affiche le Terrain"""
         bordure = "".join(["+", "-" * self.nbColonnes, "+"])
-        print(bordure)
+        string = bordure + "\n"
         for i in self.grille:
-            print("|", end="")
+            string += "|"
             for j in i:
                 if j is None:
-                    print(" ", end="")
+                    string += " "
                 elif isinstance(j, Robot.Robot):
-                    print("R", end="")
+                    string += "R"
                 else:
-                    print("X", end="")
-            print("|", end="")
-            print()
-        print(bordure + "\n")
+                    string += "X"
+            string += "|\n"
+        string += bordure
+        print(string)
 
     def supprimerObjet(self, x, y):
         """int * int -> bool
@@ -120,7 +120,7 @@ class Terrain(object):
             traceY += vecteurUnite.y
 
 
-def construireTerrain(terrainContinu, echelle):
+def construireTerrain(terrainContinu, robot, echelle):
     """return Terrain
     affiche le terrain de maniere discrete
     echelle: combien de case par unité. La valeur de l'unité est dans la variable echelle
@@ -148,9 +148,8 @@ def construireTerrain(terrainContinu, echelle):
     terrain = Terrain(abs(yMin - yMax) + echelle,
                       abs(xMax - xMin) + echelle, echelle, xMin, yMin)
 
-    if terrainContinu.robot is not None:
-        terrain.ajout_objet_continu(
-            terrainContinu.robot, terrainContinu.robot.x, terrainContinu.robot.y)
+    if robot is not None:
+        terrain.ajout_objet_continu(robot, robot.x, robot.y)
 
     # dessine la delimitation
     x = terrainContinu.polygoneSurface.liste_sommet[0][0]

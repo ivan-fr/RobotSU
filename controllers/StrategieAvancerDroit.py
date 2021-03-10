@@ -4,13 +4,13 @@ import datetime
 
 
 class StrategieAvancerDroit(object):
-    def __init__(self, distance, vitesse, robot, lastUpdate=None):
+    def __init__(self, distance, vitesse, robot):
         self.distance = distance
         self.vitesse = vitesse
         self.robot = robot
 
         self.parcouru = 0
-        self.lastUpdate = lastUpdate
+        self.lastUpdate = None
 
     def start(self):
         self.parcouru = 0
@@ -27,7 +27,7 @@ class StrategieAvancerDroit(object):
 
     def stop(self):
         # condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle
-        result = self.parcouru >= self.distance or self.robot.lastCollision
+        result = self.parcouru >= self.distance
         if result:
             self.robot.vitesse = 0
         return result

@@ -8,9 +8,9 @@ import curses
 stop_thread = True
 
 
-def affichage(tc, fps):
+def affichage(robot, tc, fps):
     while stop_thread:
-        t = Terrain.construireTerrain(tc, 0.5)
+        t = Terrain.construireTerrain(tc, robot, 0.5)
         t.affichage()
         time.sleep(1./fps)
         t.supprimerAffichage()
@@ -25,27 +25,25 @@ def updateStrats(stratCarre, fps):
     print(stop_thread)
 
 
-def updateTerrainContinu(tc, fps):
+def updateRobot(robot, tc, fps):
     while stop_thread:
-        tc.update()
+        robot.update(tc)
         time.sleep(1./fps)
 
 
 def run():
     tc = TerrainContinu.Carre(20)
-    tc.robot = Robot.Robot(0, 0, 0., 0.)
-    # mache avec 0 ou 180
-    tc.robot.rotation(0)
+    robot = Robot.Robot(0, 0, 0., 0.)
     # mache avec 90 ou -90 comme valeur de rotation, entier positif pour distance
-    stratCarre = StrategieCarre.StrategieCarre(tc.robot, 3., 7.)
+    stratCarre = StrategieCarre.StrategieCarre(robot, 3., 2., 7.)
     # --> pour pouvoir faire des carres dans des sens differents
     stratCarre.start()
 
     fps = 60
 
-    t1 = threading.Thread(target=affichage, args=(tc, fps))
+    t1 = threading.Thread(target=affichage, args=(robot, tc, fps))
     t2 = threading.Thread(target=updateStrats, args=(stratCarre, fps))
-    t3 = threading.Thread(target=updateTerrainContinu, args=(tc, fps))
+    t3 = threading.Thread(target=updateRobot, args=(robot, tc, fps))
     t1.start()
     t2.start()
     t3.start()
