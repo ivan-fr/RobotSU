@@ -15,22 +15,19 @@ class RobotTest(unittest.TestCase):
         self.assertTrue(r.y == random_y)
         self.assertTrue(r.vitesse == random_vitesse)
         self.assertTrue(abs(r.angle - random_angle) < 0.0001)
-
+        self.assertTrue(r._degreParSeconde == 0.)
+        self.assertTrue(r._lastUpdate == None)
+        self.assertTrue(r.lastCollision == False)
 
     def test_rotation(self):
         r = Robot.Robot(0., 0., 1., 0.)
         oldAngle = r.angle
         oldVecteurD = r.vecteurDeplacement
-        randomAngleRelative = random.uniform(-180, 180)
-        r.rotation(randomAngleRelative)
+        deltaT = random.uniform(0, 5)
+        randomAngleRelative = r._degreParSeconde * deltaT
+        r.rotation(deltaT)
 
-        oldAngle += randomAngleRelative
-        oldAngle %= 360
-
-        if oldAngle > 180.:
-            oldAngle -= 360
-
-        self.assertTrue(abs(oldAngle - r.angle) < 0.0001)
+        self.assertTrue(abs(oldAngle - r.angle) == randomAngleRelative)
 
         compare_vecteur = r.vecteurDeplacement + oldVecteurD.rotation(randomAngleRelative) * (-1)
         self.assertTrue(abs(compare_vecteur.norme()) < 0.00001)

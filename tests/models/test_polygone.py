@@ -7,7 +7,7 @@ class PolygoneTest(unittest.TestCase):
     def is_polygone(self, polygone):
         v = Vecteur.Vecteur(0., 0.)
 
-        for vp in polygone.liste_vecteur:
+        for vp in polygone._liste_vecteur:
             v = v + vp
 
         self.assertTrue(abs(v.x) <= 0.00001 and abs(v.y) <= 0.00001)

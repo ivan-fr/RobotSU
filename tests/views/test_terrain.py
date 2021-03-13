@@ -204,7 +204,7 @@ class TerrainTest(unittest.TestCase):
 
     def test_continu_to_discret(self):
         tc = TerrainContinu.Carre(20)
-        t = Terrain.construireTerrain(tc, random.uniform(0.2,4.))
+        t = Terrain.construireTerrain(tc, Robot.Robot(random.uniform(0.2,4.),random.uniform(0.2,4.)),random.uniform(1,5))
 
         xMax = None
         yMax = None

@@ -7,6 +7,7 @@ class TerrainContinuTest(unittest.TestCase):
         tc = TerrainContinu.Carre(20)
         self.assertIsNotNone(tc.polygoneSurface)
         self.assertIsNotNone(tc.listePolygone)
+        self.assertIsNone(tc.lastUpdate)
 
     def test_ajout_polygone(self):
         tc = TerrainContinu.Carre(20)
@@ -36,7 +37,7 @@ class TerrainContinuTest(unittest.TestCase):
         # posX, posY : position du premier vecteur du terrain
         posX = tc.polygoneSurface.liste_sommet[0][0]
         posY = tc.polygoneSurface.liste_sommet[1][1]
-        for v in tc.polygoneSurface.liste_vecteur:
+        for v in tc.polygoneSurface._liste_vecteur:
             # vecteurDeplacement et (x,y) du robot
             if (v.collision((posX, posY), vecteurDeplacement, posOrigine)):
                 b = True
