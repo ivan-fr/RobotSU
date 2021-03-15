@@ -35,10 +35,10 @@ class Wrapper(object):
         return self.avance
 
     @avance.setter
-    def avance(self, deltaT, rayonRoue):
+    def avance(self, rayonRoue):
         """passer en parametres pour motor: MOTOR_LEFT ou MOTOR_RIGHT en fonction de vers où tourner
         ainsi que l'angle"""
-        d = ((2 * math.pi)/360) * deltaT * self.vitesse * rayonRoue
+        d = (self.vitesse * 360) / (2 * math.pi * rayonRoue)
         self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", d)
         return
 
