@@ -18,16 +18,10 @@ class Wrapper(object):
         return self._rotation
 
     @rotation.setter
-    def rotation(self, motor, angle):
+    def rotation(self, angle):
         self.angle = angle
-        if(motor == "MOTOR_LEFT"):
-            self.RobotIRL.set_motor_dps(motor, angle)
-            self.RobotIRL.set_motor_dps("MOTOR_RIGHT", -angle)
-            self._degreParSeconde = angle
-        elif(motor == "MOTOR_RIGHT"):
-            self.RobotIRL.set_motor_dps(motor, angle)
-            self.RobotIRL.set_motor_dps("MOTOR_LEFT", -angle)
-            self._degreParSeconde = angle
+        self.RobotIRL.set_motor_dps("MOTOR_RIGHT", angle)
+        self.RobotIRL.set_motor_dps("MOTOR_LEFT", -angle)
         return
 
     @property
