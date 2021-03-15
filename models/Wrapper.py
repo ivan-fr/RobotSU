@@ -1,6 +1,6 @@
 from models import RobotIRL, Robot, Vecteur
 import math
-
+rayonRoue = 10
 class Wrapper(object):
     def __init__(self, RobotIRL):
         self.RobotIRL = RobotIRL
@@ -29,11 +29,12 @@ class Wrapper(object):
         return self.avance
 
     @avance.setter
-    def avance(self, rayonRoue):
+    def avance(self):
         """passer en parametres pour motor: MOTOR_LEFT ou MOTOR_RIGHT en fonction de vers où tourner
         ainsi que l'angle"""
-        d = (self.vitesse * 360) / (2 * math.pi * rayonRoue)
-        self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", d)
+        global rayonRoue
+        dps = (self.vitesse * 360) / (2 * math.pi * rayonRoue)
+        self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", dps)
         return
 
     def arretRobot(self):
