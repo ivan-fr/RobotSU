@@ -5,31 +5,43 @@ class Wrapper(object):
     def __init__(self, RobotIRL):
         self.RobotIRL = RobotIRL
         self._vitesse = 0
-        self._degreParSeconde = 0
-        self._vecteurDeplacement = None
-        self.bouger = 0
+        self._rotation = 0
+        self._avance = 0
+        self.angle = 1
 
     @property
-    def vecteurDeplacement(self):
-        return self._vecteurDeplacement
-
-    @vecteurDeplacement.setter
-    def vecteurDeplacement(self, vecteurDeplacement):
-        self._vecteurDeplacement = vecteurDeplacement
-        self._degreParSeconde = self.fromVecteurToAngle(vecteurDeplacement)
-        self.bouger = self.mouvement()
-
-    def fromVecteurToAngle(self, vecteurDeplacement):
-        x = vecteurDeplacement.x
-        y = vecteurDeplacement.y
-        return 2*math.atan(y/(x+math.sqrt(x**2 + y**2)))
+    def vitesse(self):
+        return self._vitesse
 
     @property
-    def degreParSeconde(self):
-        return self.degreParSeconde
+    def rotation(self):
+        return self._rotation
 
-    def mouvement(self):
+    @rotation.setter
+    def rotation(self, motor, angle):
+        self.angle = angle
+        if(motor == "MOTOR_LEFT"):
+            self.RobotIRL.set_motor_dps(motor, angle)
+            self.RobotIRL.set_motor_dps("MOTOR_RIGHT", -angle)
+            self._degreParSeconde = angle
+        elif(motor == "MOTOR_RIGHT"):
+            self.RobotIRL.set_motor_dps(motor, angle)
+            self.RobotIRL.set_motor_dps("MOTOR_LEFT", -angle)
+            self._degreParSeconde = angle
+        return
+
+    @property
+    def avance(self):
+        return self.avance
+
+    @avance.setter
+    def avance(self, deltaT, rayonRoue):
         """passer en parametres pour motor: MOTOR_LEFT ou MOTOR_RIGHT en fonction de vers où tourner
         ainsi que l'angle"""
-            self.RobotIRL.set_motor_dps("MOTOR_RIGHT", self.degreParSeconde)
-        
+        d = ((2 * math.pi)/360) * deltaT * self.vitesse * rayonRoue
+        self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", d)
+        return
+
+    def arretRobot(self):
+        self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", 0)
+        return
