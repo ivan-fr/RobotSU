@@ -18,9 +18,11 @@ class StrategieAvancerDroit(object):
         self.robot.vitesse = 0.
 
     def step(self):
-        self.robot.vitesse = self.vitesse
         if self.stop():
             return
+            
+        self.robot.vitesse = self.vitesse
+
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
         else:
