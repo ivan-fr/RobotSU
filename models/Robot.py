@@ -64,7 +64,7 @@ class Robot(object):
     def getDistance(self,tc):
         vUnitaire = Vecteur.Vecteur(cos(radians(self.angle)) * 1,
                                                 sin(radians(self.angle)) * 1)
-        while not tc.collision((self.x, self.y), self.vecteurDeplacement):
+        while not tc.collision((self.x, self.y), vUnitaire):
             vUnitaire += vUnitaire
 
         return vUnitaire.norme()
