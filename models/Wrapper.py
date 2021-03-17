@@ -22,10 +22,10 @@ class Wrapper(object):
         return self._rotation
 
     @rotation.setter
-    def rotation(self, angle):
-        self.angle = angle
-        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, angle)
-        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -angle)
+    def rotation(self, dps):
+        self.angle = dps
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, dps)
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -dps)
         return
 
     @property
