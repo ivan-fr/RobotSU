@@ -17,6 +17,8 @@ class StrategieTourner(object) :
 
     def step(self):
         self.robot._degreParSeconde = self.degreParSeconde
+        if self.stop():
+            return
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
         else:
