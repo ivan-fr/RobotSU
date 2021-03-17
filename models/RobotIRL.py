@@ -88,7 +88,6 @@ class RobotIRL(object):
         self._gpg.set_motor_dps(port,dps)
         self.set_motor_limits(port,dps)
 
-
     def get_motor_position(self):
         """
         Lit les etats des moteurs en degre.
@@ -122,6 +121,7 @@ class RobotIRL(object):
         :param int position: Angle de rotation, de **0** a **180** degres, 90 pour le milieu.
         """
         self.servo.rotate_servo(position)
+
     def stop(self):
         """ Arrete le robot """
         self.set_motor_dps(self.MOTOR_LEFT+self.MOTOR_RIGHT,0)
