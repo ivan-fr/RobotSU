@@ -4,9 +4,9 @@ import datetime
 import math
 
 class StrategieAvancerDroitMax(object):
-    def __init__(self,Robot,vitesse,Distance,lastUpdate=None):
+    def __init__(self,Robot,vitessemax,Distance,lastUpdate=None):
         self.robot = Robot
-        self.vitessemax=vitesse
+        self.vitessemax=vitessemax
         self.Distance = Distance
         self.parcouru = 0
 
