@@ -61,6 +61,17 @@ class Robot(object):
             if not self.collision(tc, deltaT):
                 self.avance(deltaT)
 
+    def getDistance(self,tc, normeVD):
+        # on cherche avec quel cote du terrain il y a une collision 
+        for v in tc.polygoneSurface._liste_vecteur:
+            # si il y a collision avec le vecteur, on regarde la distance, sinon on test avec les autres vecteurs
+            if vecteurDeplacement.collision((v.x,v.y), v, (vecteurDeplacement.x,vecteurDeplacement.y)) :
+                #on veut une petite norme du vecteur pour que la distance soit la plus precise possible
+                vecteurDunitaire = self.vecteurDeplacement.__mul__(normeVD)
+                while not vecteurDunitaire.collision((v.x,v.y), v, (vecteurDunitaire.x,vecteurDunitaire.y))
+                    vecteurDunitaire = vecteurDunitaire.__add__(vecteurDunitaire)
+                return vecteurDunitaire.norme()
+
     @property
     def vitesse(self):
         return self._vitesse
@@ -70,3 +81,4 @@ class Robot(object):
         self.vecteurDeplacement = Vecteur.Vecteur(cos(radians(self.angle)) * vitesse,
                                                   sin(radians(self.angle)) * vitesse)
         self._vitesse = vitesse
+
