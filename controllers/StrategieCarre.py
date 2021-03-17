@@ -14,6 +14,9 @@ class StrategieCarre(object):
         self.stratTourner.start()
 
     def step(self):
+        if self.stop():
+            return
+
         if not self.stratAvancer.stop():
             self.stratAvancer.step()
         elif not self.stratTourner.stop():
