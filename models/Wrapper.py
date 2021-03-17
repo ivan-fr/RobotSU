@@ -24,8 +24,8 @@ class Wrapper(object):
     @rotation.setter
     def rotation(self, angle):
         self.angle = angle
-        self.RobotIRL.set_motor_dps("MOTOR_RIGHT", angle)
-        self.RobotIRL.set_motor_dps("MOTOR_LEFT", -angle)
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, angle)
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -angle)
         return
 
     @property
@@ -38,7 +38,7 @@ class Wrapper(object):
         ainsi que l'angle"""
         global rayonRoue
         dps = (self.vitesse * 360) / (2 * math.pi * rayonRoue)
-        self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", dps)
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT+self.RobotIRL.MOTOR_RIGHT, dps)
         dist1 = self.RobotIRL.get_motor_position()
         time.sleep(1)
         dist2 = self.RobotIRL.get_motor_position()
@@ -58,3 +58,7 @@ class Wrapper(object):
         if(battery < 10):
             print("Rechargez la batterie ", battery, "%")
         return battery
+
+    def allumage_led(self):
+        self.RobotIRL.set_led(self.RobotIRL.LED_LEFT_EYE, 0,0,0)
+        return
