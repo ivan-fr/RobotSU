@@ -42,3 +42,6 @@ class Wrapper(object):
     def arretRobot(self):
         self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", 0)
         return
+
+    def get_distance(self):
+        return self.RobotIRL.get_distance()
