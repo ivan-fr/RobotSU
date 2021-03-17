@@ -39,9 +39,9 @@ class Wrapper(object):
         global rayonRoue
         dps = (self.vitesse * 360) / (2 * math.pi * rayonRoue)
         self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", dps)
-        dist1 = self.RobotIRL.get_distance()
+        dist1 = self.RobotIRL.get_motor_position()
         time.sleep(1)
-        dist2 = self.RobotIRL.get_distance()
+        dist2 = self.RobotIRL.get_motor_position()
         return (dist2 - dist1) == self.vitesse
 
     def arretRobot(self):
