@@ -1,5 +1,7 @@
 from models import RobotIRL, Robot, Vecteur
 import math
+import time
+
 rayonRoue = 10
 class Wrapper(object):
     def __init__(self, RobotIRL):
@@ -37,11 +39,16 @@ class Wrapper(object):
         global rayonRoue
         dps = (self.vitesse * 360) / (2 * math.pi * rayonRoue)
         self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", dps)
-        return
+        dist1 = self.RobotIRL.get_distance()
+        time.sleep(1)
+        dist2 = self.RobotIRL.get_distance()
+        return (dist2 - dist1) == self.vitesse
 
     def arretRobot(self):
-        self.RobotIRL.set_motor_dps("MOTOR_LEFT+MOTOR_RIGHT", 0)
-        return
+        self.RobotIRL.stop()
+        dist1 = self.RobotIRL.get_distance()
+        dist2 = self.RobotIRL.get_distance()
+        return dist1 == dist2
 
     def get_distance(self):
         return self.RobotIRL.get_distance()
