@@ -52,3 +52,9 @@ class Wrapper(object):
 
     def get_distance(self):
         return self.RobotIRL.get_distance()
+
+    def get_battery(self):
+        battery = self.RobotIRL.get_voltage()
+        if(battery < 10):
+            print("Rechargez la batterie ", battery, "%")
+        return battery
