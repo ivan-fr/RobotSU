@@ -12,7 +12,9 @@ class Wrapper(object):
     @property
     def vitesse(self):
         return self._vitesse
-
+    @vitesses.setter
+    def vitesse(self, vitesse):
+        self._vitesse = vitesse
     @property
     def rotation(self):
         return self._rotation
