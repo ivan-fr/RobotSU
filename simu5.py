@@ -1,5 +1,5 @@
 from views import Terrain
-from models import TerrainContinu, Robot, Polygone
+from models import TerrainContinu, Robot, Polygone, Wrapper, RobotIRLInterface
 from controllers import StrategieCarre
 import threading
 import time
@@ -33,9 +33,10 @@ def updateRobot(robot, tc, fps):
 
 def run():
     tc = TerrainContinu.Carre(20)
-    robot = Robot.Robot(0, 0, 0., 0.)
+    robot = Robot.Robot(-3, -3, 0., 0.)
+    wrapper = Wrapper.Wrapper(RobotIRLInterface.RobotIRLInterface())
     # mache avec 90 ou -90 comme valeur de rotation, entier positif pour distance
-    stratCarre = StrategieCarre.StrategieCarre(robot, 3., 2., 7.)
+    stratCarre = StrategieCarre.StrategieCarre(wrapper, robot, 3., 2., 7.)
     # --> pour pouvoir faire des carres dans des sens differents
     stratCarre.start()
 

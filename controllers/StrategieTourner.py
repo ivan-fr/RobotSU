@@ -20,6 +20,7 @@ class StrategieTourner(object) :
             return
 
         self.robot._degreParSeconde = self.degreParSeconde
+        self.wrapper.rotation = self.robot._degreParSeconde
 
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
@@ -34,4 +35,5 @@ class StrategieTourner(object) :
         result = self.angleApplique >= self.angleTarget
         if result:
             self.robot._degreParSeconde = 0.
+            self.wrapper.rotation = 0.
         return result

@@ -4,17 +4,18 @@ import datetime
 import math
 
 class StrategieAvancerDroitMax(object):
-    def __init__(self,Robot,vitessemax,Distance,lastUpdate=None):
+    def __init__(self,Robot,vitessemax,TerrainContinu,lastUpdate=None):
         self.robot = Robot
         self.vitessemax=vitessemax
-        self.Distance = Distance
+        self.vitesseinit = self.robot.vitesse
+        self.Distance = self.robot.getDistance(TerrainContinu)
         self.parcouru = 0
 
         self.lastUpdate = lastUpdate
         
         
     def acceleration(self,deltaT):
-        self.accel = (self.vitessemax - self.robot.vitesse)/deltaT
+        self.accel = (self.vitessemax - self.vitesseinit)/deltaT
 
     def start(self):
         self.parcouru = 0
@@ -26,7 +27,7 @@ class StrategieAvancerDroitMax(object):
         if self.stop():
             return
             
-        self.robot.vitesse = 1
+        
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
         else:
@@ -34,7 +35,8 @@ class StrategieAvancerDroitMax(object):
             deltaT = (now - self.lastUpdate).total_seconds()
             self.lastUpdate = now
             self.acceleration(deltaT)
-            self.robot.vitesse = self.vitessemax - self.accel * deltaT
+            self.robot.vitesse = self.robot.vitesse + ((self.accel * deltaT)/2)
+            print(self.robot.vitesse)
             self.parcouru+=self.robot.vitesse * deltaT
 
     

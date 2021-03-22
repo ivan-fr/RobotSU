@@ -1,10 +1,10 @@
 from controllers import StrategieAvancerDroit, StrategieTourner
 
 class StrategieCarre(object):
-    def __init__(self,robot, vitesse, degreParSeconde, coteCarre):
+    def __init__(self, wrapper, robot, vitesse, degreParSeconde, coteCarre):
         self.robot = robot
-        self.stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(coteCarre, vitesse, robot)
-        self.stratTourner = StrategieTourner.StrategieTourner(90., 20., robot)
+        self.stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(coteCarre, vitesse, robot, wrapper)
+        self.stratTourner = StrategieTourner.StrategieTourner(90., 20., robot, wrapper)
         
         self.nbCoteParcouru = 0
 

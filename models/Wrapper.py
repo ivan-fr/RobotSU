@@ -1,64 +1,50 @@
-from models import RobotIRL, Robot, Vecteur
 import math
 import time
 
-rayonRoue = 10
+
 class Wrapper(object):
     def __init__(self, RobotIRL):
         self.RobotIRL = RobotIRL
-        self._vitesse = 0
-        self._rotation = 0
-        self._avance = 0
-        self.angle = 1
+        self.rayon_roue = self.RobotIRL.WHEEL_DIAMETER / 2.
+        self.lastRotation = (None, None)
 
     @property
     def vitesse(self):
         return self._vitesse
+
     @vitesse.setter
     def vitesse(self, vitesse):
         self._vitesse = vitesse
+        self.lastRotation = self.RobotIRL.get_motor_position()
+        dps = (vitesse * 2 * math.pi) / (360 * self.rayon_roue)
+        self.RobotIRL.set_motor_dps(
+            self.RobotIRL.MOTOR_LEFT + self.RobotIRL.MOTOR_RIGHT, dps)
+
+    @property
+    def last_avancement(self):
+        if self.lastRotation[0] is None:
+            return 0.
+
+        now = self.RobotIRL.get_motor_position()
+
+        radiansRelative = (math.radians(
+            now[0] - self.lastRotation[0]), math.radians(now[1] - self.lastRotation[1]))
+        distance = (
+            self.rayon_roue * radiansRelative[0] + self.rayon_roue * radiansRelative[1]) / 2.
+        return distance
+
     @property
     def rotation(self):
         return self._rotation
 
     @rotation.setter
     def rotation(self, dps):
-        self.angle = dps
+        self._rotation = dps
         self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, dps)
         self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -dps)
-        return
-
-    @property
-    def avance(self):
-        return self.avance
-
-    @avance.setter
-    def avance(self):
-        """passer en parametres pour motor: MOTOR_LEFT ou MOTOR_RIGHT en fonction de vers où tourner
-        ainsi que l'angle"""
-        global rayonRoue
-        dps = (self.vitesse * 360) / (2 * math.pi * rayonRoue)
-        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT+self.RobotIRL.MOTOR_RIGHT, dps)
-        dist1 = self.RobotIRL.get_motor_position()
-        time.sleep(1)
-        dist2 = self.RobotIRL.get_motor_position()
-        return (dist2 - dist1) == self.vitesse
-
-    def arretRobot(self):
-        self.RobotIRL.stop()
-        dist1 = self.RobotIRL.get_distance()
-        dist2 = self.RobotIRL.get_distance()
-        return dist1 == dist2
 
     def get_distance(self):
         return self.RobotIRL.get_distance()
 
-    def get_battery(self):
-        battery = self.RobotIRL.get_voltage()
-        if(battery < 10):
-            print("Rechargez la batterie ", battery, "%")
-        return battery
-
     def allumage_led(self):
-        self.RobotIRL.set_led(self.RobotIRL.LED_LEFT_EYE, 0,0,0)
-        return
+        self.RobotIRL.set_led(self.RobotIRL.LED_LEFT_EYE, 0, 0, 0)

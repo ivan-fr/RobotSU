@@ -47,7 +47,7 @@ class CarreTest(unittest.TestCase):
             self.assertTrue(stratC.stratTourner.robot._degreParSeconde == 0.)
             self.assertIsNone(stratC.stratTourner.lastUpdate)
 
-            self.assertTrue(stratC.stratAvancer.parcouru == 0)
+            self.assertTrue(stratC.stratAvancer.parcouruSimu == 0)
             self.assertTrue(stratC.stratAvancer.robot.vitesse == 0.)
             self.assertIsNone(stratC.stratAvancer.lastUpdate)
 
