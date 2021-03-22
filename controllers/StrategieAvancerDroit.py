@@ -1,13 +1,15 @@
 import math
 from models import Robot
+from models import Wrapper
 import datetime
 
 
 class StrategieAvancerDroit(object):
-    def __init__(self, distance, vitesse, robot):
+    def __init__(self, distance, vitesse, robot, Wrapper):
         self.distance = distance
         self.vitesse = vitesse
         self.robot = robot
+        self.wrapper = wrapper
 
         self.parcouru = 0
         self.lastUpdate = None
@@ -22,6 +24,7 @@ class StrategieAvancerDroit(object):
             return
             
         self.robot.vitesse = self.vitesse
+        self.wrapper.vitesse(vitesse)
 
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
@@ -36,4 +39,5 @@ class StrategieAvancerDroit(object):
         result = self.parcouru >= self.distance
         if result:
             self.robot.vitesse = 0
+            self.wrapper.vitesse(0)
         return result
