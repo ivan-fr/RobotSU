@@ -5,17 +5,19 @@ import datetime
 
 
 class StrategieAvancerDroit(object):
-    def __init__(self, distance, vitesse, robot, Wrapper):
+    def __init__(self, distance, vitesse, robot, wrapper):
         self.distance = distance
         self.vitesse = vitesse
         self.robot = robot
         self.wrapper = wrapper
 
-        self.parcouru = 0
+        self.parcouruSimu = 0.
+        self.parcouruIRL = 0.
         self.lastUpdate = None
 
     def start(self):
-        self.parcouru = 0
+        self.parcouruSimu = 0.
+        self.parcouruIRL = 0.
         self.lastUpdate = None
         self.robot.vitesse = 0.
 
@@ -24,7 +26,7 @@ class StrategieAvancerDroit(object):
             return
             
         self.robot.vitesse = self.vitesse
-        self.wrapper.vitesse(vitesse)
+        self.wrapper.vitesse = self.robot.vitesse
 
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
@@ -32,12 +34,13 @@ class StrategieAvancerDroit(object):
             now = datetime.datetime.now()
             deltaT = (now - self.lastUpdate).total_seconds()
             self.lastUpdate = now
-            self.parcouru += self.vitesse * deltaT
+            self.parcouruSimu += self.vitesse * deltaT
+            self.parcouruIRL += self.wrapper.last_avancement
 
     def stop(self):
         # condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle
-        result = self.parcouru >= self.distance
+        result = self.parcouruSimu >= self.distance or self.parcouruIRL >= self.distance
         if result:
-            self.robot.vitesse = 0
-            self.wrapper.vitesse(0)
+            self.robot.vitesse = 0.
+            self.wrapper.RobotIRL.stop()
         return result

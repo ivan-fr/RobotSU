@@ -35,19 +35,19 @@ class AvancerDTest(unittest.TestCase):
             print("test AD :",i+1," pour une distance de ",stratAD.distance)
 
             stratAD.start()
-            self.assertTrue(stratAD.parcouru == 0)
+            self.assertTrue(stratAD.parcouruSimu == 0)
             self.assertTrue(stratAD.robot.vitesse == 0.)
             self.assertIsNone(stratAD.lastUpdate)
 
             while not stratAD.stop():
                 stratAD.step()
                 # 10*0.1 : pour approximation
-                self.assertTrue(stratAD.parcouru <= stratAD.distance + 10*0.1)
+                self.assertTrue(stratAD.parcouruSimu <= stratAD.distance + 10*0.1)
                 # print(stratAD.parcouru , stratAD.distance + 10*0.1)
                 self.assertTrue(stratAD.robot.vitesse == stratAD.vitesse)
 
-            self.assertTrue(stratAD.parcouru >= stratAD.distance)
+            self.assertTrue(stratAD.parcouruSimu >= stratAD.distance)
 
-            if(stratAD.parcouru >= stratAD.distance):
+            if(stratAD.parcouruSimu >= stratAD.distance):
                 stratAD.stop()
                 self.assertTrue(stratAD.robot.vitesse == 0)
