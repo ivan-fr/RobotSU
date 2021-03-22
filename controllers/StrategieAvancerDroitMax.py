@@ -4,11 +4,11 @@ import datetime
 import math
 
 class StrategieAvancerDroitMax(object):
-    def __init__(self,Robot,vitessemax,Distance,lastUpdate=None):
+    def __init__(self,Robot,vitessemax,TerrainContinu,lastUpdate=None):
         self.robot = Robot
         self.vitessemax=vitessemax
         self.vitesseinit = self.robot.vitesse
-        self.Distance = Distance
+        self.Distance = Robot.getDistance(TerrainContinu)
         self.parcouru = 0
 
         self.lastUpdate = lastUpdate

@@ -35,7 +35,7 @@ def run():
     tc = TerrainContinu.Carre(20)
     robot = Robot.Robot(0, 0, 0., 0.)
     # mache avec 90 ou -90 comme valeur de rotation, entier positif pour distance
-    stratAvance = StrategieAvancerDroitMax.StrategieAvancerDroitMax(robot, 7., 10)
+    stratAvance = StrategieAvancerDroitMax.StrategieAvancerDroitMax(robot, 7., tc)
     # --> pour pouvoir faire des carres dans des sens differents
     stratAvance.start()
 
