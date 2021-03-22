@@ -8,7 +8,7 @@ class StrategieAvancerDroitMax(object):
         self.robot = Robot
         self.vitessemax=vitessemax
         self.vitesseinit = self.robot.vitesse
-        self.Distance = Robot.getDistance(TerrainContinu)
+        self.Distance = self.robot.getDistance(TerrainContinu)
         self.parcouru = 0
 
         self.lastUpdate = lastUpdate
