@@ -3,10 +3,11 @@ import datetime
 
 class StrategieTourner(object) :
 
-    def __init__(self, angleTarget, degreParSeconde, robot):
+    def __init__(self, angleTarget, degreParSeconde, robot, wrapper):
         self.robot = robot
         self.angleTarget = angleTarget
         self.angleApplique = 0.
+        self.wrapper = wrapper
         self.degreParSeconde = degreParSeconde
         self.lastUpdate = None
 
@@ -20,6 +21,7 @@ class StrategieTourner(object) :
             return
 
         self.robot._degreParSeconde = self.degreParSeconde
+        self.wrapper.rotation = self.degreParSeconde
 
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
@@ -34,4 +36,5 @@ class StrategieTourner(object) :
         result = self.angleApplique >= self.angleTarget
         if result:
             self.robot._degreParSeconde = 0.
+            self.wrapper.rotation = 0.
         return result

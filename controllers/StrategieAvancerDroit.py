@@ -4,10 +4,11 @@ import datetime
 
 
 class StrategieAvancerDroit(object):
-    def __init__(self, distance, vitesse, robot):
+    def __init__(self, distance, vitesse, robot, wrapper):
         self.distance = distance
         self.vitesse = vitesse
         self.robot = robot
+        self.wrapper = wrapper
 
         self.parcouruSimu = 0.
         self.parcouruIRL = 0.
@@ -24,6 +25,7 @@ class StrategieAvancerDroit(object):
             return
             
         self.robot.vitesse = self.vitesse
+        self.wrapper.vitesse = self.vitesse
 
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
@@ -39,4 +41,5 @@ class StrategieAvancerDroit(object):
         result = self.parcouruSimu >= self.distance or self.parcouruIRL >= self.distance
         if result:
             self.robot.vitesse = 0.
+            self.wrapper.RobotIRL.stop()
         return result
