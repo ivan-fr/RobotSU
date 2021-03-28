@@ -6,8 +6,8 @@ class StrategieCarre(object):
         self.stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(coteCarre, vitesse, robot, wrapper)
         self.stratTourner = StrategieTourner.StrategieTourner(90., 20., robot, wrapper)
         self._liste_strategies = []
-        self._liste_strategies.append(stratAvancer)
-        self._liste_strategies.append(stratTourner)
+        self._liste_strategies.append(self.stratAvancer)
+        self._liste_strategies.append(self.stratTourner)
         
         self.nbCoteParcouru = 0
 
