@@ -16,7 +16,7 @@ class Wrapper(object):
     def vitesse(self, vitesse):
         self._vitesse = vitesse
         self.lastRotation = self.RobotIRL.get_motor_position()
-        dps = (vitesse * math.pi) / (180 * self.rayon_roue)
+        dps = (vitesse * 180) / (math.pi * self.rayon_roue)
         self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT + self.RobotIRL.MOTOR_RIGHT, dps)
 
     @property
