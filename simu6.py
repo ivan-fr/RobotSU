@@ -1,52 +1,30 @@
 from views import Terrain
-from models import TerrainContinu, Robot, Polygone
-from controllers import StrategieAvancerDroitMax
+from models import TerrainContinu, Robot, Polygone, Wrapper, RobotIRLInterface
+from controllers import StrategieCarre, StrategieAvancerDroitIRL, StrategieTournerIRL
 import threading
 import time
-import curses
 
 stop_thread = True
 
-
-def affichage(robot, tc, fps):
-    while stop_thread:
-        t = Terrain.construireTerrain(tc, robot, 0.5)
-        t.affichage()
-        time.sleep(1./fps)
-        t.supprimerAffichage()
-
-
-def updateStrats(stratAvance, fps):
-    while not stratAvance.stop():
-        stratAvance.step()
+def updateStrats(stratCarre, fps):
+    stratCarre.start()
+    while not stratCarre.stop():
+        stratCarre.step()
         time.sleep(1./fps)
     global stop_thread
     stop_thread = False
-    print(stop_thread)
-
-
-def updateRobot(robot, tc, fps):
-    while stop_thread:
-        robot.update(tc)
-        time.sleep(1./fps)
-
 
 def run():
     tc = TerrainContinu.Carre(20)
-    robot = Robot.Robot(0, 0, 0., 0.)
-    # mache avec 90 ou -90 comme valeur de rotation, entier positif pour distance
-    stratAvance = StrategieAvancerDroitMax.StrategieAvancerDroitMax(robot, 7., tc)
-    # --> pour pouvoir faire des carres dans des sens differents
-    stratAvance.start()
+    wrapper = Wrapper.Wrapper(RobotIRLInterface.RobotIRLInterface())
+    startAvancer = StrategieAvancerDroitIRL.StrategieAvancerDroitIRL(wrapper, 70., 15.)
+    startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 90., 20.)
+    stratCarre = StrategieCarre.StrategieCarre(startAvancer, startTourner)
 
     fps = 60
 
-    t1 = threading.Thread(target=affichage, args=(robot, tc, fps))
-    t2 = threading.Thread(target=updateStrats, args=(stratAvance, fps))
-    t3 = threading.Thread(target=updateRobot, args=(robot, tc, fps))
-    t1.start()
+    t2 = threading.Thread(target=updateStrats, args=(stratCarre, fps))
     t2.start()
-    t3.start()
 
 
 if __name__ == '__main__':

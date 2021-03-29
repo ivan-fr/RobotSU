@@ -34,7 +34,7 @@ class RobotIRLInterface(object):
         pass
 
     def get_distance(self):
-        pass
+        return 100
 
     def servo_rotate(self,position):
         pass

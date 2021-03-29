@@ -3,10 +3,11 @@ import models.Vecteur, models.Polygone
 import json
 
 class TerrainContinu(object):
-    def __init__(self, polygoneSurface, listePolygone=[], lastUpdate=None):
+    def __init__(self, polygoneSurface, listePolygone=[], lastUpdate=None, caseParUnite=0.5):
         self.polygoneSurface = polygoneSurface
         self.listePolygone = listePolygone
         self.lastUpdate = lastUpdate
+        self.caseParUnite = caseParUnite
 
     def ajoutPolygone(self, polygone):
         """Polygone -> void 

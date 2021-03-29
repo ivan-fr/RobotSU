@@ -5,7 +5,7 @@ import time
 class Wrapper(object):
     def __init__(self, RobotIRL):
         self.RobotIRL = RobotIRL
-        self.rayon_roue = self.RobotIRL.WHEEL_DIAMETER * (10**3) / 2.
+        self.rayon_roue = (self.RobotIRL.WHEEL_DIAMETER * 10e-3) / 2.
         self.lastRotation = (None, None)
         self.distance_parcouru = self.RobotIRL.get_motor_position()
 
@@ -17,9 +17,8 @@ class Wrapper(object):
     def vitesse(self, vitesse):
         self._vitesse = vitesse
         self.lastRotation = self.RobotIRL.get_motor_position()
-        dps = (vitesse * 2 * math.pi) / (360 * self.rayon_roue)
-        self.RobotIRL.set_motor_dps(
-            self.RobotIRL.MOTOR_LEFT + self.RobotIRL.MOTOR_RIGHT, dps)
+        dps = (vitesse * math.pi) / (180 * self.rayon_roue)
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT + self.RobotIRL.MOTOR_RIGHT, dps)
 
     @property
     def last_avancement(self):
@@ -30,8 +29,7 @@ class Wrapper(object):
 
         radiansRelative = (math.radians(
             now[0] - self.lastRotation[0]), math.radians(now[1] - self.lastRotation[1]))
-        distance = (
-            self.rayon_roue * radiansRelative[0] + self.rayon_roue * radiansRelative[1]) / 2.
+        distance = (self.rayon_roue * radiansRelative[0] + self.rayon_roue * radiansRelative[1]) / 2.
         return distance
 
     @property

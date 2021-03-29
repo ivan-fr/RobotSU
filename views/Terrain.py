@@ -2,8 +2,6 @@ import random
 import time
 from models import Vecteur, Robot
 from math import atan, sin, cos, pi
-import platform
-import curses
 import os
 
 
@@ -120,7 +118,7 @@ class Terrain(object):
             traceY += vecteurUnite.y
 
 
-def construireTerrain(terrainContinu, robot, echelle):
+def construireTerrain(tc, robot):
     """return Terrain
     affiche le terrain de maniere discrete
     echelle: combien de case par unité. La valeur de l'unité est dans la variable echelle
@@ -131,7 +129,7 @@ def construireTerrain(terrainContinu, robot, echelle):
     yMax = None
     xMin = None
     yMin = None
-    for sommetSurface in terrainContinu.polygoneSurface.liste_sommet:
+    for sommetSurface in tc.polygoneSurface.liste_sommet:
         x, y = sommetSurface
 
         if xMax is None or x > xMax:
@@ -145,22 +143,22 @@ def construireTerrain(terrainContinu, robot, echelle):
             yMin = y
 
     # x 1.1 pour les problèmes d'affichage lié aux approximations
-    terrain = Terrain(abs(yMin - yMax) + echelle,
-                      abs(xMax - xMin) + echelle, echelle, xMin, yMin)
+    terrain = Terrain(abs(yMin - yMax) + tc.caseParUnite,
+                      abs(xMax - xMin) + tc.caseParUnite, tc.caseParUnite, xMin, yMin)
 
     if robot is not None:
         terrain.ajout_objet_continu(robot, robot.x, robot.y)
 
     # dessine la delimitation
-    x = terrainContinu.polygoneSurface.liste_sommet[0][0]
-    y = terrainContinu.polygoneSurface.liste_sommet[0][1]
-    for sommetSurface in terrainContinu.polygoneSurface._liste_vecteur:
+    x = tc.polygoneSurface.liste_sommet[0][0]
+    y = tc.polygoneSurface.liste_sommet[0][1]
+    for sommetSurface in tc.polygoneSurface._liste_vecteur:
         terrain.dessineVecteur((x, y), sommetSurface)
         x += sommetSurface.x
         y += sommetSurface.y
 
     # dessine les polygones
-    for polygone in terrainContinu.listePolygone:
+    for polygone in tc.listePolygone:
         for i in range(len(polygone._liste_vecteur)):
             terrain.dessineVecteur(
                 polygone.liste_sommet[i], polygone.l_iste_vecteur[i])

@@ -36,8 +36,7 @@ class Robot(object):
         self.y += self.vecteurDeplacement.y * deltaTemps
 
     def collision(self, terrainContinu, temps):
-        self.lastCollision = terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps)
-        return self.lastCollision
+        return terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps)
 
     def rotation(self, deltaTemps):
         """float -> void
@@ -58,10 +57,13 @@ class Robot(object):
             deltaT = (now - self._lastUpdate).total_seconds()
             self._lastUpdate = now
             self.rotation(deltaT)
+            
             if not self.collision(tc, deltaT):
                 self.avance(deltaT)
+            else:
+                self.lastCollision = True
 
-    def getDistance(self,tc):
+    def getDistance(self, tc):
         vUnitaire = Vecteur.Vecteur(cos(radians(self.angle)) * 1,
                                                 sin(radians(self.angle)) * 1)
         while not tc.collision((self.x, self.y), vUnitaire):
