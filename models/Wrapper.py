@@ -40,7 +40,7 @@ class Wrapper(object):
     def rotation(self, degreParSecondeVoulu):
         self._rotation = degreParSecondeVoulu
         radiansParSecondeVoulu = (degreParSecondeVoulu * math.pi) / 180.
-        radiansParSeconde = radiansParSeconde * self.rayon_robot / self.rayon_roue
+        radiansParSeconde = radiansParSecondeVoulu * self.rayon_robot / self.rayon_roue
         dps = radiansParSeconde * 180. / math.pi
         self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, dps)
         self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -dps)
