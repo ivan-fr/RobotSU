@@ -1,39 +1,31 @@
 from controllers import StrategieAvancerDroit, StrategieTourner
 
 class StrategieCarre(object):
-    def __init__(self, wrapper, robot, vitesse, degreParSeconde, coteCarre):
-        self.robot = robot
-        self.stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(coteCarre, vitesse, robot, wrapper)
-        self.stratTourner = StrategieTourner.StrategieTourner(90., 20., robot, wrapper)
-        self._liste_strategies = []
-        self._liste_strategies.append(self.stratAvancer)
-        self._liste_strategies.append(self.stratTourner)
-        
-        self.nbCoteParcouru = 0
+    def __init__(self, stratAvancer, stratTourner):
+        self.liste_strategies = [stratAvancer, stratTourner] * 4
+        self.i_liste_strategies = 0
 
     def start(self):
-        self.nbCoteParcouru = 0
-        self._liste_strategies[0].start()
-        self._liste_strategies[1].start()
+        self.liste_strategies[self.i_liste_strategies].start()
 
     def step(self):
         if self.stop():
             return
 
-        if not self._liste_strategies[0].stop():
-            self._liste_strategies[0].step()
-        elif not self._liste_strategies[1].stop():
-            self._liste_strategies[1].step()
+        if not self.liste_strategies[self.i_liste_strategies].stop():
+            self.liste_strategies[self.i_liste_strategies].step()
         
-        if self._liste_strategies[1].stop() and self._liste_strategies[0].stop():
-            self.nbCoteParcouru += 1
-
-            if self.nbCoteParcouru == 4:
-                pass
+        if self.liste_strategies[self.i_liste_strategies].stop():
+            self.i_liste_strategies += 1
+            if self.stop():
+                return
             else:
-                self._liste_strategies[0].start()
-                self._liste_strategies[1].start()
-    
+                self.start()
+
     def stop(self):
         #condition d'arret lorsque le robot a parcouru les 4 cotes
-        return self.nbCoteParcouru == 4
+        try:
+            _ = self.liste_strategies[self.i_liste_strategies]
+            return False
+        except IndexError:
+            return True
