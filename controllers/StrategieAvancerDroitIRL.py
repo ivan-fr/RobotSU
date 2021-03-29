@@ -21,7 +21,8 @@ class StrategieAvancerDroitIRL(object):
         if self.stop():
             return
             
-        self.wrapper.vitesse = self.vitesse
+        if self.wrapper.vitesse < 10e-3:
+            self.wrapper.vitesse = self.vitesse
 
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
@@ -36,4 +37,5 @@ class StrategieAvancerDroitIRL(object):
         result = self.parcouruIRL >= self.distance or self.wrapper.RobotIRL.get_distance() < 20
         if result:
             self.wrapper.RobotIRL.stop()
+            self.wrapper.vitesse = 0.
         return result

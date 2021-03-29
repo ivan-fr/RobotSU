@@ -8,6 +8,7 @@ class Wrapper(object):
         self.rayon_roue = (self.RobotIRL.WHEEL_DIAMETER * 10e-3) / 2.
         self.rayon_robot = (self.RobotIRL.WHEEL_BASE_WIDTH * 10e-3) / 2.
         self.lastRotation = (None, None)
+        self._vitesse = 0.
 
     @property
     def vitesse(self):
