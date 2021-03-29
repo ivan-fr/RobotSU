@@ -7,7 +7,6 @@ class Wrapper(object):
         self.RobotIRL = RobotIRL
         self.rayon_roue = (self.RobotIRL.WHEEL_DIAMETER * 10e-3) / 2.
         self.lastRotation = (None, None)
-        self.distance_parcouru = self.RobotIRL.get_motor_position()
 
     @property
     def vitesse(self):
@@ -37,20 +36,13 @@ class Wrapper(object):
         return self._rotation
 
     @rotation.setter
-    def rotation(self, dps):
-        self._rotation = dps
-        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, dps)
-        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -dps)
+    def rotation(self, degreParSecondeVoulu):
+        self._rotation = degreParSecondeVoulu
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, degreParSecondeVoulu)
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -degreParSecondeVoulu)
 
     def get_distance(self):
         return self.RobotIRL.get_distance()
 
     def allumage_led(self):
         self.RobotIRL.set_led(self.RobotIRL.LED_LEFT_EYE, 0, 0, 0)
-
-    def get_distance_parcouru(self):
-        """donne la distance parcouru entre deux appels de la fonction ou entre 
-        linitialisation du robot et le premier appel de la fonction"""
-        get = self.RobotIRL.get_motor_position() - self.distance_parcouru
-        self.distance_parcouru = self.RobotIRL.get_motor_position()
-        return get
