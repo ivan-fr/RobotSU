@@ -6,6 +6,7 @@ class Wrapper(object):
     def __init__(self, RobotIRL):
         self.RobotIRL = RobotIRL
         self.rayon_roue = (self.RobotIRL.WHEEL_DIAMETER * 10e-3) / 2.
+        self.rayon_robot = (self.RobotIRL.WHEEL_BASE_WIDTH * 10e-3) / 2.
         self.lastRotation = (None, None)
 
     @property
@@ -38,8 +39,11 @@ class Wrapper(object):
     @rotation.setter
     def rotation(self, degreParSecondeVoulu):
         self._rotation = degreParSecondeVoulu
-        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, degreParSecondeVoulu)
-        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -degreParSecondeVoulu)
+        radiansParSecondeVoulu = (degreParSecondeVoulu * math.pi) / 180.
+        radiansParSeconde = radiansParSeconde * self.rayon_robot / self.rayon_roue
+        dps = radiansParSeconde * 180. / math.pi
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_RIGHT, dps)
+        self.RobotIRL.set_motor_dps(self.RobotIRL.MOTOR_LEFT, -dps)
 
     def get_distance(self):
         return self.RobotIRL.get_distance()
