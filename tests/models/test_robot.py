@@ -46,10 +46,10 @@ class RobotTest(unittest.TestCase):
         self.assertTrue(r.x == pos_x_init)
         self.assertTrue(r.y == pos_y_init)
         # cas d'un temps null => immobile
-        r = Robot.Robot(pos_x_init, pos_y_init, vitesse, angle)
-        r.avance(0)
-        self.assertTrue(r.x == pos_x_init)
-        self.assertTrue(r.y == pos_y_init)
+        r1 = Robot.Robot(pos_x_init, pos_y_init, vitesse, angle)
+        r1.avance(0)
+        self.assertTrue(r1.x == pos_x_init)
+        self.assertTrue(r1.y == pos_y_init)
 
         # cas général, en prenant en compte l'incertitude de calcul --> float (arrondis au 1e-10 pres)
         for _ in range(1000):
