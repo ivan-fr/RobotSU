@@ -13,7 +13,6 @@ class StrategieAvancerDroitMax(object):
 
         self.lastUpdate = lastUpdate
         
-        
     def acceleration(self,deltaT):
         self.accel = (self.vitessemax - self.vitesseinit)/deltaT
 
