@@ -81,7 +81,7 @@ def detectBalise(image):
 
 class StrategieSuivreBalise(object):
     def __init__(self, stratAvancer, stratTourner):
-        self.liste_strategies = [stratTourner] * (360 // stratTourner.angleTarget)
+        self.liste_strategies = [stratTourner] * int(360 / stratTourner.angleTarget)
 
         self.dps_base = self.liste_strategies[0].degreParSeconde
         self.angleTarget_base = self.liste_strategies[0].angleTarget
