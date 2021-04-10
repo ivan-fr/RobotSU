@@ -51,3 +51,6 @@ class Wrapper(object):
 
     def allumage_led(self):
         self.RobotIRL.set_led(self.RobotIRL.LED_LEFT_EYE, 0, 0, 0)
+
+    def get_image(self):
+        return self.RobotIRL.get_image()

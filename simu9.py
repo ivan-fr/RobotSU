@@ -1,6 +1,6 @@
 from views import Terrain
 from models import TerrainContinu, Robot, Polygone, Wrapper
-from controllers import StrategieCarre, StrategieAvancerDroitIRL, StrategieTournerIRL
+from controllers import StrategieSuivreBalise, StrategieAvancerDroitIRL, StrategieTournerIRL
 import threading
 import time
 
@@ -11,10 +11,10 @@ except:
 
 stop_thread = True
 
-def updateStrats(stratCarre, fps):
-    stratCarre.start()
-    while not stratCarre.stop():
-        stratCarre.step()
+def updateStrats(stratBalise, fps):
+    stratBalise.start()
+    while not stratBalise.stop():
+        stratBalise.step()
         time.sleep(1./fps)
     global stop_thread
     stop_thread = False
@@ -23,12 +23,12 @@ def run():
     tc = TerrainContinu.Carre(20)
     wrapper = Wrapper.Wrapper(Robot2I013())
     startAvancer = StrategieAvancerDroitIRL.StrategieAvancerDroitIRL(wrapper, 70., 15.)
-    startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 90., 20.)
-    stratCarre = StrategieCarre.StrategieCarre(startAvancer, startTourner)
+    startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 40., 20.)
+    stratBalise = StrategieSuivreBalise.StrategieSuivreBalise(startAvancer, startTourner)
 
     fps = 60
 
-    t2 = threading.Thread(target=updateStrats, args=(stratCarre, fps))
+    t2 = threading.Thread(target=updateStrats, args=(stratBalise, fps))
     t2.start()
 
 
