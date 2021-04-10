@@ -8,10 +8,10 @@ class WrapperTest(unittest.TestCase):
         rIRL = RobotIRLInterface.RobotIRLInterface(None)
         w = Wrapper.Wrapper(rIRL)
 
-        self.assertTrue(w.RobotIRL == rIRL)
+        self.assertTrue(w.robotIRL == rIRL)
         self.assertTrue(w._vitesse == 0)
-        self.assertTrue(w.rayon_roue == w.RobotIRL.WHEEL_DIAMETER *10e-3 / 2.)
-        self.assertTrue(w.rayon_robot == w.RobotIRL.WHEEL_BASE_WIDTH * 10e-3 / 2.)
+        self.assertTrue(w.rayon_roue == w.robotIRL.WHEEL_DIAMETER *10e-3 / 2.)
+        self.assertTrue(w.rayon_robot == w.robotIRL.WHEEL_BASE_WIDTH * 10e-3 / 2.)
         self.assertTrue(w.lastRotation == (None,None))
 
     def test_vitesse(self):
