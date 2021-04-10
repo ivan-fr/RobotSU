@@ -1,4 +1,3 @@
-import models.Robot
 import models.Vecteur, models.Polygone
 import json
 
@@ -22,19 +21,19 @@ class TerrainContinu(object):
         : param tuple : coordonnees du robot
         : param Vecteur : vecteur de deplacement du robot
         """
-        for p in self.listePolygone:
-            if p.collision(posOrigine, vecteurDeplacement):
+        for polygone in self.listePolygone:
+            if polygone.collision(posOrigine, vecteurDeplacement):
                 return True
         # posX, posY : position du premier vecteur du terrain
         posX = self.polygoneSurface.liste_sommet[0][0]
         posY = self.polygoneSurface.liste_sommet[1][1]
-        for v in self.polygoneSurface._liste_vecteur:
+        for vecteur in self.polygoneSurface._liste_vecteur:
             # vecteurDeplacement et (x,y) du robot
-            if (v.collision((posX, posY), vecteurDeplacement, posOrigine)):
+            if vecteur.collision((posX, posY), vecteurDeplacement, posOrigine):
                 return True
             # calcul de l'origine des vecteurs suivants
-            posX = posX + v.x
-            posY = posY + v.y
+            posX = posX + vecteur.x
+            posY = posY + vecteur.y
         return False
 
 def Carre(norme):

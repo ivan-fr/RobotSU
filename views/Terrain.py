@@ -118,7 +118,7 @@ class Terrain(object):
             traceY += vecteurUnite.y
 
 
-def construireTerrain(tc, robot):
+def construireTerrain(tc, robot=None):
     """return Terrain
     affiche le terrain de maniere discrete
     echelle: combien de case par unité. La valeur de l'unité est dans la variable echelle
