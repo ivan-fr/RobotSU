@@ -44,3 +44,9 @@ class RobotIRLInterface(object):
 
     def get_image(self):
         pass
+
+    def up(self):
+        pass
+
+    def down(self):
+        pass

@@ -1,5 +1,3 @@
-from controllers import StrategieAvancerDroit, StrategieTourner
-
 class StrategieCarre(object):
     def __init__(self, stratAvancer, stratTourner):
         self.liste_strategies = [stratAvancer, stratTourner] * 4

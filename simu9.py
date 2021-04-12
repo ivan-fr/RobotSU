@@ -20,7 +20,6 @@ def updateStrats(stratBalise, fps):
     stop_thread = False
 
 def run():
-    tc = TerrainContinu.Carre(20)
     wrapper = Wrapper.Wrapper(Robot2I013())
     startAvancer = StrategieAvancerDroitIRL.StrategieAvancerDroitIRL(wrapper, 70., 15.)
     startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 40., 20.)
