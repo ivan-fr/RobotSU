@@ -19,7 +19,6 @@ def updateStrats(stratADM, fps):
     stop_thread = False
 
 def run():
-    tc = TerrainContinu.Carre(20)
     wrapper = Wrapper.Wrapper(Robot2I013())
     vitessemax = 500
     stratADM = StrategieAvancerDroitMaxIRL.StrategieAvancerDroitMaxIRL(wrapper,vitessemax,tc,lastUpdate=None)
