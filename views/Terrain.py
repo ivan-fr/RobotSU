@@ -117,7 +117,7 @@ class Terrain(object):
             traceX += vecteurUnite.x
             traceY += vecteurUnite.y
     def ecrire(self, robot):
-        self.ajout_objet(robot.x, robot.y, "S")
+        self.ajout_objet("S", robot.x, robot.y)
 
 
 def construireTerrain(tc, robot=None):

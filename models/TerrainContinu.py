@@ -44,6 +44,9 @@ class TerrainContinu(object):
 
     def get_signal(robot, gemme):
         distance = math.sqrt((gemme.x + robot.x) ** 2 + (gemme.y + robot.y) ** 2)
+        angle = math.atan2(robot.y, robot.x) - atan2(gemme.y, gemme.x)
+        return [distance, angle]
+
 def Carre(norme):
     return TerrainContinu(models.Polygone.Carre((0.,0.), norme))
 
