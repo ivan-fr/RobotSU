@@ -188,10 +188,34 @@ def q2_3(wrapper):
     t2 = threading.Thread(target=updateStrats, args=(longerMur, fps))
     t2.start()
 
+def affichage(robot, tc, fps):
+    while stop_thread:
+        t = Terrain.construireTerrain(tc, robot)
+        t.affichage()
+        time.sleep(1./fps)
+        t.supprimerAffichage()
 
-def q3_1(wrapper):
+def gemmes(tc):
+    while stop_thread:
+        tc.ajout_gemme()
+        time.sleep(20)
 
+def updateTC(tc, fps):
+    while stop_thread:
+        tc.gemmes_destroy()
+        time.sleep(1./fps) 
+
+def q3_1():
+    tc = TerrainContinu.Carre(40)
+    robot = Robot.Robot(0, 0, 0., 0.)
+    fps = 1
+    t1 = threading.Thread(target=affichage, args=(robot, tc, fps))
+    t2 = threading.Thread(target=gemmes, args=(tc,))
+    t3 = threading.Thread(target=updateTC, args=(tc,fps))
+    t1.start()
+    t2.start()
+    t3.start()
 
 if __name__ == '__main__':
     # q1_1(Wrapper.Wrapper(Robot2I013()))
-    q2_3(Wrapper.Wrapper(Robot2I013()))
+    q3_1()

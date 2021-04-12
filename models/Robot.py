@@ -1,5 +1,5 @@
 from models import Vecteur
-from math import cos, sin, radians
+from math import cos, sin, radians, atan
 import datetime
 
 
@@ -37,6 +37,12 @@ class Robot(object):
 
     def collision(self, terrainContinu, temps):
         return terrainContinu.collision((self.x, self.y), self.vecteurDeplacement * temps)
+
+    def get_signal(self, gemme):
+        x_g, y_g = gemme[0], gemme[1]
+        distance = Vecteur.Vecteur(x_g - self.x, y_g - self.y).norme()
+        angle = atan((y_g - self.y)/(x_g - self.x))
+        return distance, angle
 
     def rotation(self, deltaTemps):
         """float -> void

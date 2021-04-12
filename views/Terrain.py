@@ -152,7 +152,7 @@ def construireTerrain(tc, robot=None):
     # dessine la delimitation
     x = tc.polygoneSurface.liste_sommet[0][0]
     y = tc.polygoneSurface.liste_sommet[0][1]
-    for sommetSurface in tc.polygoneSurface._liste_vecteur:
+    for sommetSurface in tc.polygoneSurface.liste_vecteur:
         terrain.dessineVecteur((x, y), sommetSurface)
         x += sommetSurface.x
         y += sommetSurface.y
@@ -162,5 +162,9 @@ def construireTerrain(tc, robot=None):
         for i in range(len(polygone._liste_vecteur)):
             terrain.dessineVecteur(
                 polygone.liste_sommet[i], polygone.l_iste_vecteur[i])
+
+    # dessine les gemmes
+    for gemme in tc.gemmes:
+        terrain.ajout_objet_continu(object(), gemme[0], gemme[1])
 
     return terrain

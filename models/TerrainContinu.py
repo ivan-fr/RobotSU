@@ -1,5 +1,7 @@
 import models.Vecteur, models.Polygone
 import json
+import random
+import datetime
 
 class TerrainContinu(object):
     def __init__(self, polygoneSurface, listePolygone=[], lastUpdate=None, caseParUnite=0.5):
@@ -7,6 +9,28 @@ class TerrainContinu(object):
         self.listePolygone = listePolygone
         self.lastUpdate = lastUpdate
         self.caseParUnite = caseParUnite
+        self.gemmes = []
+
+    def ajout_gemme(self):
+        min_x = min(x for x, _ in self.polygoneSurface.liste_sommet)
+        max_x = max(x for x, _ in self.polygoneSurface.liste_sommet)
+
+        min_y = min(y for _, y in self.polygoneSurface.liste_sommet)
+        max_y = max(y for _, y in self.polygoneSurface.liste_sommet)
+
+        xg = random.uniform(min_x, max_x)
+        yg = random.uniform(min_y, max_y)
+        self.gemmes.append((xg, yg, datetime.datetime.now(), random.uniform(10, 15)))
+
+    def gemmes_destroy(self):
+        to_destroy = []
+        for i in range(len(self.gemmes)):
+            gemme = self.gemmes[i]
+            if (datetime.datetime.now() - gemme[2]).total_seconds() > gemme[3]:
+                to_destroy.append(i)
+        
+        for i in to_destroy:
+            self.gemmes.pop(i)
 
     def ajoutPolygone(self, polygone):
         """Polygone -> void 

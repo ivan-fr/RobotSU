@@ -2,8 +2,6 @@ from models import Vecteur
 
 
 class Polygone:
-
-    
     def __init__(self, liste_sommet, liste_vecteur=[]):
         self.liste_vecteur = liste_vecteur
         self.liste_sommet = liste_sommet
