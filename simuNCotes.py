@@ -7,9 +7,9 @@ import math
 
 stop_thread = True
 
-def affichage(robot, tc, fps):
+def affichage(Robot, tc, fps):
     while stop_thread:
-        t = Terrain.construireTerrain(tc, robot)
+        t = Terrain.construireTerrain(tc, Robot)
         t.affichage()
         time.sleep(1./fps)
         t.supprimerAffichage()
@@ -24,7 +24,6 @@ def updateStrats(stratNCotes, fps):
 
 def run():
     tc = TerrainContinu.Carre(20)
-    #Robot = Robot.Robot(0,0)
     startAvancer = StrategieAvancerDroit.StrategieAvancerDroit(10., 70., Robot)
     startTourner = StrategieTourner.StrategieTourner(6*math.pi, 90., Robot)
     stratNCotes = StrategieNCotes.StrategieNCotes(startAvancer, startTourner, 8)
@@ -32,6 +31,7 @@ def run():
     fps = 60
     t1 = threading.Thread(target=affichage, args=(Robot, tc, fps))
     t2 = threading.Thread(target=updateStrats, args=(stratNCotes, fps))
+    t1.start()
     t2.start()
 
 

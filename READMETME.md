@@ -3,10 +3,10 @@
 # Ex1:
 q1: Fait dans le fichier Terrain.py dans le module views.
 
-q2: Création fichier simuStylo
+q2: Création fichier simuStylo, le R de l'affichage représente le robot et le X représente le tracé.
 
 # Ex2:
-q1: StrategieTriangle dans le module controllers
+q1: StrategieTriangle dans le module controllers, prend en paramètres les stratégies tourner et avancer qu'il exécute
 
 q2: StrategieNCotes dans le module controllers + fichier simuNCotes pour tester
 
