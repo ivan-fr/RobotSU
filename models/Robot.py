@@ -41,7 +41,7 @@ class Robot(object):
     def get_signal(self, gemme):
         x_g, y_g = gemme[0], gemme[1]
         distance = Vecteur.Vecteur(x_g - self.x, y_g - self.y).norme()
-        angle = atan((y_g - self.y)/(x_g - self.x))
+        angle = atan((self.y - y_g)/(self.x - x_g))
         return distance, angle
 
     def rotation(self, deltaTemps):
