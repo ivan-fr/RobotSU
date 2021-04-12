@@ -1,6 +1,6 @@
 from views import Terrain
 from models import TerrainContinu, Robot, Polygone, Wrapper
-from controllers import StrategieTournerIRL, StrategieAvancerDroitIRL
+from controllers import StrategieTournerIRL, StrategieAvancerDroitIRL, StrategieAvancerDroit, StrategieTourner
 import threading
 import time
 import datetime
@@ -191,6 +191,8 @@ def q2_3(wrapper):
 def affichage(robot, tc, fps):
     while stop_thread:
         t = Terrain.construireTerrain(tc, robot)
+        if tc.gemmes:
+            print(robot.get_signal(tc.gemmes[0]))
         t.affichage()
         time.sleep(1./fps)
         t.supprimerAffichage()
@@ -205,8 +207,39 @@ def updateTC(tc, fps):
         tc.gemmes_destroy()
         time.sleep(1./fps) 
 
+class stratGemme(object):
+    def __init__(self, robot):
+        self.wrapper = robot
+        self.avance = StrategieAvancerDroit.StrategieAvancerDroit(0., 15., wrapper)
+        self.tourner = StrategieTourner.StrategieTourner(0., 30., wrapper)
+        self.i = -1
+        self.stat = False
+
+    def start(self):
+        self.avance.start()
+        self.wrapper.robotIRL.stop()
+        self.tourner.start()
+
+    def step(self):
+        if not self.stat:
+            distance, angle = self.wrapper.get_signal()
+            self.tourner.angleTarget = angle
+            self.avance.distance = distance
+            self.stat = True
+
+        if not self.tourner.stop():
+            self.tourner.step()
+            self.tourner.angleTarget = 0
+        elif not self.avance.stop():
+            self.avance.step()            
+            self.avance.distance = 0
+        else:
+            self.avance.start()
+            self.tourner.start()
+            self.stat = False
+
 def q3_1():
-    tc = TerrainContinu.Carre(40)
+    tc = TerrainContinu.Carre(20)
     robot = Robot.Robot(0, 0, 0., 0.)
     fps = 1
     t1 = threading.Thread(target=affichage, args=(robot, tc, fps))

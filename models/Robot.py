@@ -1,5 +1,5 @@
 from models import Vecteur
-from math import cos, sin, radians, atan
+from math import cos, sin, radians, atan, degrees
 import datetime
 
 
@@ -40,9 +40,9 @@ class Robot(object):
 
     def get_signal(self, gemme):
         x_g, y_g = gemme[0], gemme[1]
-        distance = Vecteur.Vecteur(x_g - self.x, y_g - self.y).norme()
-        angle = atan((self.y - y_g)/(self.x - x_g))
-        return distance, angle
+        v = Vecteur.Vecteur(x_g - self.x, y_g - self.y)
+        distance = v.norme()
+        return distance, v.angle_entre(self.vecteurDeplacement)
 
     def rotation(self, deltaTemps):
         """float -> void
