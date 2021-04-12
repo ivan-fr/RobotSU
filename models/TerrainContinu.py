@@ -1,5 +1,7 @@
 import models.Vecteur, models.Polygone
 import json
+from models import Gemme
+import math
 
 class TerrainContinu(object):
     def __init__(self, polygoneSurface, listePolygone=[], lastUpdate=None, caseParUnite=0.5):
@@ -35,7 +37,13 @@ class TerrainContinu(object):
             posX = posX + vecteur.x
             posY = posY + vecteur.y
         return False
+    
+    def initGemme(self):
+        Gemme = Gemme(5,5)
+        self.ajoutPolygone(Gemme)
 
+    def get_signal(robot, gemme):
+        distance = math.sqrt((gemme.x + robot.x) ** 2 + (gemme.y + robot.y) ** 2)
 def Carre(norme):
     return TerrainContinu(models.Polygone.Carre((0.,0.), norme))
 

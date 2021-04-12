@@ -7,3 +7,8 @@ q2:
 q1: StrategieTriangle dans le module controllers
 
 q2: StrategieNCotes dans le module controllers + fichier simuNCotes pour tester
+
+q3: StrategieTourArene dans le module controllers
+
+# Ex3:
+q1: Création fichier Gemme.py dans models
