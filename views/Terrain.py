@@ -152,7 +152,7 @@ def construireTerrain(tc, robot=None):
     # dessine la delimitation
     x = tc.polygoneSurface.liste_sommet[0][0]
     y = tc.polygoneSurface.liste_sommet[0][1]
-    for sommetSurface in tc.polygoneSurface._liste_vecteur:
+    for sommetSurface in tc.polygoneSurface.liste_vecteur:
         terrain.dessineVecteur((x, y), sommetSurface)
         x += sommetSurface.x
         y += sommetSurface.y
