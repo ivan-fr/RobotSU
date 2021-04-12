@@ -1,6 +1,6 @@
 from views import Terrain
 from models import TerrainContinu, Robot, Polygone, Wrapper
-from controllers import StrategieAvancerDroitMaxIRL
+from controllers import StrategieAvancerDroitMaxIRL2
 import threading
 import time
 try:
