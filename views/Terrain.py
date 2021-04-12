@@ -70,7 +70,11 @@ class Terrain(object):
                 if j is None:
                     string += " "
                 elif isinstance(j, Robot.Robot):
-                    string += "R"
+                    # if(Robot.down()==True):
+                        string += "-"
+                        string += "R"
+                    # else :
+                    #     string += "R"
                 else:
                     string += "X"
             string += "|\n"

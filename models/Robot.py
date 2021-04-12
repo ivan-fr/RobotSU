@@ -22,6 +22,9 @@ class Robot(object):
 
         self.lastCollision = lastCollision
 
+    def down(self):
+        return True
+
     def __str__(self):
         """ -> str
         Permet de retourner une chaine de caractère représentant l'objet robot

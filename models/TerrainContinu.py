@@ -15,6 +15,13 @@ class TerrainContinu(object):
         self.listePolygone.append(polygone)
         return
 
+    def generationGemmes(self,polygone){
+        while True :
+            rand = random.uniform(10, 10000)
+            if (rand == 1000) :
+                ajoutPolygone(polygone)
+    }
+
     def collision(self, posOrigine, vecteurDeplacement):
         """tuple (int * int) * Vecteur -> boolean
         méthode qui verifie la collision du robot avec les objets contenu sur le terrain ainsi qu'avec 
