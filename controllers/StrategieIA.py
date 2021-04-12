@@ -23,6 +23,7 @@ class StrategieIA(object):
                 while self.wrapper.get_ditance() < 0.5:
                     if angleTourne >= 360:
                         self.stopstrat = True
+                        break
                     self.stratTourner.step()
                     angleTourne += 5
             else:
