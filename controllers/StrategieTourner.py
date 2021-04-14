@@ -3,7 +3,7 @@ import datetime
 
 class StrategieTourner(object) :
 
-    def __init__(self, angleTarget, degreParSeconde, robot):
+    def __init__(self, robot, angleTarget, degreParSeconde):
         self.robot = robot
         self.angleTarget = angleTarget
         self.angleApplique = 0.
@@ -27,7 +27,7 @@ class StrategieTourner(object) :
             now = datetime.datetime.now()
             deltaT = (now - self.lastUpdate).total_seconds()
             self.lastUpdate = now
-            self.angleApplique += deltaT * self.robot._degreParSeconde
+            self.angleApplique += deltaT * abs(self.robot._degreParSeconde)
 
     def stop(self):
         # condition d'arret, si le robot a bien tourne

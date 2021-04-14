@@ -21,7 +21,7 @@ def updateStrats(stratADM, fps):
 def run():
     wrapper = Wrapper.Wrapper(Robot2I013())
     vitessemax = 500
-    stratADM = StrategieAvancerDroitMaxIRL.StrategieAvancerDroitMaxIRL(wrapper,vitessemax,tc,lastUpdate=None)
+    stratADM = StrategieAvancerDroitMaxIRL2.StrategieAvancerDroitMaxIRL2(wrapper,vitessemax,lastUpdate=None)
 
     fps = 60
 

@@ -1,8 +1,14 @@
-from controllers import StrategieAvancerDroit, StrategieTourner
+import math
 
-class StrategieCarre(object):
-    def __init__(self, stratAvancer, stratTourner):
-        self.liste_strategies = [stratAvancer, stratTourner] * 4
+class StrategiePolygone(object):
+    def __init__(self, stratAvancer, stratTourner, n):
+        # 120 degrés pour tourner
+        target = math.degrees((n - 2) * math.pi / n)
+        dps = target * 0.3
+        stratTourner.angleTarget = target
+        stratTourner.degreParSeconde = dps
+
+        self.liste_strategies = [stratAvancer, stratTourner] * n
         self.i_liste_strategies = 0
 
     def start(self):
