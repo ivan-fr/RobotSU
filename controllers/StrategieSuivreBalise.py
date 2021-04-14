@@ -4,7 +4,9 @@ import datetime
 import numpy as np
 from PIL import Image
 import math
+import time
 
+img_i = 0
 
 def select(data, R, G, B):
     data_copy = data.copy()
@@ -22,9 +24,9 @@ def distance(data, ligne, colonne):
     return ((ligne_c - ligne) ** 2 + (colonne_c - colonne) ** 2) ** (.5)
 
 
-def detectBalise(image):
-    image = image.resize((160, 300), Image.ANTIALIAS)
-    data = np.asarray(image)
+def detectBalise(data):
+    img = Image.fromarray(data)
+    img.save("../images/capture_" + img_i + ".jpg")
 
     R = np.logical_and(10 < data[:, :, 0], data[:, :, 0] < 35)
     G = np.logical_and(80 < data[:, :, 1], data[:, :, 1] < 100)
@@ -116,7 +118,10 @@ class StrategieSuivreBalise(object):
         if self.modeTourner:
             self.step_tourner()
         elif not self.baliseInFront:
+            time.sleep(1)
             balise, baliseInFront, itIsLeft, pourcentage = detectBalise(self.stratAvancer.wrapper.get_image())
+            print("balise in image ?", balise, "balise on front ?", baliseInFront)
+            time.sleep(1)
             if balise:
                 if baliseInFront:
                     self.stratAvancer.step()

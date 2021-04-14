@@ -1,5 +1,5 @@
 from views import Terrain
-from models import TerrainContinu, Robot, Polygone, Wrapper
+from models import Robot, Polygone, Wrapper
 from controllers import StrategiePolygone, StrategieAvancerDroitIRL, StrategieTournerIRL
 import threading
 import time
