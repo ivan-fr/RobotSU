@@ -37,5 +37,5 @@ class StrategieAvancerDroitIRL(object):
         result = self.parcouruIRL >= self.distance or self.wrapper.robotIRL.get_distance() < 50
         if result:            
             self.wrapper.vitesse = 0.
-            self.wrapper.RobotIRL.stop()
+            self.wrapper.robotIRL.stop()
         return result
