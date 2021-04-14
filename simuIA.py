@@ -9,15 +9,11 @@ try:
 except: 
     from models.RobotIRLInterface import RobotIRLInterface as Robot2I013
 
-stop_thread = True
-
 def updateStrats(stratIA, fps):
     stratIA.start()
     while not stratIA.stop():
         stratIA.step()
         time.sleep(1./fps)
-    global stop_thread
-    stop_thread = False
 
 def run():
     wrapper = Wrapper.Wrapper(Robot2I013())
