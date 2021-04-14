@@ -22,7 +22,6 @@ def updateStrats(stratIA, fps):
 def run():
     wrapper = Wrapper.Wrapper(Robot2I013())
     stratIA = StrategieIA.StrategieIA(wrapper, 70.)
-
     fps = 60
 
     t2 = threading.Thread(target=updateStrats, args=(stratIA, fps))
