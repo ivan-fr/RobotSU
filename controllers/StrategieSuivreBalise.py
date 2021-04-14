@@ -149,7 +149,7 @@ class StrategieSuivreBalise(object):
     def stop(self):
         # condition d'arret lorsque le robot a parcouru les 4 cotes
         try:
-            _ = self.liste_strategies[self.i_liste_strategies]
+            _ = self.liste_strategies[self.i_liste_strategies + 1]
             return self.stratAvancer.stop()
         except IndexError:
             return True
