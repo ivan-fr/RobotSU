@@ -27,6 +27,7 @@ def distance(data, ligne, colonne):
 def detectBalise(data):
     img = Image.fromarray(data)
     img.save("../images/capture_" + img_i + ".jpg")
+    img_i += 1
 
     R = np.logical_and(10 < data[:, :, 0], data[:, :, 0] < 35)
     G = np.logical_and(80 < data[:, :, 1], data[:, :, 1] < 100)
