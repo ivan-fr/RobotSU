@@ -15,7 +15,7 @@ class StrategieAvancerDroitIRL(object):
     def start(self):
         self.parcouruIRL = 0.
         self.lastUpdate = None
-        self.wrapper.robotIRL.stop()
+        self.wrapper.vitesse = 0.
 
     def step(self):
         if self.stop():

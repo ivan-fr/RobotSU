@@ -23,7 +23,7 @@ def run():
     wrapper = Wrapper.Wrapper(Robot2I013())
     time.sleep(3)
     startAvancer = StrategieAvancerDroitIRL.StrategieAvancerDroitIRL(wrapper, 70., 15.)
-    startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 40., 20.)
+    startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 40., 40.)
     stratBalise = StrategieSuivreBalise.StrategieSuivreBalise(startAvancer, startTourner)
 
     fps = 60
