@@ -21,7 +21,7 @@ class StrategieAvancerDroitMaxIRL2(object):
         self.parcouruIRL = 0
         self.lastUpdate=None
         self.accel = 0
-        self.wrapper.RobotIRL.stop()
+        self.wrapper.vitesse = 0.
 
     def step(self):
         if self.stop():
@@ -42,5 +42,4 @@ class StrategieAvancerDroitMaxIRL2(object):
         result = self.parcouruIRL >= self.distance or self.wrapper.RobotIRL.get_distance() * 1e-1 < 3
         if result:
             self.wrapper.vitesse = 0.
-            self.wrapper.RobotIRL.stop()
         return result

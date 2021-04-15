@@ -35,9 +35,7 @@ class StrategieAvancerDroitMax(object):
             self.lastUpdate = now
             self.acceleration(deltaT)
             self.robot.vitesse = self.robot.vitesse + ((self.accel * deltaT)/2)
-            print(self.robot.vitesse)
             self.parcouru+=self.robot.vitesse * deltaT
-
     
     def stop(self):
         # condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle
