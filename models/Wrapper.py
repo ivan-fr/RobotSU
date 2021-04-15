@@ -31,6 +31,8 @@ class Wrapper(object):
         radiansRelative = (math.radians(
             now[0] - self.lastRotation[0]), math.radians(now[1] - self.lastRotation[1]))
         distance = (self.rayon_roue * radiansRelative[0] + self.rayon_roue * radiansRelative[1]) / 2.
+    
+        self.lastRotation = now
         return distance
 
     @property

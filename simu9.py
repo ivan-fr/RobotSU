@@ -22,7 +22,7 @@ def updateStrats(stratBalise, fps):
 def run():
     wrapper = Wrapper.Wrapper(Robot2I013())
     time.sleep(3)
-    startAvancer = StrategieAvancerDroitIRL.StrategieAvancerDroitIRL(wrapper, 70., 15.)
+    startAvancer = StrategieAvancerDroitIRL.StrategieAvancerDroitIRL(wrapper, 10., 15.)
     startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 40., 40.)
     stratBalise = StrategieSuivreBalise.StrategieSuivreBalise(startAvancer, startTourner)
 
