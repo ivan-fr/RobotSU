@@ -7,7 +7,6 @@ class TerrainContinuTest(unittest.TestCase):
         tc = TerrainContinu.Carre(20)
         self.assertIsNotNone(tc.polygoneSurface)
         self.assertIsNotNone(tc.listePolygone)
-        self.assertIsNone(tc.lastUpdate)
 
     def test_ajout_polygone(self):
         tc = TerrainContinu.Carre(20)

@@ -1,0 +1,12 @@
+{
+    "__class": "Robot",
+    "angle": 0.0,
+    "lastCollision": false,
+    "vecteurDeplacement": {
+        "__class": "Vecteur",
+        "x": 0.0,
+        "y": 0.0
+    },
+    "x": 0,
+    "y": 0
+}
