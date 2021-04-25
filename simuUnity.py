@@ -11,11 +11,18 @@ stop_thread = True
 
 def unity(robot, s, conn, fps):
     while stop_thread:
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                time.sleep(1./fps)
+                continue
+            break
+
         robot_s = Serializer.serialize(robot).encode()
         conn.send(robot_s)
         time.sleep(1./fps)
+
     conn.send(b"ok")
-    s.shutdown(socket.SHUT_RDWR)
     s.close()
 
 
@@ -40,18 +47,27 @@ def run(cote):
 
     HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
     PORT = 65432
+    fps = 60
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
     s.listen()
     conn, addr = s.accept()
+
+    while True:
+        data = conn.recv(1024)
+        if not data:
+            time.sleep(1./fps)
+            continue
+        break
+
     conn.send(tc_s)
+
     robot = Robot.Robot(-3, -3, 0., 0.)
-    startAvancer = StrategieAvancerDroit.StrategieAvancerDroit(
-        robot, 7., 15.)
+    startAvancer = StrategieAvancerDroit.StrategieAvancerDroit(robot, 7., 15.)
     startTourner = StrategieTourner.StrategieTourner(robot, 0., 0.)
-    stratPolygone = StrategiePolygone.StrategiePolygone(startAvancer, startTourner, int(cote))
-    fps = 60
+    stratPolygone = StrategiePolygone.StrategiePolygone(
+        startAvancer, startTourner, int(cote))
     t1 = threading.Thread(target=unity, args=(robot, s, conn, fps))
     t2 = threading.Thread(target=updateStrats, args=(stratPolygone, fps))
     t3 = threading.Thread(target=updateRobot, args=(robot, tc, fps))
