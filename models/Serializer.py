@@ -17,14 +17,5 @@ def my_hook(dic):
     return dic
 
 
-def serialize(terrainContinu, robot):
-    f = open("TC.json", "w")
-    json.dump(terrainContinu, f, default=my_enc, indent=4, sort_keys=True)
-    f.close()
-    f = open("Robot.json", "w")
-    json.dump(robot, f, default=my_enc, indent=4, sort_keys=True)
-    f.close()
-
-
-def deserialize(filename):
-    return json.load(open(filename, "r"), object_hook=my_hook)
+def serialize(obj):
+    return json.dumps(obj, default=my_enc, sort_keys=True)
