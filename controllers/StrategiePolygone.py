@@ -4,7 +4,7 @@ class StrategiePolygone(object):
     def __init__(self, stratAvancer, stratTourner, n):
         # 120 degrés pour tourner
         target = math.degrees((n - 2) * math.pi / n)
-        dps = target * 0.3
+        dps = target * 0.4
         stratTourner.angleTarget = target
         stratTourner.degreParSeconde = dps
 
