@@ -129,8 +129,8 @@ def construireTerrain(tc, robot=None):
     yMax = None
     xMin = None
     yMin = None
-    for sommetSurface in tc.polygoneSurface.liste_sommet:
-        x, y = sommetSurface
+    for vecteurSurface in tc.polygoneSurface._liste_sommet:
+        x, y = vecteurSurface
 
         if xMax is None or x > xMax:
             xMax = x
@@ -150,17 +150,17 @@ def construireTerrain(tc, robot=None):
         terrain.ajout_objet_continu(robot, robot.x, robot.y)
 
     # dessine la delimitation
-    x = tc.polygoneSurface.liste_sommet[0][0]
-    y = tc.polygoneSurface.liste_sommet[0][1]
-    for sommetSurface in tc.polygoneSurface.liste_vecteur:
-        terrain.dessineVecteur((x, y), sommetSurface)
-        x += sommetSurface.x
-        y += sommetSurface.y
+    x = tc.polygoneSurface._liste_sommet[0][0]
+    y = tc.polygoneSurface._liste_sommet[0][1]
+    for vecteurSurface in tc.polygoneSurface.liste_vecteur:
+        terrain.dessineVecteur((x, y), vecteurSurface)
+        x += vecteurSurface.x
+        y += vecteurSurface.y
 
     # dessine les polygones
     for polygone in tc.listePolygone:
         for i in range(len(polygone._liste_vecteur)):
             terrain.dessineVecteur(
-                polygone.liste_sommet[i], polygone.l_iste_vecteur[i])
+                polygone._liste_sommet[i], polygone.l_iste_vecteur[i])
 
     return terrain
