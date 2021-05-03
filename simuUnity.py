@@ -43,6 +43,11 @@ def updateRobot(robot, tc, fps):
 
 def run(cote):
     tc = TerrainContinu.Carre(20)
+    #on ajoute deux obstacles d'origine (2,2) et (6,1) sur le terrain 
+    ObsC = Polygone.Carre((8,6),3)
+    tc.ajoutPolygone(ObsC)
+    ObsC = Polygone.Carre((9,5),3)
+    tc.ajoutPolygone(ObsC)
     tc_s = Serializer.serialize(tc).encode()
 
     HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
