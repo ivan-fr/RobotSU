@@ -15,10 +15,10 @@ def affichage(robot, tc, fps):
         t.supprimerAffichage()
 
 
-def updateStrats(stratavance, fps):
-    stratavance.start()
-    while not stratavance.stop():
-        stratavance.step()
+def updateStrats(stratmax, fps):
+    stratmax.start()
+    while not stratmax.stop():
+        stratmax.step()
         time.sleep(1./fps)
     global stop_thread
     stop_thread = False
@@ -33,11 +33,11 @@ def updateRobot(robot, tc, fps):
 def run():
     tc = TerrainContinu.Carre(20)
     robot = Robot.Robot(-3, -3, 0., 0.)
-    stratAvance = StrategieAvancerDroitMax.StrategieAvancerDroitMax(robot, 10., tc)
+    stratmax = StrategieAvancerDroitMax.StrategieAvancerDroitMax(robot, 2., tc)
     fps = 60
 
     t1 = threading.Thread(target=affichage, args=(robot, tc, fps))
-    t2 = threading.Thread(target=updateStrats, args=(stratAvance, fps))
+    t2 = threading.Thread(target=updateStrats, args=(stratmax, fps))
     t3 = threading.Thread(target=updateRobot, args=(robot, tc, fps))
     t1.start()
     t2.start()
