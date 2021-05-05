@@ -7,10 +7,9 @@ class StrategieIA(object):
         self.wrapper = wrapper
         self.vitessemax = vitessemax
         self.stopstrat = False
-
+        self.stratTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 20., 20.)
     def start(self):
         self.wrapper.robotIRL.stop()
-        self.stratTourner.start()
 
     def step(self):
         while not self.stop():
@@ -21,7 +20,7 @@ class StrategieIA(object):
                     if angleTourne >= 360:
                         self.stopstrat = True
                         break
-                    self.stratTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 20., 20.)
+                    
                     self.stratTourner.start()
                     while not self.stratTourner.stop():
                         self.stratTourner.step()
