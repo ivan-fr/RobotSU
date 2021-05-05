@@ -11,9 +11,10 @@ def get_min_col_from_max_g_and_b(array):
     array_adapted[1:-1] = array
     zeros_index = np.where(array_adapted == 0)[0]
     diff = zeros_index[1:] - zeros_index[:-1]
-    return int(array_adapted[zeros_index[np.argmax(diff)]+1]), np.max(diff)
+    return int(array_adapted[zeros_index[np.argmax(diff)]+1]), np.max(diff) - 1
 
-def detectBalise(data):
+def detectBalise(image):
+    data = np.asarray(image)
     colors = ("r", "g", "b")
     channel_ids = (0, 1, 2)
 
@@ -41,24 +42,28 @@ def detectBalise(data):
         col, bins=data.shape[1], range=(0, data.shape[1])
         )
         histograms.append(histogram)
-        # plt.plot(bin_edges[:-1], histogram, color=c)
+        #plt.plot(bin_edges[:-1], histogram, color=c)
 
     histo_r, histo_g, histo_b = histograms
-    
-    more_r_than_blue = histo_r[:] > histo_b[:]
+
     r_and_g = np.where((histo_g[:] > 40) & (histo_b[:] > 50), 1, 0)
+    more_r_than_blue = histo_r[:] > histo_b[:]
     r_and_g_col = np.where(r_and_g != 0)[0]
 
     diff_close = r_and_g_col[1:] - r_and_g_col[:-1]
     r_and_g_col = np.where(diff_close <= 10, r_and_g_col[1:], 0)
 
     col_min, length = get_min_col_from_max_g_and_b(r_and_g_col)
-    balise = more_r_than_blue[col_min-int(length*.94):col_min-1]
 
-    if balise.size > 0:
-        balise = np.all(balise)
-    else:
-        balise = False
+    balise = False
+
+    if length > data.shape[1] * 0.08:
+        balise_b = more_r_than_blue[col_min-int(length*.94):col_min-1]
+
+        if balise_b.size > 0:
+            balise = np.all(balise_b)
+        else:
+            balise = False
 
     #balise in front
     baliseInFront = False
@@ -74,10 +79,11 @@ def detectBalise(data):
             pourcentage = abs(col_min -
                               colonne_midle) / colonne_midle
 
-    # plt.xlabel("colonnes")
-    # plt.ylabel("quantite RGB")
-    # plt.show()
+    #plt.xlabel("colonnes")
+    #plt.ylabel("quantite RGB")
+    #plt.show()
     return balise, baliseInFront, itIsLeft, pourcentage
+
 
 class StrategieSuivreBalise(object):
     def __init__(self, stratAvancer, stratTourner):
