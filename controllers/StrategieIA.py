@@ -8,6 +8,7 @@ class StrategieIA(object):
         self.vitessemax = vitessemax
         self.stopstrat = False
         self.stratTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 20., 20.)
+        
     def start(self):
         self.wrapper.robotIRL.stop()
 
