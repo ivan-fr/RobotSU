@@ -28,7 +28,8 @@ class StrategieAvancerDroitMaxIRL2(object):
 
     def stop(self):
         #inferieur a 20 ?
-        result = (self.parcouruIRL >= self.distance or self.wrapper.RobotIRL.get_distance() * 1e-1 < 3)
+        result = (self.parcouruIRL >= self.distance or self.wrapper.robotIRL.get_distance() * 1e-1 < 3)
         if result:
             self.wrapper.vitesse = 0.
+            self.wrapper.robotIRL.stop()
         return result
