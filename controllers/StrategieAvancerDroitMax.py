@@ -4,28 +4,25 @@ import datetime
 import math
 
 class StrategieAvancerDroitMax(object):
-    def __init__(self,Robot,vitessemax,TerrainContinu,lastUpdate=None):
+    def __init__(self,Robot,vitesse,TerrainContinu,lastUpdate=None):
         self.robot = Robot
-        self.vitessemax=vitessemax
-        self.vitesseinit = self.robot.vitesse
+        self.vitesse=vitesse
         self.Distance = self.robot.getDistance(TerrainContinu)
         self.parcouru = 0
 
         self.lastUpdate = lastUpdate
         
-    def acceleration(self,deltaT):
-        self.accel = (self.vitessemax - self.vitesseinit)/deltaT
 
     def start(self):
         self.parcouru = 0
         self.lastUpdate=None
-        self.accel = 0
         self.robot.vitesse = 0
 
     def step(self):
         if self.stop():
             return
             
+        self.robot.vitesse = self.vitesse
         
         if self.lastUpdate is None:
             self.lastUpdate = datetime.datetime.now()
@@ -33,9 +30,7 @@ class StrategieAvancerDroitMax(object):
             now = datetime.datetime.now()
             deltaT = (now - self.lastUpdate).total_seconds()
             self.lastUpdate = now
-            self.acceleration(deltaT)
-            self.robot.vitesse = self.robot.vitesse + ((self.accel * deltaT)/2)
-            self.parcouru+=self.robot.vitesse * deltaT
+            self.parcouru+= self.vitesse * deltaT
     
     def stop(self):
         # condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle

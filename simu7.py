@@ -33,7 +33,7 @@ def updateRobot(robot, tc, fps):
 def run():
     tc = TerrainContinu.Carre(20)
     robot = Robot.Robot(-3, -3, 0., 0.)
-    stratmax = StrategieAvancerDroitMax.StrategieAvancerDroitMax(robot, 2., tc)
+    stratmax = StrategieAvancerDroitMax.StrategieAvancerDroitMax(robot, 5., tc)
     fps = 60
 
     t1 = threading.Thread(target=affichage, args=(robot, tc, fps))
