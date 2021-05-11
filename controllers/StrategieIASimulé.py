@@ -1,23 +1,24 @@
 from models import Robot
-from controllers import StrategieTournerIRL
+from controllers import StrategieTourner
 import time
 
-class StrategieIA(object):
-    def __init__(self, Robot, vitessemax):
+class StrategieIASimulé(object):
+    def __init__(self, Robot, vitessemax,TerrainContinu):
         self.robot = Robot
+        self.tc = TerrainContinu
         self.vitessemax = vitessemax
         self.stopstrat = False
         self.stratTourner = StrategieTourner.StrategieTourner(Robot, 20., 20.)
         
     def start(self):
         self.robot.vitesse = 0
-
+       
     def step(self):
         while not self.stop():
-            if self.robot.get_distance() < 250.:
+            if self.robot.get_distance(tc) < 5.:
                 self.robot.vitesse = 0
                 angleTourne = 0.
-                while self.robot.get_distance() < 250.:
+                while self.robot.get_distance(tc) < 5.:
                     if angleTourne >= 360:
                         self.stopstrat = True
                         break
