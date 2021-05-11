@@ -1,6 +1,6 @@
 from views import Terrain
 from models import Robot, Polygone, TerrainContinu
-from controllers import StrategieIASimulé
+from controllers import StrategieIASimule
 import threading
 import time
 
@@ -32,7 +32,7 @@ def updateRobot(robot, tc, fps):
 def run():
     tc = TerrainContinu.Carre(20)
     robot = Robot.Robot(-3, -3, 0., 0.)
-    stratIAS = StrategieIASimulé.StrategieIASimulé(robot, 4.,tc)
+    stratIAS = StrategieIASimule.StrategieIASimule(robot, 4.,tc)
     fps = 60
 
     t1 = threading.Thread(target=affichage, args=(robot, tc, fps))

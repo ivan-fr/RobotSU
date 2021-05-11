@@ -14,21 +14,20 @@ class StrategieIASimulé(object):
         self.robot.vitesse = 0
        
     def step(self):
-        while not self.stop():
-            if self.robot.get_distance(tc) < 5.:
-                self.robot.vitesse = 0
-                angleTourne = 0.
-                while self.robot.get_distance(tc) < 5.:
-                    if angleTourne >= 360:
-                        self.stopstrat = True
-                        break
+        if self.robot.get_distance(tc) < 5.:
+            self.robot.vitesse = 0
+            angleTourne = 0.
+            while self.robot.get_distance(tc) < 5.:
+                if angleTourne >= 360:
+                    self.stopstrat = True
+                    break
                     
-                    self.stratTourner.start()
-                    while not self.stratTourner.stop():
-                        self.stratTourner.step()
-                    angleTourne += 20
-            else:
-                self.robot.vitesse = self.vitessemax
+                self.stratTourner.start()
+                while not self.stratTourner.stop():
+                    self.stratTourner.step()
+                angleTourne += 20
+        else:
+            self.robot.vitesse = self.vitessemax
 
     def stop(self):
         if self.stopstrat:
