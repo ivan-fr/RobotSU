@@ -124,7 +124,6 @@ class StrategieSuivreBalise(object):
         elif not self.baliseInFront:
             time.sleep(1)
             balise, baliseInFront, itIsLeft, pourcentage = detectBalise(self.stratAvancer.wrapper.get_image())
-            print("balise in image ?", balise, "balise on front ?", baliseInFront)
             
             if balise:
                 if baliseInFront:

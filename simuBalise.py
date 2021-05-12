@@ -6,10 +6,11 @@ import time
 
 try:
     from robot2I013 import Robot2I013
-except: 
+except:
     from models.RobotIRLInterface import RobotIRLInterface as Robot2I013
 
 stop_thread = True
+
 
 def updateStrats(stratBalise, fps):
     stratBalise.start()
@@ -19,10 +20,11 @@ def updateStrats(stratBalise, fps):
     global stop_thread
     stop_thread = False
 
+
 def run():
     wrapper = Wrapper.Wrapper(Robot2I013())
     time.sleep(3)
-    startAvancer = StrategieAvancerDroitIRL.StrategieAvancerDroitIRL(wrapper, 10., 150.)
+    startAvancer = StrategieAvancerDroitMaxIRL2.StrategieAvancerDroitMaxIRL2(wrapper, 600.)
     startTourner = StrategieTournerIRL.StrategieTournerIRL(wrapper, 40., 40.)
     stratBalise = StrategieSuivreBalise.StrategieSuivreBalise(startAvancer, startTourner)
 

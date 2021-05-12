@@ -26,7 +26,7 @@ class StrategieAvancerDroitIRL(object):
 
     def stop(self):
         # condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle
-        result = self.parcouruIRL >= self.distance or self.wrapper.robotIRL.get_distance() < 50
+        result = self.parcouruIRL >= self.distance or self.wrapper.robotIRL.get_distance() * 1e-1 < 30
         if result:            
             self.wrapper.vitesse = 0.
         return result

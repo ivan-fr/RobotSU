@@ -4,17 +4,15 @@ import datetime
 
 
 class StrategieAvancerDroitMaxIRL2(object):
-    def __init__(self, wrapper, vitesse,lastUpdate=None):
+    def __init__(self, wrapper, vitesse):
         self.vitesse = vitesse
         self.wrapper = wrapper
         self.distance = wrapper.get_distance()
 
         self.parcouruIRL = 0.
-        self.lastUpdate = lastUpdate
 
     def start(self):
         self.parcouruIRL = 0
-        self.lastUpdate=None
         self.wrapper.vitesse = 0.
 
     def step(self):
@@ -35,5 +33,4 @@ class StrategieAvancerDroitMaxIRL2(object):
         result = (self.parcouruIRL >= self.distance or self.wrapper.robotIRL.get_distance() * 1e-1 < 30 )
         if result:
             self.wrapper.vitesse = 0.
-            self.wrapper.robotIRL.stop()
         return result
