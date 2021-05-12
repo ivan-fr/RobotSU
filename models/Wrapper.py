@@ -5,8 +5,8 @@ import time
 class Wrapper(object):
     def __init__(self, RobotIRL):
         self.robotIRL = RobotIRL
-        self.rayon_roue = (self.robotIRL.WHEEL_DIAMETER * 10e-3) / 2.
-        self.rayon_robot = (self.robotIRL.WHEEL_BASE_WIDTH * 10e-3) / 2.
+        self.rayon_roue = (self.robotIRL.WHEEL_DIAMETER * 10e-1) / 2.
+        self.rayon_robot = (self.robotIRL.WHEEL_BASE_WIDTH * 10e-1) / 2.
         self.lastRotation = (None, None)
         self._vitesse = 0.
 

@@ -20,14 +20,9 @@ class StrategieAvancerDroitMaxIRL2(object):
     def step(self):
         if self.stop():
             return
+
         self.wrapper.vitesse = self.vitesse
-
-        if self.wrapper.vitesse < 1500. :
-            self.vitesse += self.vitesse * 1.5
-            self.wrapper.vitesse = self.vitesse
-        else :
-            self.wrapper.vitesse = 1500.
-
+        
         self.parcouruIRL += self.wrapper.last_avancement
 
     def stop(self):
