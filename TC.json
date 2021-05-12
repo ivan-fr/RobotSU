@@ -1,0 +1,48 @@
+{
+    "__class": "TerrainContinu",
+    "caseParUnite": 0.5,
+    "listePolygone": [],
+    "polygoneSurface": {
+        "__class": "Polygone",
+        "liste_sommet": [
+            [
+                -10.0,
+                -10.0
+            ],
+            [
+                10.0,
+                -10.0
+            ],
+            [
+                10.0,
+                10.0
+            ],
+            [
+                -10.0,
+                10.0
+            ]
+        ],
+        "liste_vecteur": [
+            {
+                "__class": "Vecteur",
+                "x": 20.0,
+                "y": 0.0
+            },
+            {
+                "__class": "Vecteur",
+                "x": 0.0,
+                "y": 20.0
+            },
+            {
+                "__class": "Vecteur",
+                "x": -20.0,
+                "y": 0.0
+            },
+            {
+                "__class": "Vecteur",
+                "x": 0.0,
+                "y": -20.0
+            }
+        ]
+    }
+}

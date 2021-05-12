@@ -10,12 +10,10 @@ class StrategieAvancerDroitIRL(object):
         self.wrapper = wrapper
 
         self.parcouruIRL = 0.
-        self.lastUpdate = None
 
     def start(self):
         self.parcouruIRL = 0.
-        self.lastUpdate = None
-        self.wrapper.RobotIRL.stop()
+        self.wrapper.vitesse = 0.
 
     def step(self):
         if self.stop():
@@ -24,18 +22,11 @@ class StrategieAvancerDroitIRL(object):
         if self.wrapper.vitesse < 10e-3:
             self.wrapper.vitesse = self.vitesse
 
-        if self.lastUpdate is None:
-            self.lastUpdate = datetime.datetime.now()
-        else:
-            now = datetime.datetime.now()
-            deltaT = (now - self.lastUpdate).total_seconds()
-            self.lastUpdate = now
-            self.parcouruIRL += self.wrapper.last_avancement
+        self.parcouruIRL += self.wrapper.last_avancement
 
     def stop(self):
         # condition d'arret, lorsque que le robot a parcourut la distance souhaitee ou qu'il a rencontre un obstacle
-        result = self.parcouruIRL >= self.distance or self.wrapper.RobotIRL.get_distance() < 20
+        result = self.parcouruIRL >= self.distance or self.wrapper.robotIRL.get_distance() * 1e-1 < 30
         if result:            
             self.wrapper.vitesse = 0.
-            self.wrapper.RobotIRL.stop()
         return result

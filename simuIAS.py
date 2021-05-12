@@ -1,11 +1,15 @@
 from views import Terrain
-from models import TerrainContinu, Robot, Polygone, Wrapper, RobotIRLInterface
-from controllers import StrategieCarre, StrategieAvancerDroit, StrategieTourner
+from models import Robot, Polygone, TerrainContinu
+from controllers import StrategieIASimule
 import threading
 import time
 
 stop_thread = True
 
+try:
+    from robot2I013 import Robot2I013
+except: 
+    from models.RobotIRLInterface import RobotIRLInterface as Robot2I013
 
 def affichage(robot, tc, fps):
     while stop_thread:
@@ -14,37 +18,30 @@ def affichage(robot, tc, fps):
         time.sleep(1./fps)
         t.supprimerAffichage()
 
-
-def updateStrats(stratCarre, fps):
-    stratCarre.start()
-    while not stratCarre.stop():
-        stratCarre.step()
+def updateStrats(stratIAS, fps):
+    stratIAS.start()
+    while not stratIAS.stop():
+        stratIAS.step()
         time.sleep(1./fps)
-    global stop_thread
-    stop_thread = False
-
 
 def updateRobot(robot, tc, fps):
     while stop_thread:
         robot.update(tc)
         time.sleep(1./fps)
 
-
 def run():
     tc = TerrainContinu.Carre(20)
     robot = Robot.Robot(-3, -3, 0., 0.)
-    startAvancer = StrategieAvancerDroit.StrategieAvancerDroit(7., 30., robot)
-    startTourner = StrategieTourner.StrategieTourner(90., 45., robot)
-    stratCarre = StrategieCarre.StrategieCarre(startAvancer, startTourner)
-
+    stratIAS = StrategieIASimule.StrategieIASimule(robot, 4.,tc)
     fps = 60
 
     t1 = threading.Thread(target=affichage, args=(robot, tc, fps))
-    t2 = threading.Thread(target=updateStrats, args=(stratCarre, fps))
+    t2 = threading.Thread(target=updateStrats, args=(stratIAS, fps))
     t3 = threading.Thread(target=updateRobot, args=(robot, tc, fps))
     t1.start()
     t2.start()
     t3.start()
+
 
 
 if __name__ == '__main__':

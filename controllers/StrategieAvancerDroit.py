@@ -4,7 +4,7 @@ import datetime
 
 
 class StrategieAvancerDroit(object):
-    def __init__(self, distance, vitesse, robot):
+    def __init__(self, robot, distance, vitesse):
         self.distance = distance
         self.vitesse = vitesse
         self.robot = robot

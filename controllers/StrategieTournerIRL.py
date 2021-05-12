@@ -25,7 +25,7 @@ class StrategieTournerIRL(object):
             now = datetime.datetime.now()
             deltaT = (now - self.lastUpdate).total_seconds()
             self.lastUpdate = now
-            self.angleApplique += deltaT * self.degreParSeconde
+            self.angleApplique += deltaT * abs(self.degreParSeconde)
 
     def stop(self):
         # condition d'arret, si le robot a bien tourne
