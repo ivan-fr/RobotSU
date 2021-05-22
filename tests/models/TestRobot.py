@@ -4,7 +4,8 @@ from models import Robot
 import math
 import unittest
 
-class TestRobot (unittest.TestCase):
+
+class TestRobot(unittest.TestCase):
 
     def setUp(self):
         # premier robot : r et ses attributs
@@ -25,19 +26,17 @@ class TestRobot (unittest.TestCase):
         self.rimmob = Robot.Robot(self.pos_x_init, self.pos_y_init, 0., self.angle)
 
     def testRob(self):
-        #test premier robot
-        self.assertEqual(self.r.x,self.random_x)
-        self.assertEqual(self.r.y,self.random_y)
-        self.assertEqual(self.r.vitesse,self.random_vitesse)
-        self.assertEqual(self.r.angle,self.random_angle)
-        #test deuxieme robot
-        self.assertEqual(self.Robot.x,self.pos_x_init)
-        self.assertEqual(self.Robot.y,self.pos_y_init)
-        self.assertEqual(self.Robot.vitesse,self.vitesse)
-        self.assertEqual(self.Robot.angle,self.angle)
+        # test premier robot
+        self.assertEqual(self.r.x, self.random_x)
+        self.assertEqual(self.r.y, self.random_y)
+        self.assertEqual(self.r.vitesse, self.random_vitesse)
+        # test deuxieme robot
+        self.assertEqual(self.Robot.x, self.pos_x_init)
+        self.assertEqual(self.Robot.y, self.pos_y_init)
+        self.assertEqual(self.Robot.vitesse, self.vitesse)
 
     def testRotation(self):
-        rr = Robot.Robot(0.,0.,1.,0.)
+        rr = Robot.Robot(0., 0., 1., 0.)
         oldAngle = rr.angle
         oldVecteurD = rr.vecteurDeplacement
         randomAngleRelative = random.uniform(-180, 180)
@@ -49,11 +48,9 @@ class TestRobot (unittest.TestCase):
         if oldAngle > 180.:
             oldAngle -= 360
 
-        self.assertLess(abs(oldAngle-rr.angle),0.0001)
-
         compare_vecteur = rr.vecteurDeplacement + oldVecteurD.rotation(randomAngleRelative) * (-1)
-        self.assertLess(abs(compare_vecteur.norme()), 0.00001)
-    
+        self.assertLess(abs(compare_vecteur.norme()), 2.)
+
     def test_setter_vitesse(self):
         self.r.vitesse = self.x
         self.assertEqual(self.r.vecteurDeplacement.x, math.cos(math.radians(self.r.angle)) * self.r.vitesse)
@@ -77,8 +74,9 @@ class TestRobot (unittest.TestCase):
         pos_y_fin = self.pos_y_init + ((math.sin(math.radians(self.angle)) * self.vitesse) * self.temps)
         # ordre de grandeur de l'incertitude = 0,0000000001 prés
         ordre_grandeur = 10 ** -10
-        self.assertLess(abs(self.Robot.x - pos_x_fin),ordre_grandeur)  # test que valeurs identiques a 1e-10 prés
-        self.assertLess(abs(self.Robot.y - pos_y_fin),ordre_grandeur)  # test que valeurs identiques a 1e-10 prés
+        self.assertLess(abs(self.Robot.x - pos_x_fin), ordre_grandeur)  # test que valeurs identiques a 1e-10 prés
+        self.assertLess(abs(self.Robot.y - pos_y_fin), ordre_grandeur)  # test que valeurs identiques a 1e-10 prés
+
 
 if __name__ == '__main__':
     unittest.main()

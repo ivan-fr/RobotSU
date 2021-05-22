@@ -159,8 +159,8 @@ def construireTerrain(tc, robot=None):
 
     # dessine les polygones
     for polygone in tc.listePolygone:
-        for i in range(len(polygone._liste_vecteur)):
+        for i in range(len(polygone.liste_vecteur)):
             terrain.dessineVecteur(
-                polygone._liste_sommet[i], polygone.l_iste_vecteur[i])
+                polygone._liste_sommet[i], polygone.liste_vecteur[i])
 
     return terrain

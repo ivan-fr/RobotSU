@@ -204,13 +204,13 @@ class TerrainTest(unittest.TestCase):
 
     def test_continu_to_discret(self):
         tc = TerrainContinu.Carre(20)
-        t = Terrain.construireTerrain(tc, Robot.Robot(random.uniform(0.2,4.),random.uniform(0.2,4.)),random.uniform(1,5))
+        t = Terrain.construireTerrain(tc, Robot.Robot(random.uniform(0.2, 4.), random.uniform(0.2, 4.)))
 
         xMax = None
         yMax = None
         xMin = None
         yMin = None
-        for sommetSurface in tc.polygoneSurface.liste_sommet:
+        for sommetSurface in tc.polygoneSurface._liste_sommet:
             x, y = sommetSurface
 
             if xMax is None or x > xMax:

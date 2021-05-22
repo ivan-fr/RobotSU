@@ -1,5 +1,6 @@
 import math
 
+
 class StrategiePolygone(object):
     def __init__(self, stratAvancer, stratTourner, n):
         # 120 degrés pour tourner
@@ -29,7 +30,7 @@ class StrategiePolygone(object):
                 self.liste_strategies[self.i_liste_strategies].start()
 
     def stop(self):
-        #condition d'arret lorsque le robot a parcouru les 4 cotes
+        # condition d'arret lorsque le robot a parcouru les 4 cotes
         try:
             _ = self.liste_strategies[self.i_liste_strategies]
             return False

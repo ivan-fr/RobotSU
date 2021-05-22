@@ -1,10 +1,12 @@
 from models import Vecteur
 from models import Sommet
 
+
 class Polygone:
 
-    
-    def __init__(self, liste_sommet, liste_vecteur=[]):
+    def __init__(self, liste_sommet, liste_vecteur=None):
+        if liste_vecteur is None:
+            liste_vecteur = []
         self.liste_vecteur = liste_vecteur
         self._liste_sommet = liste_sommet
 
@@ -54,4 +56,3 @@ def hexagone(origine, norme):
     x, y = origine
     liste_sommet = [(x - norme, y), (x - n, y - n), (x + n, y - n), (x + norme, y), (x + n, y + n), (x - n, y + n)]
     return Polygone(liste_sommet)
-

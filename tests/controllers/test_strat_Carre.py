@@ -1,10 +1,10 @@
 import random
 from models import Robot
-from controllers import StrategieCarre
+from controllers import StrategiePolygone, StrategieAvancerDroit, StrategieTourner
 import math
 import unittest
 
-        
+
 class CarreTest(unittest.TestCase):
     def test_contruct_StratCarre(self):
         # pour creation robot
@@ -14,19 +14,12 @@ class CarreTest(unittest.TestCase):
         random_angle = random.uniform(-180., 180.)
         r = Robot.Robot(random_x, random_y, random_vitesse, random_angle)
         degrePS = random.randint(0, 20)
-        normeCote = random.randint(0, 10)
-        stratC = StrategieCarre.StrategieCarre(r,random_vitesse,degrePS,normeCote)
+        normeCote = random.randint(1, 10)
+        stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(r, random_vitesse, normeCote)
+        stratTourner = StrategieTourner.StrategieTourner(r, 0., degrePS)
+        _ = StrategiePolygone.StrategiePolygone(stratAvancer, stratTourner, 4)
 
-        self.assertTrue(stratC.robot == r)
-        self.assertTrue(stratC.nbCoteParcouru == 0)
-
-        self.assertTrue(stratC.stratAvancer.distance == normeCote)
-        self.assertTrue(stratC.stratAvancer.vitesse == random_vitesse)
-        self.assertTrue(stratC.stratAvancer.robot == stratC.robot)
-        
-        self.assertTrue(stratC.stratTourner.angleTarget == 90)
-        self.assertTrue(stratC.stratTourner.degreParSeconde == 20)
-        self.assertTrue(stratC.stratTourner.robot == stratC.robot)
+        self.assertTrue(stratTourner.angleTarget == 90.)
 
     def test_Carre(self):
         for i in range(3):
@@ -36,29 +29,23 @@ class CarreTest(unittest.TestCase):
             random_angle = random.uniform(-180., 180.)
             r = Robot.Robot(random_x, random_y, random_vitesse, random_angle)
             degrePS = random.randint(0, 20)
-            normeCote = random.randint(0, 10)
-            stratC = StrategieCarre.StrategieCarre(r,random_vitesse,degrePS,normeCote)
-            print("test Carre :",i+1," de longueur ",normeCote)
+            normeCote = random.randint(1, 10)
+            stratAvancer = StrategieAvancerDroit.StrategieAvancerDroit(r, 7., 15.)
+            stratTourner = StrategieTourner.StrategieTourner(r, 0., degrePS)
+            stratC = StrategiePolygone.StrategiePolygone(stratAvancer, stratTourner, normeCote)
 
             stratC.start()
-            self.assertTrue(stratC.nbCoteParcouru == 0)
-            
-            self.assertTrue(stratC.stratTourner.angleApplique == 0.)
-            self.assertTrue(stratC.stratTourner.robot._degreParSeconde == 0.)
-            self.assertIsNone(stratC.stratTourner.lastUpdate)
 
-            self.assertTrue(stratC.stratAvancer.parcouruSimu == 0)
-            self.assertTrue(stratC.stratAvancer.robot.vitesse == 0.)
-            self.assertIsNone(stratC.stratAvancer.lastUpdate)
+            self.assertTrue(stratTourner.angleApplique == 0.)
+            self.assertTrue(stratTourner.robot._degreParSeconde == 0.)
+            self.assertIsNone(stratTourner.lastUpdate)
+
+            self.assertTrue(stratAvancer.parcouruSimu == 0)
+            self.assertTrue(stratAvancer.robot.vitesse == 0.)
+            self.assertIsNone(stratAvancer.lastUpdate)
 
             while not stratC.stop():
                 stratC.step()
-                self.assertTrue(stratC.nbCoteParcouru <= 4)
+                self.assertTrue(stratC.i_liste_strategies <= normeCote * 2)
 
-            self.assertTrue(stratC.nbCoteParcouru == 4)
-            print("les quatres cote du carre ont ete fait")
-            
-            if(stratC.nbCoteParcouru == 4):
-                stratC.stop()
-                self.assertTrue(stratC.nbCoteParcouru == 4)
-            
+            stratC.stop()
