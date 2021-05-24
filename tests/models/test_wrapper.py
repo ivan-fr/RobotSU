@@ -1,7 +1,7 @@
 import random
 from models import Wrapper, RobotIRLInterface, Vecteur
-import math
 import unittest
+
 
 class WrapperTest(unittest.TestCase):
     def test_contruct_Wrapper(self):
@@ -10,9 +10,9 @@ class WrapperTest(unittest.TestCase):
 
         self.assertTrue(w.robotIRL == rIRL)
         self.assertTrue(w._vitesse == 0)
-        self.assertTrue(w.rayon_roue == w.robotIRL.WHEEL_DIAMETER *10e-3 / 2.)
-        self.assertTrue(w.rayon_robot == w.robotIRL.WHEEL_BASE_WIDTH * 10e-3 / 2.)
-        self.assertTrue(w.lastRotation == (None,None))
+        self.assertTrue(w.rayon_roue == w.robotIRL.WHEEL_DIAMETER * 10e-1 / 2.)
+        self.assertTrue(w.rayon_robot == w.robotIRL.WHEEL_BASE_WIDTH * 10e-1 / 2.)
+        self.assertTrue(w.lastRotation == (None, None))
 
     def test_vitesse(self):
         vitesse = random.randint(0, 500)
@@ -28,4 +28,3 @@ class WrapperTest(unittest.TestCase):
         w = Wrapper.Wrapper(rIRL)
         w._rotation = degreParSecondeVoulu
         self.assertTrue(w._rotation == degreParSecondeVoulu)
-

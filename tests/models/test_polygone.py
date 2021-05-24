@@ -7,7 +7,7 @@ class PolygoneTest(unittest.TestCase):
     def is_polygone(self, polygone):
         v = Vecteur.Vecteur(0., 0.)
 
-        for vp in polygone._liste_vecteur:
+        for vp in polygone.liste_vecteur:
             v = v + vp
 
         self.assertTrue(abs(v.x) <= 0.00001 and abs(v.y) <= 0.00001)
@@ -19,9 +19,9 @@ class PolygoneTest(unittest.TestCase):
             liste_sommets.append(
                 (random.uniform(10., 50.), random.uniform(10., 50.)))
 
-        p = Polygone.Polygone(liste_sommets)
+        po = Polygone.Polygone(liste_sommets)
 
-        self.is_polygone(p)
+        self.is_polygone(po)
 
     def test_collision(self):
         """tuple(int * int) *  Vecteur -> boolean
@@ -39,14 +39,15 @@ class PolygoneTest(unittest.TestCase):
         vD = Vecteur.Vecteur(random.uniform(10., 50.),
                              random.uniform(10., 50.))
 
-        b = False
+        bo = False
         i = 0
-        while (i < len(p._liste_sommet)):
+        while i < len(p._liste_sommet):
             if p.liste_vecteur[i].collision(p._liste_sommet[i], vD, posRobot):
-                b = True
+                bo = True
+                break
             i = i + 1
 
-        self.assertTrue(b == p.collision(posRobot, vD))
+        self.assertTrue(bo == p.collision(posRobot, vD))
 
     def test_Carre(self):
         self.is_polygone(Polygone.Carre(

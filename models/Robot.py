@@ -4,7 +4,7 @@ import datetime
 
 
 class Robot(object):
-    def __init__(self, x, y, vitesse = 0., angle = 0., vecteurDeplacement=None, lastCollision=False):
+    def __init__(self, x, y, vitesse=0., angle=0., vecteurDeplacement=None, lastCollision=False):
         self.vecteurDeplacement = None
         self._vitesse = 0.
         self._degreParSeconde = 0.
@@ -57,7 +57,7 @@ class Robot(object):
             deltaT = (now - self._lastUpdate).total_seconds()
             self._lastUpdate = now
             self.rotation(deltaT)
-            
+
             if not self.collision(tc, deltaT):
                 self.avance(deltaT)
             else:
@@ -65,7 +65,7 @@ class Robot(object):
 
     def getDistance(self, tc):
         vUnitaire = Vecteur.Vecteur(cos(radians(self.angle)) * 1,
-                                                sin(radians(self.angle)) * 1)
+                                    sin(radians(self.angle)) * 1)
         while not tc.collision((self.x, self.y), vUnitaire):
             vUnitaire += vUnitaire
 
@@ -80,4 +80,3 @@ class Robot(object):
         self.vecteurDeplacement = Vecteur.Vecteur(cos(radians(self.angle)) * vitesse,
                                                   sin(radians(self.angle)) * vitesse)
         self._vitesse = vitesse
-
